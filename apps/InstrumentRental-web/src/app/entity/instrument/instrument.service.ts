@@ -75,19 +75,19 @@ export class InstrumentService {
     console.log('Service constructor aangeroepen');
   }
   getInstruments(): Instrument[] {
-    console.log('getUsers aangeroepen');
+    console.log('getInstruments aangeroepen');
     return this.instruments;
   }
 
   getInstrumentAsObservable(): Observable<Instrument[]> {
-    console.log('getUsersAsObservable aangeroepen');
+    console.log('getInstrumentsAsObservable aangeroepen');
     // 'of' is een rxjs operator die een Observable
     // maakt van de gegeven data.
     return of(this.instruments);
   }
 
   getInstrumentById(id: number): Instrument {
-    console.log('getUserById aangeroepen');
+    console.log('getInstrumentById aangeroepen');
     return this.instruments.filter((instrument) => instrument.id === id)[0];
   }
 }

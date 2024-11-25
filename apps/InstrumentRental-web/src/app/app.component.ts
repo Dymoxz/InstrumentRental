@@ -14,7 +14,7 @@ import { initFlowbite } from 'flowbite';
 })
 
 export class AppComponent implements OnInit {
-  title = 'web-app';
+  title = 'InstrumentRental';
 
   ngOnInit(): void {
     initFlowbite();
