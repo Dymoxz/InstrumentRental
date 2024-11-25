@@ -1,0 +1,228 @@
+<div class="bg-gray-50">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-4">Over Ons Platform</h1>
+
+    <h2 class="text-2xl font-semibold mb-2">De Casus</h2>
+    <p class="mb-4">
+      Dit platform is ontworpen om muzikanten te verbinden met de instrumenten die ze nodig hebben. Of je nu op zoek bent naar een tijdelijke gitaar voor een optreden, een keyboard wilt uitproberen voordat je het koopt, of je zeldzame vintage saxofoon wilt verkopen aan een liefhebber, dit is de plek. We faciliteren zowel verhuur als verkoop van muziekinstrumenten, met een focus op community en betrouwbaarheid.
+    </p>
+
+    <div class="flex">
+
+      <div class="pr-4">
+        <h2 class="text-2xl font-semibold mb-4">Datamodel</h2>
+
+        <p class="mb-2">Dit datamodel beschrijft de structuur van de gegevens voor een applicatie waarmee gebruikers
+          muziekinstrumenten kunnen huren, reserveren en beoordelen.</p>
+
+        <h3 class="text-lg font-bold mb-2">Entiteiten:</h3>
+
+        <div class="mb-4">
+
+
+          <div class="mb-2">
+            <span class="font-bold">User (Gebruiker):</span> Slaat informatie op over de gebruikers van de applicatie.
+            <ul class="list-disc list-inside ml-4">
+              <li><span class="font-semibold">firstName:</span> Voornaam van de gebruiker.</li>
+              <li><span class="font-semibold">lastName:</span> Achternaam van de gebruiker.</li>
+              <li><span class="font-semibold">email:</span> Unieke e-mailadres, dient als identificatie voor login.</li>
+              <li><span class="font-semibold">password:</span> Wachtwoord van de gebruiker (versleuteld opgeslagen).
+              </li>
+              <li><span class="font-semibold">phoneNumber:</span> Telefoonnummer van de gebruiker.</li>
+              <li><span class="font-semibold">addressId:</span> Verwijst naar het adres van de gebruiker (foreign key
+                naar Address).
+              </li>
+            </ul>
+          </div>
+
+          <div class="mb-4">
+            <span class="font-bold">Instrument:</span> Beschrijft een muziekinstrument dat te huur is.
+            <ul class="list-disc list-inside ml-4">
+              <li><span class="font-semibold">name:</span> Naam van het instrument (identificatie).</li>
+              <li><span class="font-semibold">type:</span> Type instrument (bijv., gitaar, piano, drumstel).</li>
+              <li><span class="font-semibold">brand:</span> Merk van het instrument.</li>
+              <li><span class="font-semibold">model:</span> Model van het instrument.</li>
+              <li><span class="font-semibold">description:</span> Beschrijving van het instrument.</li>
+              <li><span class="font-semibold">pricePerDay:</span> Prijs per dag om het instrument te huren.</li>
+              <li><span class="font-semibold">available:</span> Beschikbaarheid van het instrument (true/false).</li>
+            </ul>
+          </div>
+
+
+          <div class="mb-4">
+            <span class="font-bold">Rental (Verhuur):</span> Registreert een verhuurtransactie.
+            <ul class="list-disc list-inside ml-4">
+              <li><span class="font-semibold">startDate:</span> Startdatum van de verhuur.</li>
+              <li><span class="font-semibold">endDate:</span> Einddatum van de verhuur.</li>
+              <li><span class="font-semibold">totalPrice:</span> Totale prijs van de verhuur.</li>
+              <li><span class="font-semibold">status:</span> Status van de verhuur (bijv., gereserveerd, actief,
+                voltooid).
+              </li>
+            </ul>
+          </div>
+
+          <div class="mb-4">
+            <span class="font-bold">Review (Beoordeling):</span> Bevat beoordelingen van verhuurders door gebruikers.
+            <ul class="list-disc list-inside ml-4">
+              <li><span class="font-semibold">rating:</span> Rating (bijv., 1-5 sterren).</li>
+              <li><span class="font-semibold">comment:</span> Tekstuele beoordeling.</li>
+              <li><span class="font-semibold">date:</span> Datum van de beoordeling.</li>
+            </ul>
+          </div>
+
+
+          <div>
+            <span class="font-bold">Address (Adres):</span> Slaat adresinformatie op.
+            <ul class="list-disc list-inside ml-4">
+              <li><span class="font-semibold">streetName:</span> Straatnaam.</li>
+              <li><span class="font-semibold">houseNumber:</span> Huisnummer.</li>
+              <li><span class="font-semibold">city:</span> Stad.</li>
+              <li><span class="font-semibold">country:</span> Land.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="text-lg font-bold mb-2">Relaties:</h3>
+        <div class="mb-4">
+          <ul class="list-disc list-inside">
+            <li><span class="font-semibold">User is located at Address (1:1):</span> Een gebruiker heeft één adres.</li>
+            <li><span class="font-semibold">User books Rental (1:N):</span> Een gebruiker kan meerdere instrumenten
+              huren (meerdere verhuur-records).
+            </li>
+            <li><span class="font-semibold">Instrument is for Rental (1:N):</span> Een instrument kan meerdere keren
+              verhuurd worden.
+            </li>
+            <li><span class="font-semibold">User writes Review (1:N):</span> Een gebruiker kan meerdere reviews
+              schrijven.
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <img src="/ERD-CSWPI.png" alt="" class="object-contain w-96 h-auto mb-4"/>
+
+
+    </div>
+
+
+
+
+    <h2 class="text-2xl font-semibold mb-2">Functionele Requirements</h2>
+
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-4">
+      <table class="w-full text-sm text-left text-gray-500 ">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+        <tr>
+          <th scope="col" class="px-6 py-3 w-24">ID</th>
+          <th scope="col" class="px-6 py-3">Functional Requirement</th>
+          <th scope="col" class="px-6 py-3">Acceptatiecriteria</th>
+          <th scope="col" class="px-6 py-3">MOSCOW Prio</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="odd:bg-white odd: even:bg-gray-50 even: border-b ">
+          <td class="px-6 py-4">F-01</td>
+          <td class="px-6 py-4">Als gebruiker wil ik een lijst van beschikbare instrumenten kunnen zien, zodat ik weet
+            welke instrumenten ik kan huren.
+          </td>
+          <td class="px-6 py-4">
+            <ul class="list-disc list-inside">
+              <li>Er moet een lijst van instrumenten weergegeven worden.</li>
+              <li>De naam van elk instrument moet weergegeven worden.</li>
+              <li>Het type instrument (bijv. snaar, blaas, toetsen) moet weergegeven worden.</li>
+              <li>De huurprijs per dag moet weergegeven worden.</li>
+              <li>Een foto van elk instrument moet weergegeven worden.</li>
+            </ul>
+          </td>
+          <td class="px-6 py-4">Must</td>
+        </tr>
+        <tr class="even:bg-gray-50 even: border-b ">
+          <td class="px-6 py-4">F-02</td>
+          <td class="px-6 py-4">Als gebruiker wil ik vanuit de instrumentenlijst naar de detailpagina van een instrument
+            kunnen navigeren, zodat ik meer informatie over het instrument kan bekijken.
+          </td>
+          <td class="px-6 py-4">
+            <ul class="list-disc list-inside">
+              <li>Bij de instrumentenlijst moet er een link/knop zijn om naar de detailpagina te navigeren.</li>
+              <li>De detailpagina moet een gedetailleerde beschrijving, merk, model en beschikbaarheid van het instrument
+                tonen.
+              </li>
+              <li>Elk instrument moet een eigen detailpagina hebben.</li>
+            </ul>
+          </td>
+          <td class="px-6 py-4">Must</td>
+        </tr>
+        <tr class="odd:bg-white odd: even:bg-gray-50 even: border-b ">
+          <td class="px-6 py-4">F-03</td>
+          <td class="px-6 py-4">Als gebruiker wil ik een instrument kunnen reserveren voor een specifieke periode, zodat
+            ik het instrument kan huren op de door mij gewenste data.
+          </td>
+          <td class="px-6 py-4">
+            <ul class="list-disc list-inside">
+              <li>Op de detailpagina moet een reserveringsoptie zijn met start- en einddatum selectie.</li>
+              <li>De totale huurprijs moet berekend en getoond worden.</li>
+              <li>Reserveren vereist inloggen.</li>
+            </ul>
+          </td>
+          <td class="px-6 py-4">Must</td>
+        </tr>
+        <tr class="even:bg-gray-50 even: border-b ">
+          <td class="px-6 py-4">F-04</td>
+          <td class="px-6 py-4">Als gebruiker wil ik mijn reserveringen kunnen beheren, zodat ik ze kan bekijken en
+            annuleren.
+          </td>
+          <td class="px-6 py-4">
+            <ul class="list-disc list-inside">
+              <li>Een overzicht van actieve reserveringen moet beschikbaar zijn (instrument, data, prijs).</li>
+              <li>Een annuleringsoptie moet aanwezig zijn voor elke reservering.</li>
+            </ul>
+          </td>
+          <td class="px-6 py-4">Should</td>
+        </tr>
+        <tr class="odd:bg-white odd: even:bg-gray-50 even: border-b ">
+          <td class="px-6 py-4">F-05</td>
+          <td class="px-6 py-4">Als gebruiker wil ik een recensie kunnen schrijven over een verhuurder, zodat ik mijn
+            ervaring kan delen met andere gebruikers.
+          </td>
+          <td class="px-6 py-4">
+            <ul class="list-disc list-inside">
+              <li>Na het huren moet er een mogelijkheid zijn om een recensie te schrijven (rating, commentaar).</li>
+              <li>Recensies moeten gekoppeld zijn aan de verhuurder en zichtbaar op hun profiel.</li>
+            </ul>
+          </td>
+          <td class="px-6 py-4">Could</td>
+        </tr>
+        <tr class="even:bg-gray-50 even: border-b ">
+          <td class="px-6 py-4">F-06</td>
+          <td class="px-6 py-4">Als gebruiker wil ik mijn gebruikersprofiel kunnen bekijken en bewerken, zodat ik mijn
+            gegevens up-to-date kan houden.
+          </td>
+          <td class="px-6 py-4">
+            <ul class="list-disc list-inside">
+              <li>Het profiel moet persoonlijke gegevens en huurgeschiedenis tonen.</li>
+              <li>Bewerkingsmogelijkheden voor persoonlijke gegevens moeten beschikbaar zijn.</li>
+            </ul>
+          </td>
+          <td class="px-6 py-4">Should</td>
+        </tr>
+        <tr class="odd:bg-white odd: even:bg-gray-50 even: border-b ">
+          <td class="px-6 py-4">F-07</td>
+          <td class="px-6 py-4">Als gebruiker wil ik veilig kunnen inloggen en uitloggen, zodat mijn gegevens beschermd
+            zijn.
+          </td>
+          <td class="px-6 py-4">
+            <ul class="list-disc list-inside">
+              <li>Een inlog/uitlog systeem moet aanwezig zijn met veilige authenticatie (wachtwoord encryptie).</li>
+              <li>Bepaalde acties (reserveren, huren) moeten inloggen vereisen.</li>
+            </ul>
+          </td>
+          <td class="px-6 py-4">Must</td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

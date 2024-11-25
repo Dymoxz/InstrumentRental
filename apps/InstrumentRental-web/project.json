@@ -1,27 +1,27 @@
 {
-  "name": "InstrumentRental",
+  "name": "InstrumentRental-web",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/InstrumentRental/src",
+  "sourceRoot": "apps/InstrumentRental-web/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/InstrumentRental",
-        "index": "apps/InstrumentRental/src/index.html",
-        "main": "apps/InstrumentRental/src/main.ts",
+        "outputPath": "dist/apps/InstrumentRental-web",
+        "index": "apps/InstrumentRental-web/src/index.html",
+        "main": "apps/InstrumentRental-web/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "apps/InstrumentRental/tsconfig.app.json",
+        "tsConfig": "apps/InstrumentRental-web/tsconfig.app.json",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/InstrumentRental/public"
+            "input": "apps/InstrumentRental-web/public"
           }
         ],
-        "styles": ["apps/InstrumentRental/src/styles.css"],
+        "styles": ["apps/InstrumentRental-web/src/styles.css"],
         "scripts": []
       },
       "configurations": {
@@ -55,10 +55,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "InstrumentRental:build:production"
+          "buildTarget": "InstrumentRental-web:build:production"
         },
         "development": {
-          "buildTarget": "InstrumentRental:build:development"
+          "buildTarget": "InstrumentRental-web:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -66,7 +66,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "InstrumentRental:build"
+        "buildTarget": "InstrumentRental-web:build"
       }
     },
     "lint": {
@@ -76,13 +76,13 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/InstrumentRental/jest.config.ts"
+        "jestConfig": "apps/InstrumentRental-web/jest.config.ts"
       }
     },
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "InstrumentRental:build",
+        "buildTarget": "InstrumentRental-web:build",
         "spa": true
       }
     }

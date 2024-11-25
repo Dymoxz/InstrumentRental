@@ -1,8 +1,8 @@
 export default {
-  displayName: 'InstrumentRental',
+  displayName: 'InstrumentRental-web',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/apps/InstrumentRental',
+  coverageDirectory: '../../coverage/apps/InstrumentRental-web',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
