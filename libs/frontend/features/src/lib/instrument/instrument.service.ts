@@ -49,7 +49,7 @@ export class InstrumentService {
   public read(id: string | null, options?: any): Observable<IInstrument> {
     console.log(`read ${this.endpoint}`);
     return this.http
-      .get<ApiResponse<IInstrument>>(this.endpoint, {
+      .get<ApiResponse<IInstrument>>(`${this.endpoint}/${id}`, {
         ...options,
         ...httpOptions,
       })
