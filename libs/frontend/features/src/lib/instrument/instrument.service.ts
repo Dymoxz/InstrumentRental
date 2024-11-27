@@ -1,8 +1,9 @@
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { map, catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { ApiResponse, IInstrument } from '@InstrumentRental/shared/api';
 import { Injectable } from '@angular/core';
+import { env } from '@InstrumentRental/shared/util-env';
 
 /**
  * See https://angular.io/guide/http#requesting-data-from-a-server
@@ -18,7 +19,10 @@ export const httpOptions = {
  */
 @Injectable()
 export class InstrumentService {
-  endpoint = 'http://localhost:3000/api/instrument';
+  /*
+    endpoint = 'http://localhost:3000/api/instrument';
+  */
+  endpoint = env.dataApiUrl + '/instrument';
 
   constructor(private readonly http: HttpClient) {}
 
