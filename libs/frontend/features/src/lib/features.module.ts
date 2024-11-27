@@ -7,6 +7,7 @@ import { InstrumentFiltersComponent } from './instrument/instrument-filters/inst
 import { InstrumentListComponent } from './instrument/instrument-list/instrument.list.component';
 import { InstrumentDetailComponent } from './instrument/instrument-detail/instrument.detail.component';
 import { RouterLink } from '@angular/router';
+import { UserProfileComponent } from './user/user-profile/user.profile.component';
 
 @NgModule({
   imports: [CommonModule, HttpClientModule, RouterLink],
@@ -15,6 +16,8 @@ import { RouterLink } from '@angular/router';
     InstrumentListComponent,
     InstrumentFiltersComponent,
     InstrumentDetailComponent,
+
+    UserProfileComponent
   ],
   providers: [InstrumentService],
   exports: [],
