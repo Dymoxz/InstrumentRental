@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HeaderComponent } from './components/ui/header/header.component';
-import { FooterComponent } from './components/ui/footer/footer.component';
+import { HeaderComponent, FooterComponent } from '@instrument-rental/ui';
 import { OnInit } from '@angular/core';
 import { initFlowbite } from 'flowbite';
+import { FeaturesModule, InstrumentService } from '@instrument-rental/features';
 
 
 @Component({
   standalone: true,
-  imports: [RouterModule, HeaderComponent, FooterComponent],
+  imports: [RouterModule, FeaturesModule, HeaderComponent, FooterComponent],
+  providers: [InstrumentService],
   selector: 'app-root',
   templateUrl: './app.component.html',
 })
