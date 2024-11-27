@@ -1,10 +1,13 @@
 import { Id } from './id.type';
 
 export enum InstrumentType {
-  guitar = 'guitar',
-  keyboard = 'keyboard',
-  blowingInstrument = 'flute',
-  other = 'other',
+  string = 'String',
+  keyboard = 'Keyboard',
+  woodwind  = 'Woodwind',
+  brass  = 'Brass',
+  percussion = 'Percussion',
+  electronic = 'Electronic ',
+  other= 'Other'
 }
 
 // Voor nu is onze user een string; later zullen we hier een User object van maken.
