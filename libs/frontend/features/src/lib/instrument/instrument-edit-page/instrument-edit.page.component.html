@@ -1,0 +1,74 @@
+<section class="bg-gray-50 ">
+
+
+  <div class="bg-white rounded-2xl shadow mt-8 max-w-2xl px-8 mx-auto pb-8 pt-6">
+
+    <button type="button" (click)="goBack()"
+            class="group flex mb-4 text-gray-400 hover:text-gray-500 focus:outline-none font-medium rounded-lg text-sm text-center">
+      <svg class="w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500" aria-hidden="true"
+           xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 9h13a5 5 0 0 1 0 10H7M3 9l4-4M3 9l4 4" />
+      </svg>
+      Back
+    </button>
+    <h2 class="mb-4 text-xl font-bold text-gray-900 ">Update instrument details</h2>
+    <form action="#">
+      <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+        <div class="sm:col-span-2">
+          <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Product Name</label>
+          <input type="text" name="name" id="name"
+                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                 [value]="instrument?.name" placeholder="Type product name" required>
+        </div>
+        <div class="w-full">
+          <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 ">Brand</label>
+          <input type="text" name="brand" id="brand"
+                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                 [value]="instrument?.brand" placeholder="Product brand" required>
+        </div>
+        <div class="w-full">
+          <label for="model" class="block mb-2 text-sm font-medium text-gray-900 ">Model</label>
+          <input type="text" name="model" id="model"
+                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                 [value]="instrument?.model" placeholder="Product model" required>
+        </div>
+        <div>
+          <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type of
+            Instrument</label>
+          <select id="type"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+            <option value="" disabled>Select Type</option>
+            <option *ngFor="let type of instrumentTypes" [value]="type" [selected]="type === instrument?.type">{{ type }}</option>
+          </select>
+        </div>
+        <div class="w-full">
+          <label for="price" class="block mb-2 text-sm font-medium text-gray-900">Price Per Day</label>
+          <div class="relative">
+            <svg class="absolute w-4 h-4 text-gray-500 left-3 top-1/2 transform -translate-y-1/2" aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M6 10h9.231M6 14h9.231M18 5.086A5.95 5.95 0 0 0 14.615 4c-3.738 0-6.769 3.582-6.769 8s3.031 8 6.769 8A5.94 5.94 0 0 0 18 18.916" />
+            </svg>
+            <input type="number" id="price" aria-describedby="helper-text-explanation"
+                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-8 p-2.5"
+                   [value]="instrument?.pricePerDay" pattern="^\d{5}(-\d{4})?$" required />
+          </div>
+        </div>
+        <div class="col-span-2">
+          <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
+          <textarea id="description" rows="8"
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="Write a product description here...">{{ instrument?.description }}
+            </textarea>
+        </div>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button type="submit"
+                class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+          Update details
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

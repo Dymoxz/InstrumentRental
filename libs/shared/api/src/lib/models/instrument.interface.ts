@@ -16,7 +16,7 @@ type User = string;
 export interface IInstrument {
   id: Id,
   name: string,
-  type: InstrumentType,
+  type: InstrumentType | undefined,
   brand: string,
   model: string,
   description: string,

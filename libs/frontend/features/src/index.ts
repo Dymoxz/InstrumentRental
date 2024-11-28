@@ -9,6 +9,7 @@ export * from './lib/instrument/instrument-list/instrument.list.component';
 
 /* my-instruments*/
 export * from './lib/instrument/my-instruments-page/my-instruments.page.component'
+export * from './lib/instrument/instrument-edit-page/instrument-edit.page.component'
 
 /* user */
 export * from './lib/user/user-profile/user.profile.component'

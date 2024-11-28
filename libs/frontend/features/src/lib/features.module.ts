@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
 import { UserProfileComponent } from './user/user-profile/user.profile.component';
 import { MyInstrumentsPageComponent } from './instrument/my-instruments-page/my-instruments.page.component';
 import { FrontendCommonModule } from '@instrument-rental/common';
+import { InstrumentEditPageComponent } from './instrument/instrument-edit-page/instrument-edit.page.component';
 
 @NgModule({
   imports: [CommonModule, HttpClientModule, RouterLink, FrontendCommonModule],
@@ -20,7 +21,7 @@ import { FrontendCommonModule } from '@instrument-rental/common';
     InstrumentDetailComponent,
 
     MyInstrumentsPageComponent,
-
+    InstrumentEditPageComponent,
     UserProfileComponent
   ],
   providers: [InstrumentService],

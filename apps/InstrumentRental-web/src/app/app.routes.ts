@@ -5,7 +5,7 @@ import {
   InstrumentPageComponent,
   InstrumentDetailComponent,
   UserProfileComponent,
-  MyInstrumentsPageComponent
+  MyInstrumentsPageComponent, InstrumentEditPageComponent
 } from '@instrument-rental/features';
 
 
@@ -16,5 +16,6 @@ export const appRoutes: Route[] = [
   {path: 'profile', component: UserProfileComponent},
   {path: 'instrument/:id', component: InstrumentDetailComponent},
   {path: 'my-instruments', component: MyInstrumentsPageComponent},
-
+  {path: 'instrument/new', component: InstrumentEditPageComponent},
+  {path: 'instrument/:id/edit', component: InstrumentEditPageComponent},
 ];
