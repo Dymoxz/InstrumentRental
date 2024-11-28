@@ -12,6 +12,7 @@ import { MyInstrumentsPageComponent } from './instrument/my-instruments-page/my-
 import { FrontendCommonModule } from '@instrument-rental/common';
 import { InstrumentEditPageComponent } from './instrument/instrument-edit-page/instrument-edit.page.component';
 import { FormsModule } from '@angular/forms';
+import { ReviewCreateComponent } from './review/review-create/review.create.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,9 @@ import { FormsModule } from '@angular/forms';
 
     MyInstrumentsPageComponent,
     InstrumentEditPageComponent,
+
+    ReviewCreateComponent,
+
     UserProfileComponent,
   ],
   providers: [InstrumentService],

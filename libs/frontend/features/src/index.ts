@@ -11,5 +11,8 @@ export * from './lib/instrument/instrument-list/instrument.list.component';
 export * from './lib/instrument/my-instruments-page/my-instruments.page.component'
 export * from './lib/instrument/instrument-edit-page/instrument-edit.page.component'
 
+/* review */
+export * from './lib/review/review-create/review.create.component'
+
 /* user */
 export * from './lib/user/user-profile/user.profile.component'
