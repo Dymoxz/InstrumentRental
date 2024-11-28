@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { InstrumentService } from '../instrument.service';
 import { IInstrument, InstrumentType } from '@InstrumentRental/shared/api';
 import { Subscription } from 'rxjs';
@@ -15,6 +15,7 @@ export class InstrumentEditPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private instrumentService: InstrumentService
   ) {}
 
@@ -26,9 +27,8 @@ export class InstrumentEditPageComponent implements OnInit, OnDestroy {
         .subscribe((instrument: IInstrument | null) => {
           this.instrument = instrument;
         });
-    }
-    else {
-      this.instrument = this.CreateEmptyInstrument()
+    } else {
+      this.instrument = this.CreateEmptyInstrument();
     }
   }
 
@@ -42,7 +42,7 @@ export class InstrumentEditPageComponent implements OnInit, OnDestroy {
       description: '',
       pricePerDay: 0,
       available: true
-    }
+    };
   }
 
   ngOnDestroy(): void {
@@ -53,4 +53,17 @@ export class InstrumentEditPageComponent implements OnInit, OnDestroy {
     window.history.back();
   }
 
+  saveInstrument(): void {
+    if (this.instrument) {
+      if (this.instrument.id) {
+        // Update existing instrument
+        // Implement update logic here if needed
+      } else {
+        // Create new instrument
+        this.instrumentService.create(this.instrument).subscribe(() => {
+          this.router.navigate(['/my-instruments']);
+        });
+      }
+    }
+  }
 }

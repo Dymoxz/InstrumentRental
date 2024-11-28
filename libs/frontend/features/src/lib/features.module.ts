@@ -11,9 +11,16 @@ import { UserProfileComponent } from './user/user-profile/user.profile.component
 import { MyInstrumentsPageComponent } from './instrument/my-instruments-page/my-instruments.page.component';
 import { FrontendCommonModule } from '@instrument-rental/common';
 import { InstrumentEditPageComponent } from './instrument/instrument-edit-page/instrument-edit.page.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, HttpClientModule, RouterLink, FrontendCommonModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    RouterLink,
+    FrontendCommonModule,
+    FormsModule,
+  ],
   declarations: [
     InstrumentPageComponent,
     InstrumentListComponent,
@@ -22,7 +29,7 @@ import { InstrumentEditPageComponent } from './instrument/instrument-edit-page/i
 
     MyInstrumentsPageComponent,
     InstrumentEditPageComponent,
-    UserProfileComponent
+    UserProfileComponent,
   ],
   providers: [InstrumentService],
   exports: [],

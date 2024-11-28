@@ -65,21 +65,46 @@ export class InstrumentService {
   }
 
   /**
- * Delete a single item from the service.
- *
- */
-public delete(id: string | null, options?: any): Observable<void> {
-  console.log(`delete ${this.endpoint}`);
-  return this.http
-    .delete<void>(`${this.endpoint}/${id}`, {
-      ...options,
-      ...httpOptions,
-    })
-    .pipe(
-      tap(() => console.log(`Deleted item with id: ${id}`)),
-      catchError(this.handleError)
-    );
-}
+   * Delete a single item from the service.
+   *
+   */
+  public delete(id: string | null, options?: any): Observable<void> {
+    console.log(`delete ${this.endpoint}`);
+    return this.http
+      .delete<void>(`${this.endpoint}/${id}`, {
+        ...options,
+        ...httpOptions,
+      })
+      .pipe(
+        tap(() => console.log(`Deleted item with id: ${id}`)),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * Create a new instrument.
+   *
+   * @param instrument - The instrument to create
+   * @param options - Optional URL query parameters
+   */
+  public create(
+    instrument: IInstrument,
+    options?: any
+  ): Observable<IInstrument> {
+    console.log(`create ${this.endpoint}`);
+    return this.http
+      .post<ApiResponse<IInstrument>>(this.endpoint, instrument, {
+        ...options,
+        ...httpOptions,
+      })
+      .pipe(
+        tap((response: any) =>
+          console.log(`Created instrument: ${response.results}`)
+        ),
+        map((response: any) => response.results as IInstrument),
+        catchError(this.handleError)
+      );
+  }
 
   /**
    * Handle errors.
@@ -89,5 +114,4 @@ public delete(id: string | null, options?: any): Observable<void> {
 
     return throwError(() => new Error(error.message));
   }
-
 }

@@ -136,10 +136,11 @@ export class InstrumentService {
     // Use the incoming data, a randomized ID, and a default value of `false` to create the new to-do
     const newInstrument: IInstrument = {
       ...instrument,
-      id: `instrument-${Math.floor(Math.random() * 10000)}`,
+      id: `instrument-${Math.floor(Math.random() * 100000)}`,
       available: true
     };
     this.instruments$.next([...current, newInstrument]);
+    console.log('New Instrument:', JSON.stringify(newInstrument, null, 2));
     return newInstrument;
   }
 
