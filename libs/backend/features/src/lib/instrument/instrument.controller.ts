@@ -1,6 +1,13 @@
-import { Controller, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { InstrumentService } from './instrument.service';
-import { Get, Param, Post, Body } from '@nestjs/common';
 import { IInstrument } from '@InstrumentRental/shared/api';
 import { CreateInstrumentDto } from '@InstrumentRental/backend/dto';
 
@@ -26,5 +33,13 @@ export class InstrumentController {
   @Delete(':id')
   delete(@Param('id') id: string): void {
     this.instrumentService.delete(id);
+  }
+
+  @Put(':id')
+  update(
+    @Param('id') id: string,
+    @Body() data: CreateInstrumentDto
+  ): IInstrument {
+    return this.instrumentService.update(id, data);
   }
 }

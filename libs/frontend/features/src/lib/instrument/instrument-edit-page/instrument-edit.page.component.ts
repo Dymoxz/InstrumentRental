@@ -54,16 +54,18 @@ export class InstrumentEditPageComponent implements OnInit, OnDestroy {
   }
 
   saveInstrument(): void {
-    if (this.instrument) {
-      if (this.instrument.id) {
-        // Update existing instrument
-        // Implement update logic here if needed
-      } else {
-        // Create new instrument
-        this.instrumentService.create(this.instrument).subscribe(() => {
-          this.router.navigate(['/my-instruments']);
-        });
-      }
+  if (this.instrument) {
+    if (this.instrument.id) {
+      // Update existing instrument
+      this.instrumentService.update(this.instrument.id, this.instrument).subscribe(() => {
+        this.router.navigate(['/my-instruments']);
+      });
+    } else {
+      // Create new instrument
+      this.instrumentService.create(this.instrument).subscribe(() => {
+        this.router.navigate(['/my-instruments']);
+      });
     }
   }
+}
 }

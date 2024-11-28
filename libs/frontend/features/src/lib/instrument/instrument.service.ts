@@ -107,6 +107,33 @@ export class InstrumentService {
   }
 
   /**
+   * Update an existing instrument.
+   *
+   * @param id - The ID of the instrument to update
+   * @param instrument - The updated instrument data
+   * @param options - Optional URL query parameters
+   */
+  public update(
+    id: string,
+    instrument: Partial<IInstrument>,
+    options?: any
+  ): Observable<IInstrument> {
+    console.log(`update ${this.endpoint}`);
+    return this.http
+      .put<ApiResponse<IInstrument>>(`${this.endpoint}/${id}`, instrument, {
+        ...options,
+        ...httpOptions,
+      })
+      .pipe(
+        tap((response: any) =>
+          console.log(`Updated instrument: ${response.results}`)
+        ),
+        map((response: any) => response.results as IInstrument),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
    * Handle errors.
    */
   public handleError(error: HttpErrorResponse): Observable<any> {
