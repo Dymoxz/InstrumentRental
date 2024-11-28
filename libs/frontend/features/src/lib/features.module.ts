@@ -14,6 +14,7 @@ import { InstrumentEditPageComponent } from './instrument/instrument-edit-page/i
 import { FormsModule } from '@angular/forms';
 import { ReviewCreateComponent } from './review/review-create/review.create.component';
 import { ReviewService } from './review/review.service';
+import { ReviewListComponent } from './review/review-list/review.list.component';
 
 @NgModule({
   imports: [
@@ -28,9 +29,13 @@ import { ReviewService } from './review/review.service';
     InstrumentListComponent,
     InstrumentFiltersComponent,
     InstrumentDetailComponent,
+
     MyInstrumentsPageComponent,
     InstrumentEditPageComponent,
+
     ReviewCreateComponent,
+    ReviewListComponent,
+
     UserProfileComponent,
   ],
   providers: [InstrumentService, ReviewService], // Ensure ReviewService is provided here

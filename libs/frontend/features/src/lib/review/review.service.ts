@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { IReview, ICreateReview } from '@InstrumentRental/shared/api';
+import { catchError, map, tap } from 'rxjs/operators';
+import { IReview, ApiResponse } from '@InstrumentRental/shared/api';
 import { env } from '@InstrumentRental/shared/util-env';
+import { httpOptions } from '../instrument/instrument.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,10 +14,19 @@ export class ReviewService {
 
   constructor(private readonly http: HttpClient) {}
 
-  getAll(options?: any): Observable<IReview[]> {
+  public getAll(options?: any): Observable<IReview[] | null> {
+    console.log(`list ${this.endpoint}`);
+
     return this.http
-      .get<IReview[]>(this.endpoint, { ...options })
-      .pipe(tap(console.log), catchError(this.handleError));
+      .get<ApiResponse<IReview[]>>(this.endpoint, {
+        ...options,
+        ...httpOptions,
+      })
+      .pipe(
+        map((response: any) => response.results as IReview[]),
+        tap(console.log),
+        catchError(this.handleError)
+      );
   }
 
   getOne(id: string, options?: any): Observable<IReview> {
