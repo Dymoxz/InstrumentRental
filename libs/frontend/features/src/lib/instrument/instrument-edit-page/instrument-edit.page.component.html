@@ -12,7 +12,11 @@
       </svg>
       Back
     </button>
-    <h2 class="mb-4 text-xl font-bold text-gray-900 ">Update instrument details</h2>
+    <h2 *ngIf="instrument?.id; else createInstrument" class="mb-4 text-xl font-bold text-gray-900">Update instrument
+      details</h2>
+    <ng-template #createInstrument>
+      <h2 class="mb-4 text-xl font-bold text-gray-900">Create instrument details</h2>
+    </ng-template>
     <form action="#">
       <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
         <div class="sm:col-span-2">
@@ -37,9 +41,11 @@
           <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type of
             Instrument</label>
           <select id="type"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-            <option value="" disabled>Select Type</option>
-            <option *ngFor="let type of instrumentTypes" [value]="type" [selected]="type === instrument?.type">{{ type }}</option>
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
+            <option value="" [selected]="!instrument?.type" disabled>Select Type</option>
+            <option *ngFor="let type of instrumentTypes" [value]="type"
+                    [selected]="type === instrument?.type">{{ type }}
+            </option>
           </select>
         </div>
         <div class="w-full">
@@ -57,17 +63,22 @@
         </div>
         <div class="col-span-2">
           <label for="description" class="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
-          <textarea id="description" rows="8"
+          <textarea id="description" rows="8" required
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
                     placeholder="Write a product description here...">{{ instrument?.description }}
             </textarea>
         </div>
       </div>
       <div class="flex items-center space-x-4">
-        <button type="submit"
+        <button *ngIf="instrument?.id; else createButton" type="submit"
                 class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
           Update details
         </button>
+        <ng-template #createButton>
+          <button class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+            Create Instrument
+          </button>
+        </ng-template>
       </div>
     </form>
   </div>

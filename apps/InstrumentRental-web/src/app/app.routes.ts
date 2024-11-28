@@ -5,17 +5,17 @@ import {
   InstrumentPageComponent,
   InstrumentDetailComponent,
   UserProfileComponent,
-  MyInstrumentsPageComponent, InstrumentEditPageComponent
+  MyInstrumentsPageComponent,
+  InstrumentEditPageComponent
 } from '@instrument-rental/features';
 
-
 export const appRoutes: Route[] = [
-  {path: 'home', component: HomeComponent},
-  {path: 'about', component: AboutComponent},
-  {path: 'rent', component: InstrumentPageComponent},
-  {path: 'profile', component: UserProfileComponent},
-  {path: 'instrument/:id', component: InstrumentDetailComponent},
-  {path: 'my-instruments', component: MyInstrumentsPageComponent},
-  {path: 'instrument/new', component: InstrumentEditPageComponent},
-  {path: 'instrument/:id/edit', component: InstrumentEditPageComponent},
+  { path: 'home', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'rent', component: InstrumentPageComponent },
+  { path: 'profile', component: UserProfileComponent },
+  { path: 'my-instruments', component: MyInstrumentsPageComponent },
+  { path: 'instrument/new', component: InstrumentEditPageComponent, pathMatch: 'full' },
+  { path: 'instrument/:id/edit', component: InstrumentEditPageComponent },
+  { path: 'instrument/:id', component: InstrumentDetailComponent, pathMatch: 'full' },
 ];

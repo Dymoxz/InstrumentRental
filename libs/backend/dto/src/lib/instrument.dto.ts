@@ -1,9 +1,7 @@
 import {
   IsNotEmpty,
   IsString,
-  IsBoolean,
-  IsOptional,
-  IsDate, IsNumber
+  IsNumber
 } from 'class-validator';
 import {
   ICreateInstrument,
