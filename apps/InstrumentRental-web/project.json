@@ -19,6 +19,11 @@
           {
             "glob": "**/*",
             "input": "apps/InstrumentRental-web/public"
+          },
+          {
+            "glob": "web.config",
+            "input": "apps/InstrumentRental-web/src",
+            "output": "."
           }
         ],
         "styles": ["apps/InstrumentRental-web/src/styles.css"],
