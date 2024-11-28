@@ -13,6 +13,7 @@ import { FrontendCommonModule } from '@instrument-rental/common';
 import { InstrumentEditPageComponent } from './instrument/instrument-edit-page/instrument-edit.page.component';
 import { FormsModule } from '@angular/forms';
 import { ReviewCreateComponent } from './review/review-create/review.create.component';
+import { ReviewService } from './review/review.service';
 
 @NgModule({
   imports: [
@@ -27,15 +28,12 @@ import { ReviewCreateComponent } from './review/review-create/review.create.comp
     InstrumentListComponent,
     InstrumentFiltersComponent,
     InstrumentDetailComponent,
-
     MyInstrumentsPageComponent,
     InstrumentEditPageComponent,
-
     ReviewCreateComponent,
-
     UserProfileComponent,
   ],
-  providers: [InstrumentService],
+  providers: [InstrumentService, ReviewService], // Ensure ReviewService is provided here
   exports: [],
 })
 export class FeaturesModule {}

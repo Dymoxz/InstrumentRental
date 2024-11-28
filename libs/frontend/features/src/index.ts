@@ -12,6 +12,7 @@ export * from './lib/instrument/my-instruments-page/my-instruments.page.componen
 export * from './lib/instrument/instrument-edit-page/instrument-edit.page.component'
 
 /* review */
+export * from './lib/review/review.service'
 export * from './lib/review/review-create/review.create.component'
 
 /* user */

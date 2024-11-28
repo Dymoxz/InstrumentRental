@@ -1,1 +1,78 @@
-review working!
+<section class="bg-gray-50">
+  <div class="bg-white rounded-2xl shadow mt-8 max-w-2xl px-8 mx-auto pb-8 pt-6">
+    <button type="button" (click)="goBack()"
+            class="group flex mb-4 text-gray-400 hover:text-gray-500 focus:outline-none font-medium rounded-lg text-sm text-center">
+      <svg class="w-5 h-5 mr-2 text-gray-400 group-hover:text-gray-500" aria-hidden="true"
+           xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 9h13a5 5 0 0 1 0 10H7M3 9l4-4M3 9l4 4" />
+      </svg>
+      Back
+    </button>
+
+    <h2 class="mb-4 text-xl font-bold text-gray-900">Leave a Review</h2>
+    <form (ngSubmit)="saveInstrument()">
+      <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+        <div class="sm:col-span-2">
+          <label class="block mb-2 text-sm font-medium text-gray-900">Rating</label>
+          <div class="flex flex-row-reverse justify-end pt-1 -ml-2">
+            <svg (click)="setRating(5)"
+                 [ngClass]="{'text-yellow-300': rating >= 5, 'text-gray-300': rating < 5, 'peer-hover:text-yellow-300': true}"
+                 class="w-8 h-8 mx-2 cursor-pointer peer hover:text-yellow-300" aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="currentColor" viewBox="0 0 22 20">
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+            </svg>
+            <svg (click)="setRating(4)"
+                 [ngClass]="{'text-yellow-300': rating >= 4, 'text-gray-300': rating < 4, 'peer-hover:text-yellow-300': true}"
+                 class="w-8 h-8 mx-2 cursor-pointer peer hover:text-yellow-300" aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="currentColor" viewBox="0 0 22 20">
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+            </svg>
+            <svg (click)="setRating(3)"
+                 [ngClass]="{'text-yellow-300': rating >= 3, 'text-gray-300': rating < 3, 'peer-hover:text-yellow-300': true}"
+                 class="w-8 h-8 mx-2 cursor-pointer peer hover:text-yellow-300" aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="currentColor" viewBox="0 0 22 20">
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+            </svg>
+            <svg (click)="setRating(2)"
+                 [ngClass]="{'text-yellow-300': rating >= 2, 'text-gray-300': rating < 2, 'peer-hover:text-yellow-300': true}"
+                 class="w-8 h-8 mx-2 cursor-pointer peer hover:text-yellow-300" aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="currentColor" viewBox="0 0 22 20">
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+            </svg>
+            <svg (click)="setRating(1)"
+                 [ngClass]="{'text-yellow-300': rating >= 1, 'text-gray-300': rating < 1, 'peer-hover:text-yellow-300': true}"
+                 class="w-8 h-8 mx-2 cursor-pointer peer hover:text-yellow-300" aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg"
+                 fill="currentColor" viewBox="0 0 22 20">
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+            </svg>
+          </div>
+          <input type="hidden" name="rating" [(ngModel)]="rating" required>
+        </div>
+
+        <div class="col-span-2">
+          <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
+          <textarea id="description" name="description" rows="8" required
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
+                    [(ngModel)]="review!.content" placeholder="Write a product description here..."></textarea>
+        </div>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button type="submit"
+                class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+          Create Instrument
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
