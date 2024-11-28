@@ -27,6 +27,18 @@ export class ReviewService {
       rating: 5,
       date: new Date('2023-03-10'),
     },
+    {
+      id: '4',
+      content: 'The violin I rented was in pristine condition and had a beautiful sound. The rental process was quick and easy, and the staff was very knowledgeable and friendly. I highly recommend this service for anyone needing a quality instrument for any occasion.',
+      rating: 5,
+      date: new Date('2023-04-05'),
+    },
+    {
+      id: '5',
+      content: 'I rented a saxophone for a jazz performance, and it was fantastic. The instrument was well-maintained and delivered promptly. The sound quality was excellent, and the rental process was seamless. Great service and highly recommended!',
+      rating: 4,
+      date: new Date('2023-05-20'),
+    },
   ]);
 
   getAll(): IReview[] {
