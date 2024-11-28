@@ -17,7 +17,7 @@
         "tsConfig": "apps/InstrumentRental-web/tsconfig.app.json",
         "assets": [
           {
-            "glob": "web.config",
+            "glob": "**/*",
             "input": "apps/InstrumentRental-web/public"
           }
         ],
