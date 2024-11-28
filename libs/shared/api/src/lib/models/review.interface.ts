@@ -7,6 +7,6 @@ export interface IReview {
   date: Date;
 }
 
-export type ICreateReview = Pick<IReview, 'content' | 'rating'>;
+export type ICreateReview = Pick<IReview, 'content' | 'rating' | 'date'>;
 export type IUpdateReview = Partial<Omit<IReview, 'id'>>;
 export type IUpsertReview = Pick<IReview, 'content' | 'rating'>;

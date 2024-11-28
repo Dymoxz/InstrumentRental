@@ -1,4 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { IReview } from '@InstrumentRental/shared/api';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +25,7 @@ export class ReviewCreateComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.review = this.CreateEmptyReview();
+    console.log('Initial review:', this.review);
   }
 
   private CreateEmptyReview(): IReview {
@@ -40,9 +45,17 @@ export class ReviewCreateComponent implements OnInit, OnDestroy {
     window.history.back();
   }
 
-  saveInstrument(): void {
+  saveReview(): void {
     if (this.review) {
-      this.reviewService.create(this.review).subscribe(() => {
+      console.log('Saving review with rating:', this.rating);
+      const reviewData: IReview = {
+        id: `review-${Math.floor(Math.random() * 100000)}`,
+        content: this.review.content,
+        rating: this.rating,
+        date: this.review.date,
+      };
+      console.log('Review data to be saved:', reviewData);
+      this.reviewService.create(reviewData).subscribe(() => {
         this.router.navigate(['/my-instruments']);
       });
     }

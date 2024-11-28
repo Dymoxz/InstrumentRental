@@ -18,6 +18,11 @@ export class CreateReviewDto implements ICreateReview {
   @IsNumber()
   @IsNotEmpty()
   rating!: number;
+
+  @IsDate()
+  @IsNotEmpty()
+  date!: Date;
+
 }
 
 export class UpdateReviewDto implements IUpdateReview {
