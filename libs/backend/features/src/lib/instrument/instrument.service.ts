@@ -142,4 +142,14 @@ export class InstrumentService {
     this.instruments$.next([...current, newInstrument]);
     return newInstrument;
   }
+
+  delete(id: string): void {
+    Logger.log(`delete(${id})`, this.TAG);
+    const current = this.instruments$.value;
+    const updated = current.filter(instrument => instrument.id !== id);
+    if (current.length === updated.length) {
+      throw new NotFoundException(`Instrument with id ${id} could not be found!`);
+    }
+    this.instruments$.next(updated);
+  }
 }

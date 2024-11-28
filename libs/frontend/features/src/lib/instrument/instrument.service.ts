@@ -65,6 +65,23 @@ export class InstrumentService {
   }
 
   /**
+ * Delete a single item from the service.
+ *
+ */
+public delete(id: string | null, options?: any): Observable<void> {
+  console.log(`delete ${this.endpoint}`);
+  return this.http
+    .delete<void>(`${this.endpoint}/${id}`, {
+      ...options,
+      ...httpOptions,
+    })
+    .pipe(
+      tap(() => console.log(`Deleted item with id: ${id}`)),
+      catchError(this.handleError)
+    );
+}
+
+  /**
    * Handle errors.
    */
   public handleError(error: HttpErrorResponse): Observable<any> {
@@ -72,4 +89,5 @@ export class InstrumentService {
 
     return throwError(() => new Error(error.message));
   }
+
 }

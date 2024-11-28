@@ -9,9 +9,10 @@ import { InstrumentDetailComponent } from './instrument/instrument-detail/instru
 import { RouterLink } from '@angular/router';
 import { UserProfileComponent } from './user/user-profile/user.profile.component';
 import { MyInstrumentsPageComponent } from './instrument/my-instruments-page/my-instruments.page.component';
+import { FrontendCommonModule } from '@instrument-rental/common';
 
 @NgModule({
-  imports: [CommonModule, HttpClientModule, RouterLink],
+  imports: [CommonModule, HttpClientModule, RouterLink, FrontendCommonModule],
   declarations: [
     InstrumentPageComponent,
     InstrumentListComponent,
