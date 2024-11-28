@@ -1,0 +1,348 @@
+<section class="bg-gray-50 py-8 antialiased  md:py-12">
+  <div class="mx-auto max-w-screen-xl px-8 md:px-4 2xl:px-0">
+    <!-- Heading -->
+    <div class="mb-4 items-end justify-between space-y-4 sm:flex sm:space-y-0 md:mb-8">
+      <div>
+        <h2 class="mt-3 mb-1 text-xl font-semibold text-gray-900  sm:text-2xl">My Instruments</h2>
+      </div>
+      <div class="flex items-center space-x-4">
+        <div id="dropdownSort1" class="z-50 hidden w-40 divide-y divide-gray-100 rounded-lg bg-white shadow " data-popper-placement="bottom">
+          <ul class="p-2 text-left text-sm font-medium text-gray-500 " aria-labelledby="sortDropdownButton">
+            <li>
+              <a href="#" class="group inline-flex w-full items-center rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900   "> The most popular </a>
+            </li>
+            <li>
+              <a href="#" class="group inline-flex w-full items-center rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900   "> Newest </a>
+            </li>
+            <li>
+              <a href="#" class="group inline-flex w-full items-center rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900   "> Increasing price </a>
+            </li>
+            <li>
+              <a href="#" class="group inline-flex w-full items-center rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900   "> Decreasing price </a>
+            </li>
+            <li>
+              <a href="#" class="group inline-flex w-full items-center rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900   "> No. reviews </a>
+            </li>
+            <li>
+              <a href="#" class="group inline-flex w-full items-center rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900   "> Discount % </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3 xl:grid-cols-4">
+
+      <!--Grid item 1-->
+      <div
+        *ngFor="let instrument of instruments"
+
+        class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+        <div class="h-auto w-full">
+          <a>
+            <img class="mx-auto h-auto opacity-60" src="/guitar.jpg" alt="" />
+          </a>
+        </div>
+        <div class="pt-6">
+
+          <a class="text-lg font-semibold leading-tight text-gray-900 hover:underline ">{{ instrument.name }}</a>
+
+          <ul class="mt-2 flex items-center gap-4">
+            <li class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+              </svg>
+
+              <p class="text-sm font-medium text-gray-500 ">{{ instrument.type  }}</p>
+            </li>
+
+            <li class="flex items-center gap-2">
+
+              <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.8 13.938h-.011a7 7 0 1 0-11.464.144h-.016l.14.171c.1.127.2.251.3.371L12 21l5.13-6.248c.194-.209.374-.429.54-.659l.13-.155Z"/>
+              </svg>
+
+              <p class="text-sm font-medium text-gray-500 ">Groningen</p>
+            </li>
+          </ul>
+          <div class="mt-4 flex items-center gap-4">
+            <!-- First Button -->
+            <button routerLink="/instrument/{{instrument.id}}" type="button" class="inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
+              <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              </svg>
+              Details
+            </button>
+
+            <!-- Second Button -->
+            <button routerLink="/instrument/{{instrument.id}}" type="button" class="inline-flex items-center h-full rounded-lg bg-red-800 px-3 py-2.5 text-sm font-medium text-white hover:bg-red-900 focus:outline-none focus:ring-4 focus:ring-red-300">
+              <svg class="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+              </svg>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!--
+            <div id="myTabContent">
+              <div class="grid grid-cols-2 gap-4 md:grid-cols-3" id="brand" role="tabpanel" aria-labelledby="brand-tab">
+                <div class="space-y-2">
+                  <h5 class="text-lg font-medium uppercase text-black ">A</h5>
+
+                  <div class="flex items-center">
+                    <input id="apple" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="apple" class="ml-2 text-sm font-medium text-gray-900 "> Apple (56) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="asus" type="checkbox" value="" checked class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="asus" class="ml-2 text-sm font-medium text-gray-900 "> Asus (97) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="acer" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="acer" class="ml-2 text-sm font-medium text-gray-900 "> Acer (234) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="allview" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="allview" class="ml-2 text-sm font-medium text-gray-900 "> Allview (45) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="atari" type="checkbox" value="" checked class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="asus" class="ml-2 text-sm font-medium text-gray-900 "> Atari (176) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="amd" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="amd" class="ml-2 text-sm font-medium text-gray-900 "> AMD (49) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="aruba" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="aruba" class="ml-2 text-sm font-medium text-gray-900 "> Aruba (16) </label>
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <h5 class="text-lg font-medium uppercase text-black ">B</h5>
+
+                  <div class="flex items-center">
+                    <input id="beats" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="beats" class="ml-2 text-sm font-medium text-gray-900 "> Beats (56) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="bose" type="checkbox" value="" checked class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="bose" class="ml-2 text-sm font-medium text-gray-900 "> Bose (97) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="benq" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="benq" class="ml-2 text-sm font-medium text-gray-900 "> BenQ (45) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="bosch" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="bosch" class="ml-2 text-sm font-medium text-gray-900 "> Bosch (176) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="brother" type="checkbox" value="" checked class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="brother" class="ml-2 text-sm font-medium text-gray-900 "> Brother (176) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="biostar" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="biostar" class="ml-2 text-sm font-medium text-gray-900 "> Biostar (49) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="braun" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="braun" class="ml-2 text-sm font-medium text-gray-900 "> Braun (16) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="blaupunkt" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="blaupunkt" class="ml-2 text-sm font-medium text-gray-900 "> Blaupunkt (45) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="benq2" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="benq2" class="ml-2 text-sm font-medium text-gray-900 "> BenQ (23) </label>
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <h5 class="text-lg font-medium uppercase text-black ">C</h5>
+
+                  <div class="flex items-center">
+                    <input id="canon" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="canon" class="ml-2 text-sm font-medium text-gray-900 "> Canon (49) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="cisco" type="checkbox" value="" checked class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="cisco" class="ml-2 text-sm font-medium text-gray-900 "> Cisco (97) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="cowon" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="cowon" class="ml-2 text-sm font-medium text-gray-900 "> Cowon (234) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="clevo" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="clevo" class="ml-2 text-sm font-medium text-gray-900 "> Clevo (45) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="corsair" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="corsair" class="ml-2 text-sm font-medium text-gray-900 "> Corsair (15) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="csl" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="csl" class="ml-2 text-sm font-medium text-gray-900 "> Canon (49) </label>
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <h5 class="text-lg font-medium uppercase text-black ">D</h5>
+
+                  <div class="flex items-center">
+                    <input id="dell" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="dell" class="ml-2 text-sm font-medium text-gray-900 "> Dell (56) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="dogfish" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="dogfish" class="ml-2 text-sm font-medium text-gray-900 "> Dogfish (24) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="dyson" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="dyson" class="ml-2 text-sm font-medium text-gray-900 "> Dyson (234) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="dobe" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="dobe" class="ml-2 text-sm font-medium text-gray-900 "> Dobe (5) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="digitus" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="digitus" class="ml-2 text-sm font-medium text-gray-900 "> Digitus (1) </label>
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <h5 class="text-lg font-medium uppercase text-black ">E</h5>
+
+                  <div class="flex items-center">
+                    <input id="emetec" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="emetec" class="ml-2 text-sm font-medium text-gray-900 "> Emetec (56) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="extreme" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="extreme" class="ml-2 text-sm font-medium text-gray-900 "> Extreme (10) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="elgato" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="elgato" class="ml-2 text-sm font-medium text-gray-900 "> Elgato (234) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="emerson" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="emerson" class="ml-2 text-sm font-medium text-gray-900 "> Emerson (45) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="emi" type="checkbox" value="" checked class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="emi" class="ml-2 text-sm font-medium text-gray-900 "> EMI (176) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="fugoo" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="fugoo" class="ml-2 text-sm font-medium text-gray-900 "> Fugoo (49) </label>
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <h5 class="text-lg font-medium uppercase text-black ">F</h5>
+
+                  <div class="flex items-center">
+                    <input id="fujitsu" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="fujitsu" class="ml-2 text-sm font-medium text-gray-900 "> Fujitsu (97) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="fitbit" type="checkbox" value="" checked class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="fitbit" class="ml-2 text-sm font-medium text-gray-900 "> Fitbit (56) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="foxconn" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="foxconn" class="ml-2 text-sm font-medium text-gray-900 "> Foxconn (234) </label>
+                  </div>
+
+                  <div class="flex items-center">
+                    <input id="floston" type="checkbox" value="" class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary-600 focus:ring-2 focus:ring-primary-500    " />
+
+                    <label for="floston" class="ml-2 text-sm font-medium text-gray-900 "> Floston (45) </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            -->
+
+
+  </div>
+</section>

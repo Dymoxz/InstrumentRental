@@ -8,6 +8,7 @@ import { InstrumentListComponent } from './instrument/instrument-list/instrument
 import { InstrumentDetailComponent } from './instrument/instrument-detail/instrument.detail.component';
 import { RouterLink } from '@angular/router';
 import { UserProfileComponent } from './user/user-profile/user.profile.component';
+import { MyInstrumentsPageComponent } from './instrument/my-instruments-page/my-instruments.page.component';
 
 @NgModule({
   imports: [CommonModule, HttpClientModule, RouterLink],
@@ -16,6 +17,8 @@ import { UserProfileComponent } from './user/user-profile/user.profile.component
     InstrumentListComponent,
     InstrumentFiltersComponent,
     InstrumentDetailComponent,
+
+    MyInstrumentsPageComponent,
 
     UserProfileComponent
   ],
