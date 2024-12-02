@@ -37,8 +37,8 @@ export class MyInstrumentsPageComponent implements OnInit, OnDestroy {
 
   deleteInstrument(): void {
   if (this.instrumentToDelete) {
-    this.instrumentService.delete(this.instrumentToDelete.id).subscribe(() => {
-      this.instruments = this.instruments?.filter(instrument => instrument.id !== this.instrumentToDelete!.id) || null;
+    this.instrumentService.delete(this.instrumentToDelete._id).subscribe(() => {
+      this.instruments = this.instruments?.filter(instrument => instrument._id !== this.instrumentToDelete!._id) || null;
       this.deleteModal?.close();
       this.dangerToast!.toastText = `${this.instrumentToDelete!.name} has been deleted`;
       this.dangerToast!.showToast();

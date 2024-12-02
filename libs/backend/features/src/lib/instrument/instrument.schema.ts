@@ -9,7 +9,6 @@ export type InstrumentDocument = HydratedDocument<Instrument>;
 @Schema()
 export class Instrument implements IInstrument {
   @IsMongoId()
-  @Prop({ type: String })
   _id!: string;
 
   @Prop({ required: true })

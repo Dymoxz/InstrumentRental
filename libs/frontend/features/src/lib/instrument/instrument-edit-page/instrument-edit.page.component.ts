@@ -34,7 +34,7 @@ export class InstrumentEditPageComponent implements OnInit, OnDestroy {
 
   private CreateEmptyInstrument(): IInstrument {
     return {
-      id: '',
+      _id: '',
       name: '',
       type: undefined,
       brand: '',
@@ -55,9 +55,9 @@ export class InstrumentEditPageComponent implements OnInit, OnDestroy {
 
   saveInstrument(): void {
   if (this.instrument) {
-    if (this.instrument.id) {
+    if (this.instrument._id) {
       // Update existing instrument
-      this.instrumentService.update(this.instrument.id, this.instrument).subscribe(() => {
+      this.instrumentService.update(this.instrument._id, this.instrument).subscribe(() => {
         this.router.navigate(['/my-instruments']);
       });
     } else {

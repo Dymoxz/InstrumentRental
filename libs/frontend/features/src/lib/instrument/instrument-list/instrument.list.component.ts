@@ -19,6 +19,11 @@ export class InstrumentListComponent implements OnInit, OnDestroy {
       .subscribe((results: IInstrument[] | null) => {
         console.log(`results: ${results}`);
         this.instruments = results;
+        if (this.instruments) {
+          this.instruments.forEach(instrument => {
+            console.log(`Instrument ID: ${instrument._id}`);
+          });
+        }
       });
   }
 

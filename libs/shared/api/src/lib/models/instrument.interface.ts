@@ -11,7 +11,7 @@ export enum InstrumentType {
 }
 
 export interface IInstrument {
-  id: Id;
+  _id: Id;
   name: string;
   type: InstrumentType | undefined;
   brand: string;

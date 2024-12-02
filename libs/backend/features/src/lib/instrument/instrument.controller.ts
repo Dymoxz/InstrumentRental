@@ -12,8 +12,8 @@ export class InstrumentController {
   }
 
   @Get(':id')
-  getOne(@Param('id') id: string): Promise<IInstrument> {
-    return this.instrumentService.getOne(id);
+  async getOne(@Param('id') id: string): Promise<IInstrument | null> {
+    return await this.instrumentService.getOne(id);
   }
 
   @Post('')

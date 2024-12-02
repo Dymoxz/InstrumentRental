@@ -22,7 +22,7 @@ export class InstrumentService {
   /*
     endpoint = 'http://localhost:3000/api/instrument';
   */
-  endpoint = env.dataApiUrl + '/instrument';
+  endpoint = env.dataApiUrl + '/instruments';
 
   constructor(private readonly http: HttpClient) {}
 

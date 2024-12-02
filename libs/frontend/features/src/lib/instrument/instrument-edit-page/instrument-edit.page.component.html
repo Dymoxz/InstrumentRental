@@ -9,7 +9,7 @@
       </svg>
       Back
     </button>
-    <h2 *ngIf="instrument?.id; else createInstrument" class="mb-4 text-xl font-bold text-gray-900">Update instrument
+    <h2 *ngIf="instrument?._id; else createInstrument" class="mb-4 text-xl font-bold text-gray-900">Update instrument
       details</h2>
     <ng-template #createInstrument>
       <h2 class="mb-4 text-xl font-bold text-gray-900">Create instrument details</h2>
@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="flex items-center space-x-4">
-        <button *ngIf="instrument?.id; else createButton" type="submit"
+        <button *ngIf="instrument?._id; else createButton" type="submit"
                 class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
           Update details
         </button>
