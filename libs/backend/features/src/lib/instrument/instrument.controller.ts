@@ -2,7 +2,7 @@ import { Controller, Get, Param, Post, Body, Delete, Put } from '@nestjs/common'
 import { InstrumentService } from './instrument.service';
 import { IInstrument, ICreateInstrument, IUpdateInstrument } from '@InstrumentRental/shared/api';
 
-@Controller('instruments')
+@Controller('instrument')
 export class InstrumentController {
   constructor(private readonly instrumentService: InstrumentService) {}
 
