@@ -1,45 +1,33 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Delete, Put } from '@nestjs/common';
 import { InstrumentService } from './instrument.service';
-import { IInstrument } from '@InstrumentRental/shared/api';
-import { CreateInstrumentDto } from '@InstrumentRental/backend/dto';
+import { IInstrument, ICreateInstrument, IUpdateInstrument } from '@InstrumentRental/shared/api';
 
-@Controller('instrument')
+@Controller('instruments')
 export class InstrumentController {
-  constructor(private instrumentService: InstrumentService) {}
+  constructor(private readonly instrumentService: InstrumentService) {}
 
   @Get('')
-  getAll(): IInstrument[] {
-    return this.instrumentService.getAll();
+  async getAll(): Promise<IInstrument[]> {
+    return await this.instrumentService.getAll();
   }
 
   @Get(':id')
-  getOne(@Param('id') id: string): IInstrument {
+  getOne(@Param('id') id: string): Promise<IInstrument> {
     return this.instrumentService.getOne(id);
   }
 
   @Post('')
-  create(@Body() data: CreateInstrumentDto): IInstrument {
+  create(@Body() data: ICreateInstrument): Promise<IInstrument> {
     return this.instrumentService.create(data);
   }
 
-  @Delete(':id')
-  delete(@Param('id') id: string): void {
-    this.instrumentService.delete(id);
+  @Put(':id')
+  update(@Param('id') id: string, @Body() data: IUpdateInstrument): Promise<IInstrument> {
+    return this.instrumentService.update(id, data);
   }
 
-  @Put(':id')
-  update(
-    @Param('id') id: string,
-    @Body() data: CreateInstrumentDto
-  ): IInstrument {
-    return this.instrumentService.update(id, data);
+  @Delete(':id')
+  delete(@Param('id') id: string): Promise<void> {
+    return this.instrumentService.delete(id);
   }
 }

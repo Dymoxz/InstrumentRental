@@ -1,11 +1,28 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { InstrumentModule } from '@InstrumentRental/backend/features';
-import { ReviewModule } from '@InstrumentRental/backend/features';
+import {
+  InstrumentModule,
+  ReviewModule,
+} from '@InstrumentRental/backend/features';
+import { MongooseModule } from '@nestjs/mongoose';
+import { env } from '@InstrumentRental/shared/util-env';
 
 @Module({
-  imports: [InstrumentModule, ReviewModule],
+  imports: [
+    InstrumentModule,
+    ReviewModule,
+    MongooseModule.forRoot(env.dbConnectionUrl, {
+      connectionFactory: (connection) => {
+        connection.on('connected', () => {
+          // console.log('is connected');
+          Logger.verbose(`Mongoose db connected to ${env.dbConnectionUrl}`);
+        });
+        connection._events.connected();
+        return connection;
+      },
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

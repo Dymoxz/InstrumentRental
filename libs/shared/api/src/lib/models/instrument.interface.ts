@@ -6,7 +6,7 @@ export enum InstrumentType {
   woodwind = 'Woodwind',
   brass = 'Brass',
   percussion = 'Percussion',
-  electronic = 'Electronic ',
+  electronic = 'Electronic',
   other = 'Other',
 }
 

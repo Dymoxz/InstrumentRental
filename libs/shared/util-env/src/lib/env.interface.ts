@@ -1,4 +1,5 @@
 export interface IEnv {
   production: boolean,
-  dataApiUrl: string
+  dataApiUrl: string,
+  dbConnectionUrl: string
 }
