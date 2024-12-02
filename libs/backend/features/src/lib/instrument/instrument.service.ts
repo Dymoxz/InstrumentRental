@@ -1,6 +1,6 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Schema, Types } from 'mongoose';
 import { Instrument, InstrumentDocument } from './instrument.schema';
 import {
   ICreateInstrument,
@@ -33,9 +33,12 @@ export class InstrumentService {
     return item;
   }
 
-  async create(createInstrumentDto: ICreateInstrument): Promise<IInstrument> {
+  async create(createInstrumentDto: Omit<IInstrument, '_id'>): Promise<IInstrument> {
     Logger.log('create', this.TAG);
-    const createdInstrument = new this.instrumentModel(createInstrumentDto);
+    const createdInstrument = new this.instrumentModel({
+      ...createInstrumentDto,
+      _id: new Types.ObjectId(),
+    });
     return createdInstrument.save();
   }
 

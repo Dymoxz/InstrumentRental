@@ -17,7 +17,7 @@ export class InstrumentController {
   }
 
   @Post('')
-  async create(@Body() data: ICreateInstrument): Promise<IInstrument> {
+  async create(@Body() data: ICreateInstrument & { available: boolean }): Promise<IInstrument> {
     return await this.instrumentService.create(data);
   }
 
