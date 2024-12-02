@@ -1,84 +1,59 @@
-import { Injectable } from '@nestjs/common';
-import { BehaviorSubject } from 'rxjs';
-import {
-  ICreateReview,
-  IReview,
-  IUpdateReview,
-} from '@InstrumentRental/shared/api';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model, Types } from 'mongoose';
+import { Review, ReviewDocument } from './review.schema';
+import { ICreateReview, IReview, IUpdateReview } from '@InstrumentRental/shared/api';
 
 @Injectable()
 export class ReviewService {
-  private reviews$ = new BehaviorSubject<IReview[]>([
-    {
-      id: '1',
-      content: 'The instrument was in excellent condition and performed beautifully during our concert. The sound quality was top-notch, and it was easy to handle. The rental process was smooth, and the staff was very helpful. Highly recommend this service for anyone looking to rent high-quality instruments for their events or personal use. Will definitely use this service again in the future.',
-      rating: 5,
-      date: new Date('2023-01-01'),
-    },
-    {
-      id: '2',
-      content: 'I rented a piano for a special event, and it exceeded my expectations. The piano was well-maintained and delivered on time. The sound was rich and resonant, perfect for our performance. The rental process was straightforward, and the customer service was excellent. I would highly recommend this service to anyone in need of a reliable and high-quality instrument rental.',
-      rating: 4,
-      date: new Date('2023-02-15'),
-    },
-    {
-      id: '3',
-      content: 'Rented a drum set for a recording session, and it was fantastic. The drums were in great condition, and the sound was exactly what we needed. The rental process was hassle-free, and the staff was very accommodating. The price was reasonable, and the quality of the instruments was impressive. I will definitely be renting from this service again for future projects.',
-      rating: 5,
-      date: new Date('2023-03-10'),
-    },
-    {
-      id: '4',
-      content: 'The violin I rented was in pristine condition and had a beautiful sound. The rental process was quick and easy, and the staff was very knowledgeable and friendly. I highly recommend this service for anyone needing a quality instrument for any occasion.',
-      rating: 5,
-      date: new Date('2023-04-05'),
-    },
-    {
-      id: '5',
-      content: 'I rented a saxophone for a jazz performance, and it was fantastic. The instrument was well-maintained and delivered promptly. The sound quality was excellent, and the rental process was seamless. Great service and highly recommended!',
-      rating: 4,
-      date: new Date('2023-05-20'),
-    },
-  ]);
+  TAG = 'ReviewService';
 
-  getAll(): IReview[] {
-    return this.reviews$.value;
+  constructor(
+    @InjectModel(Review.name)
+    private reviewModel: Model<ReviewDocument>
+  ) {}
+
+  async getAll(): Promise<IReview[]> {
+    Logger.log(`Finding all reviews`, this.TAG);
+    const reviews = await this.reviewModel.find();
+    Logger.log(`Found reviews: ${JSON.stringify(reviews, null, 2)}`, this.TAG);
+    return reviews;
   }
 
-  getOne(id: string): IReview {
-    const review = this.reviews$.value.find((review) => review.id === id);
+  async getOne(_id: string): Promise<IReview | null> {
+    Logger.log(`Finding review with id ${_id}`);
+    const review = await this.reviewModel.findOne({ _id }).exec();
     if (!review) {
-      throw new Error('Review not found');
+      Logger.debug('Review not found');
     }
     return review;
   }
 
-  create(data: ICreateReview): IReview {
-    const newReview: IReview = {
-      id: (this.reviews$.value.length + 1).toString(),
-      ...data,
-      date: new Date(),
-    };
-    this.reviews$.next([...this.reviews$.value, newReview]);
-    return newReview;
+  async create(createReviewDto: Omit<IReview, '_id'>): Promise<IReview> {
+    Logger.log('Creating review', this.TAG);
+    const createdReview = new this.reviewModel({
+      ...createReviewDto,
+      _id: new Types.ObjectId(),
+    });
+    return createdReview.save();
   }
 
-  update(id: string, data: IUpdateReview): IReview {
-    const reviewIndex = this.reviews$.value.findIndex((review) => review.id === id);
-    if (reviewIndex === -1) {
-      throw new Error('Review not found');
+  async update(_id: string, updateReviewDto: IUpdateReview): Promise<IReview> {
+    Logger.log(`Updating review with id ${_id}`, this.TAG);
+    const updatedReview = await this.reviewModel
+      .findByIdAndUpdate(_id, updateReviewDto, { new: true })
+      .exec();
+    if (!updatedReview) {
+      throw new NotFoundException(`Review could not be found!`);
     }
-    const updatedReview = { ...this.reviews$.value[reviewIndex], ...data };
-    this.reviews$.value[reviewIndex] = updatedReview;
-    this.reviews$.next([...this.reviews$.value]);
     return updatedReview;
   }
 
-  delete(id: string): void {
-    const reviewIndex = this.reviews$.value.findIndex((review) => review.id === id);
-    if (reviewIndex === -1) {
-      throw new Error('Review not found');
+  async delete(_id: string): Promise<void> {
+    Logger.log(`Deleting review with id ${_id}`, this.TAG);
+    const result = await this.reviewModel.findByIdAndDelete(_id).exec();
+    if (!result) {
+      throw new NotFoundException(`Review could not be found!`);
     }
-    this.reviews$.next(this.reviews$.value.filter((review) => review.id !== id));
   }
 }
