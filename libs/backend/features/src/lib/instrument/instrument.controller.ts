@@ -17,17 +17,17 @@ export class InstrumentController {
   }
 
   @Post('')
-  create(@Body() data: ICreateInstrument): Promise<IInstrument> {
-    return this.instrumentService.create(data);
+  async create(@Body() data: ICreateInstrument): Promise<IInstrument> {
+    return await this.instrumentService.create(data);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() data: IUpdateInstrument): Promise<IInstrument> {
-    return this.instrumentService.update(id, data);
+  async update(@Param('id') id: string, @Body() data: IUpdateInstrument): Promise<IInstrument> {
+    return await this.instrumentService.update(id, data);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string): Promise<void> {
-    return this.instrumentService.delete(id);
+  async delete(@Param('id') id: string): Promise<void> {
+    return await this.instrumentService.delete(id);
   }
 }
