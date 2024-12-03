@@ -38,6 +38,10 @@ export class CreateInstrumentDto implements ICreateInstrument {
   @IsNumber()
   @IsNotEmpty()
   pricePerDay!: number;
+
+  @IsString()
+  @IsNotEmpty()
+  ownerEmail!: string; // Add this line
 }
 
 export class UpsertInstrumentDto implements IUpdateInstrument {
@@ -90,4 +94,8 @@ export class UpdateInstrumentDto implements IUpsertInstrument {
   @IsNumber()
   @IsNotEmpty()
   pricePerDay!: number;
+
+  @IsString()
+  @IsNotEmpty()
+  ownerEmail!: string; // Add this line
 }

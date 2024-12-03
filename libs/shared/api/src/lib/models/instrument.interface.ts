@@ -19,14 +19,15 @@ export interface IInstrument {
   description: string;
   pricePerDay: number;
   available: boolean;
+  ownerEmail: string; // Add this line
 }
 
 export type ICreateInstrument = Pick<
   IInstrument,
-  'name' | 'description' | 'type' | 'brand' | 'model' | 'pricePerDay'
+  'name' | 'description' | 'type' | 'brand' | 'model' | 'pricePerDay' | 'ownerEmail' // Add ownerEmail here
 >;
 export type IUpdateInstrument = Partial<Omit<IInstrument, '_id'>>;
 export type IUpsertInstrument = Pick<
   IInstrument,
-  'name' | 'description' | 'type' | 'brand' | 'model' | 'pricePerDay'
+  'name' | 'description' | 'type' | 'brand' | 'model' | 'pricePerDay' | 'ownerEmail' // Add ownerEmail here
 >;

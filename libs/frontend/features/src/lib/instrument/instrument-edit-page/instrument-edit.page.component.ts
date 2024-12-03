@@ -24,7 +24,7 @@ export class InstrumentEditPageComponent implements OnInit, OnDestroy {
     if (instrumentId) {
       this.subscription = this.instrumentService
         .read(instrumentId)
-        .subscribe((instrument: IInstrument | null) => {
+        .subscribe(({ instrument }) => {
           this.instrument = instrument;
         });
     } else {
@@ -41,7 +41,8 @@ export class InstrumentEditPageComponent implements OnInit, OnDestroy {
       model: '',
       description: '',
       pricePerDay: 0,
-      available: true
+      available: true,
+      ownerEmail: ''
     };
   }
 

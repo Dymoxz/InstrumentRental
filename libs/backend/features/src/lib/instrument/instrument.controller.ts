@@ -1,3 +1,4 @@
+// libs/backend/features/src/lib/instrument/instrument.controller.ts
 import { Controller, Get, Param, Post, Body, Delete, Put } from '@nestjs/common';
 import { InstrumentService } from './instrument.service';
 import { IInstrument, ICreateInstrument, IUpdateInstrument } from '@InstrumentRental/shared/api';
@@ -17,7 +18,7 @@ export class InstrumentController {
   }
 
   @Post('')
-  async create(@Body() data: ICreateInstrument & { available: boolean }): Promise<IInstrument> {
+  async create(@Body() data: ICreateInstrument & { available: boolean, ownerEmail: string }): Promise<IInstrument> {
     return await this.instrumentService.create(data);
   }
 
