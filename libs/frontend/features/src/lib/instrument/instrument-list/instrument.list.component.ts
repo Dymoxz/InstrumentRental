@@ -14,18 +14,18 @@ export class InstrumentListComponent implements OnInit, OnDestroy {
   constructor(private instrumentService: InstrumentService) {}
 
   ngOnInit(): void {
-    this.subscription = this.instrumentService
-      .list()
-      .subscribe((results: IInstrument[] | null) => {
-        console.log(`results: ${results}`);
-        this.instruments = results;
-        if (this.instruments) {
-          this.instruments.forEach(instrument => {
-            console.log(`Instrument ID: ${instrument._id}`);
-          });
-        }
-      });
-  }
+  this.subscription = this.instrumentService
+    .list()
+    .subscribe((results: IInstrument[] | null) => {
+      console.log(`results: ${results}`);
+      this.instruments = results?.filter(instrument => instrument.ownerEmail !== 'jane.smith@example.com') || null;
+      if (this.instruments) {
+        this.instruments.forEach(instrument => {
+          console.log(`Instrument ID: ${instrument._id}`);
+        });
+      }
+    });
+}
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
