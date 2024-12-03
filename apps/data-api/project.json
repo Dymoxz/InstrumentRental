@@ -18,7 +18,13 @@
           "buildTarget": "data-api:build:development"
         },
         "production": {
-          "buildTarget": "data-api:build:production"
+          "buildTarget": "data-api:build:production",
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/util-env/src/lib/env.development.ts",
+              "with": "libs/shared/util-env/src/lib/env.production.ts"
+            }
+          ]
         }
       }
     },
