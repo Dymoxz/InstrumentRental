@@ -33,6 +33,10 @@ export class User implements IUser {
   @Prop({ required: true })
   @IsString()
   phoneNumber!: string;
+
+  @Prop()
+  @IsString()
+  bio!: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

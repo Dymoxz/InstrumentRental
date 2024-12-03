@@ -14,14 +14,15 @@ export interface IUser {
   email: string;
   password: string;
   phoneNumber: string;
+  bio: string;
 }
 
 export type ICreateUser = Pick<
   IUser,
-  'firstName' | 'lastName' | 'email' | 'password' | 'phoneNumber' | 'gender'
+  'firstName' | 'lastName' | 'email' | 'password' | 'phoneNumber' | 'gender' | 'bio'
 >;
 export type IUpdateUser = Partial<Omit<IUser, '_id'>>;
 export type IUpsertUser = Pick<
   IUser,
-  'firstName' | 'lastName' | 'email' | 'password' | 'phoneNumber' | 'gender'
+  'firstName' | 'lastName' | 'email' | 'password' | 'phoneNumber' | 'gender' | 'bio'
 >;

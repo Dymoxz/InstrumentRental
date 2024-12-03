@@ -36,6 +36,10 @@ export class CreateUserDto implements ICreateUser {
   @IsEnum(Gender)
   @IsNotEmpty()
   gender!: Gender;
+
+  @IsString()
+  @IsNotEmpty()
+  bio!: string;
 }
 
 export class UpdateUserDto implements IUpdateUser {
@@ -62,6 +66,11 @@ export class UpdateUserDto implements IUpdateUser {
   @IsOptional()
   @IsEnum(Gender)
   gender?: Gender;
+
+  @IsOptional()
+  @IsString()
+  bio?: string;
+
 }
 
 export class UpsertUserDto implements IUpsertUser {
@@ -88,4 +97,8 @@ export class UpsertUserDto implements IUpsertUser {
   @IsEnum(Gender)
   @IsNotEmpty()
   gender!: Gender;
+
+  @IsString()
+  @IsNotEmpty()
+  bio!: string;
 }
