@@ -1,7 +1,8 @@
+// libs/backend/features/src/lib/instrument/instrument.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { IInstrument, InstrumentType } from '@InstrumentRental/shared/api';
-import { IsMongoId } from 'class-validator';
+import { IsMongoId, IsString } from 'class-validator';
 import { Id } from '@InstrumentRental/shared/api';
 
 export type InstrumentDocument = HydratedDocument<Instrument>;
@@ -31,6 +32,10 @@ export class Instrument implements IInstrument {
 
   @Prop({ required: true })
   available!: boolean;
+
+  @Prop({ required: true })
+  @IsString()
+  ownerEmail!: string;
 
   id!: Id;
 }

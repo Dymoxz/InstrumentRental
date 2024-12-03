@@ -1,45 +1,33 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Delete, Put } from '@nestjs/common';
 import { ReviewService } from './review.service';
-import { IReview } from '@InstrumentRental/shared/api';
-import {
-  CreateReviewDto,
-  UpdateReviewDto,
-} from '@InstrumentRental/backend/dto';
+import { IReview, ICreateReview, IUpdateReview } from '@InstrumentRental/shared/api';
 
 @Controller('review')
 export class ReviewController {
-  constructor(private reviewService: ReviewService) {}
+  constructor(private readonly reviewService: ReviewService) {}
 
   @Get('')
-  getAll(): IReview[] {
-    return this.reviewService.getAll();
+  async getAll(): Promise<IReview[]> {
+    return await this.reviewService.getAll();
   }
 
   @Get(':id')
-  getOne(@Param('id') id: string): IReview {
-    return this.reviewService.getOne(id);
+  async getOne(@Param('id') id: string): Promise<IReview | null> {
+    return await this.reviewService.getOne(id);
   }
 
   @Post('')
-  create(@Body() data: CreateReviewDto): IReview {
-    return this.reviewService.create(data);
-  }
-
-  @Delete(':id')
-  delete(@Param('id') id: string): void {
-    this.reviewService.delete(id);
+  async create(@Body() data: ICreateReview): Promise<IReview> {
+    return await this.reviewService.create(data);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() data: UpdateReviewDto): IReview {
-    return this.reviewService.update(id, data);
+  async update(@Param('id') id: string, @Body() data: IUpdateReview): Promise<IReview> {
+    return await this.reviewService.update(id, data);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<void> {
+    return await this.reviewService.delete(id);
   }
 }

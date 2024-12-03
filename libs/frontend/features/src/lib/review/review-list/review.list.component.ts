@@ -10,11 +10,13 @@ import { Subscription } from 'rxjs';
 export class ReviewListComponent implements OnInit, OnDestroy {
   reviews: IReview[] = [];
   subscription: Subscription | undefined = undefined;
+  isLoading = true;
 
   constructor(private reviewService: ReviewService) {}
 
   ngOnInit(): void {
     this.subscription = this.reviewService.getAll().subscribe((results: IReview[] | null) => {
+      this.isLoading = false;
       if (results) {
         this.reviews = results;
       } else {

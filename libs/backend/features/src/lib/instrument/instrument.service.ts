@@ -1,12 +1,9 @@
+// libs/backend/features/src/lib/instrument/instrument.service.ts
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Schema, Types } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Instrument, InstrumentDocument } from './instrument.schema';
-import {
-  ICreateInstrument,
-  IInstrument,
-  IUpdateInstrument,
-} from '@InstrumentRental/shared/api';
+import { ICreateInstrument, IInstrument, IUpdateInstrument } from '@InstrumentRental/shared/api';
 
 @Injectable()
 export class InstrumentService {

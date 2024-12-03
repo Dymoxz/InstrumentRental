@@ -1,7 +1,7 @@
-import { Observable, throwError } from 'rxjs';
+import { Observable, forkJoin, throwError, of } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
-import { ApiResponse, IInstrument } from '@InstrumentRental/shared/api';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
+import { ApiResponse, IInstrument, IUser } from '@InstrumentRental/shared/api';
 import { Injectable } from '@angular/core';
 import { env } from '@InstrumentRental/shared/util-env';
 
@@ -23,6 +23,7 @@ export class InstrumentService {
     endpoint = 'http://localhost:3000/api/instrument';
   */
   endpoint = env.dataApiUrl + '/instrument';
+  userEndpoint = env.dataApiUrl + '/user'; // Add this line
 
   constructor(private readonly http: HttpClient) {}
 
@@ -50,17 +51,27 @@ export class InstrumentService {
    * Get a single item from the service.
    *
    */
-  public read(id: string | null, options?: any): Observable<IInstrument> {
-    console.log(`read ${this.endpoint}`);
+  public read(id: string | null, options?: any): Observable<{ instrument: IInstrument, user: IUser }> {
     return this.http
       .get<ApiResponse<IInstrument>>(`${this.endpoint}/${id}`, {
         ...options,
         ...httpOptions,
       })
       .pipe(
-        tap(console.log),
         map((response: any) => response.results as IInstrument),
-        catchError(this.handleError)
+        catchError(this.handleError),
+        switchMap((instrument: IInstrument) =>
+          forkJoin({
+            instrument: of(instrument),
+            user: this.http.get<ApiResponse<IUser>>(`${this.userEndpoint}/${instrument.ownerEmail}`, {
+              ...options,
+              ...httpOptions,
+            }).pipe(
+              map((response: any) => response.results as IUser),
+              catchError(this.handleError)
+            )
+          })
+        )
       );
   }
 
