@@ -15,7 +15,7 @@ import { ReviewService } from '../review.service';
 export class ReviewCreateComponent implements OnInit, OnDestroy {
   review: IReview | null = null;
   subscription: Subscription | undefined = undefined;
-  rating: number = 0;
+  rating = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,7 +30,7 @@ export class ReviewCreateComponent implements OnInit, OnDestroy {
 
   private CreateEmptyReview(): IReview {
     return {
-      id: '',
+      _id: '',
       content: '',
       rating: 0,
       date: new Date(),
@@ -49,7 +49,7 @@ export class ReviewCreateComponent implements OnInit, OnDestroy {
     if (this.review) {
       console.log('Saving review with rating:', this.rating);
       const reviewData: IReview = {
-        id: `review-${Math.floor(Math.random() * 100000)}`,
+        _id: `review-${Math.floor(Math.random() * 100000)}`,
         content: this.review.content,
         rating: this.rating,
         date: this.review.date,
