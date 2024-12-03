@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import {
   InstrumentModule,
   ReviewModule,
+  UserModule,
 } from '@InstrumentRental/backend/features';
 import { MongooseModule } from '@nestjs/mongoose';
 import { env } from '@InstrumentRental/shared/util-env';
@@ -12,6 +13,7 @@ import { env } from '@InstrumentRental/shared/util-env';
   imports: [
     InstrumentModule,
     ReviewModule,
+    UserModule,
     MongooseModule.forRoot(env.dbConnectionUrl, {
       connectionFactory: (connection) => {
         connection.on('connected', () => {

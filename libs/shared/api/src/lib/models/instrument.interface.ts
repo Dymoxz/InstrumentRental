@@ -25,7 +25,7 @@ export type ICreateInstrument = Pick<
   IInstrument,
   'name' | 'description' | 'type' | 'brand' | 'model' | 'pricePerDay'
 >;
-export type IUpdateInstrument = Partial<Omit<IInstrument, 'id'>>;
+export type IUpdateInstrument = Partial<Omit<IInstrument, '_id'>>;
 export type IUpsertInstrument = Pick<
   IInstrument,
   'name' | 'description' | 'type' | 'brand' | 'model' | 'pricePerDay'
