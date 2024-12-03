@@ -42,7 +42,7 @@ export class InstrumentEditPageComponent implements OnInit, OnDestroy {
       description: '',
       pricePerDay: 0,
       available: true,
-      ownerEmail: ''
+      ownerEmail: 'jane.smith@example.com'
     };
   }
 
