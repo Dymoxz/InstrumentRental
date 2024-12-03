@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { ReviewCreateComponent } from './review/review-create/review.create.component';
 import { ReviewService } from './review/review.service';
 import { ReviewListComponent } from './review/review-list/review.list.component';
+import { UserService } from './user/user.service';
 
 @NgModule({
   imports: [
@@ -38,7 +39,7 @@ import { ReviewListComponent } from './review/review-list/review.list.component'
 
     UserProfileComponent,
   ],
-  providers: [InstrumentService, ReviewService], // Ensure ReviewService is provided here
+  providers: [InstrumentService, ReviewService, UserService],
   exports: [],
 })
 export class FeaturesModule {}
