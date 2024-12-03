@@ -22,7 +22,7 @@ export class MyInstrumentsPageComponent implements OnInit, OnDestroy {
       .list()
       .subscribe((results: IInstrument[] | null) => {
         console.log(`results: ${results}`);
-        this.instruments = results;
+        this.instruments = results?.filter(instrument => instrument.ownerEmail === 'jane.smith@example.com') || null;
       });
   }
 
