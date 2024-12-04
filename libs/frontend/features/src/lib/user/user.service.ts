@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { IUser, ApiResponse } from '@InstrumentRental/shared/api';
+import { IUser, ApiResponse, IUpdateUser } from '@InstrumentRental/shared/api';
 import { env } from '@InstrumentRental/shared/util-env';
 import { httpOptions } from '../instrument/instrument.service';
 
@@ -38,6 +38,13 @@ export class UserService {
   create(data: IUser | null, options?: any): Observable<IUser> {
     return this.http.post<IUser>(this.endpoint, data, { ...options }).pipe(
       tap((response: any) => console.log(`Created user: ${response}`)),
+      catchError(this.handleError)
+    );
+  }
+
+  update(id: string, data: IUpdateUser, options?: any): Observable<IUser> {
+    return this.http.put<IUser>(`${this.endpoint}/${id}`, data, { ...options }).pipe(
+      tap((response: any) => console.log(`Updated user: ${response}`)),
       catchError(this.handleError)
     );
   }

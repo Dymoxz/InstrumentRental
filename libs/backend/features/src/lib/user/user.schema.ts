@@ -1,9 +1,33 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { IUser, Gender } from '@InstrumentRental/shared/api';
-import { IsMongoId, IsString, IsEmail, IsEnum } from 'class-validator';
+import { IsMongoId, IsString, IsEmail, IsEnum, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export type UserDocument = HydratedDocument<User>;
+
+class Address {
+  @Prop({ required: true })
+  @IsString()
+  streetName!: string;
+
+  @Prop({ required: true })
+  @IsString()
+  houseNumber!: string;
+
+  @Prop({ required: true })
+  @IsString()
+  postalCode!: string;
+
+  @Prop({ required: true })
+  @IsString()
+  city!: string;
+
+  @Prop({ required: true })
+  @IsString()
+  country!: string;
+}
+
 
 @Schema()
 export class User implements IUser {
@@ -37,6 +61,11 @@ export class User implements IUser {
   @Prop()
   @IsString()
   bio!: string;
+
+  @Prop({ required: true, type: Address })
+  @ValidateNested()
+  @Type(() => Address)
+  address!: Address;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

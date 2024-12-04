@@ -14,7 +14,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.list().subscribe((users: IUser[] | null) => {
       if (users && users.length > 0) {
-        this.user = users[0]; // Use the first user for now
+        this.user = users[1]; // Use the first user for now
       }
     });
   }
