@@ -1,7 +1,7 @@
 import {
   IsNotEmpty,
   IsString,
-  IsNumber
+  IsNumber, IsBoolean, IsMongoId
 } from 'class-validator';
 import {
   ICreateInstrument,
@@ -10,6 +10,45 @@ import {
   InstrumentType
 } from '@InstrumentRental/shared/api';
 
+
+
+export class InstrumentDto {
+  @IsMongoId()
+  @IsNotEmpty()
+  _id!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  name!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  type!: InstrumentType;
+
+  @IsString()
+  @IsNotEmpty()
+  brand!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  model!: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  pricePerDay!: number;
+
+  @IsString()
+  @IsNotEmpty()
+  ownerEmail!: string;
+
+  @IsBoolean()
+  @IsNotEmpty()
+  available!: boolean;
+}
 /**
  * Use the `Pick` utility type to extract only the properties we want for
  * new to-do items

@@ -1,12 +1,23 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
-import { IUser, Gender } from '@InstrumentRental/shared/api';
-import { IsMongoId, IsString, IsEmail, IsEnum, ValidateNested } from 'class-validator';
+import { Document, Schema as MongooseSchema } from 'mongoose';
+import {
+  IsEmail,
+  IsEnum,
+  IsMongoId,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
+import {
+  Address,
+  Gender,
+  IInstrument,
+  IUser,
+} from '@InstrumentRental/shared/api';
 
-export type UserDocument = HydratedDocument<User>;
+export type UserDocument = User & Document;
 
-class Address {
+class AddressSchema implements Address {
   @Prop({ required: true })
   @IsString()
   streetName!: string;
@@ -28,7 +39,6 @@ class Address {
   country!: string;
 }
 
-
 @Schema()
 export class User implements IUser {
   @IsMongoId()
@@ -42,10 +52,6 @@ export class User implements IUser {
   @IsString()
   lastName!: string;
 
-  @Prop({ required: true, type: String, enum: Gender })
-  @IsEnum(Gender)
-  gender!: Gender;
-
   @Prop({ required: true, unique: true })
   @IsEmail()
   email!: string;
@@ -54,7 +60,7 @@ export class User implements IUser {
   @IsString()
   password!: string;
 
-  @Prop({ required: true })
+  @Prop()
   @IsString()
   phoneNumber!: string;
 
@@ -62,10 +68,17 @@ export class User implements IUser {
   @IsString()
   bio!: string;
 
-  @Prop({ required: true, type: Address })
+  @Prop({ type: String, enum: Gender })
+  @IsEnum(Gender)
+  gender!: Gender;
+
+  @Prop({ required: true, type: AddressSchema })
   @ValidateNested()
-  @Type(() => Address)
-  address!: Address;
+  @Type(() => AddressSchema)
+  address!: AddressSchema;
+
+  @Prop({ type: [MongooseSchema.Types.ObjectId], ref: 'Instrument' })
+  instruments!: IInstrument[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

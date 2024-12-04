@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@InstrumentRental/backend/dto": ["libs/backend/dto/src/index.ts"],
+      "@InstrumentRental/backend/auth": ["libs/backend/auth/src/index.ts"],
       "@InstrumentRental/backend/features": [
         "libs/backend/features/src/index.ts"
       ],

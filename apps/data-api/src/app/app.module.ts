@@ -8,12 +8,14 @@ import {
 } from '@InstrumentRental/backend/features';
 import { MongooseModule } from '@nestjs/mongoose';
 import { env } from '@InstrumentRental/shared/util-env';
+import { AuthModule } from '@InstrumentRental/backend/auth';
 
 @Module({
   imports: [
     InstrumentModule,
     ReviewModule,
     UserModule,
+    AuthModule,
     MongooseModule.forRoot(env.dbConnectionUrl, {
       connectionFactory: (connection) => {
         connection.on('connected', () => {
