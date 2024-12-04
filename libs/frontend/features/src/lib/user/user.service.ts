@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { IUser, ApiResponse, IUpdateUser } from '@InstrumentRental/shared/api';
+import { IUser, ApiResponse, IUpdateUser, IUserCredentials, IUserIdentity } from '@InstrumentRental/shared/api';
 import { env } from '@InstrumentRental/shared/util-env';
 import { httpOptions } from '../instrument/instrument.service';
 
@@ -11,6 +11,7 @@ import { httpOptions } from '../instrument/instrument.service';
 })
 export class UserService {
   endpoint = env.dataApiUrl + '/user';
+  authEndpoint = env.dataApiUrl + '/auth';
 
   constructor(private readonly http: HttpClient) {}
 
@@ -57,6 +58,14 @@ export class UserService {
         catchError(this.handleError)
       );
   }
+
+  login(credentials: IUserCredentials): Observable<IUserIdentity> {
+    return this.http.post<IUserIdentity>(`${this.authEndpoint}/login`, credentials).pipe(
+      tap((response: IUserIdentity) => console.log(`Logged in user: ${response.email}`)),
+      catchError(this.handleError)
+    );
+  }
+
 
   private handleError(error: HttpErrorResponse): Observable<any> {
     console.error('UserService handleError', error);

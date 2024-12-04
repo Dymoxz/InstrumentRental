@@ -2,8 +2,6 @@
  * User information required for loggin in
  */
 export interface IUserCredentials {
-    firstName: string;
-    lastName: string;
     email: string;
     password: string;
 }

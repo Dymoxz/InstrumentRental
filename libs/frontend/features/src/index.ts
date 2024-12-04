@@ -17,3 +17,4 @@ export * from './lib/review/review-create/review.create.component'
 
 /* user */
 export * from './lib/user/user-profile/user.profile.component'
+export * from  './lib/user/user-login/user.login.component'

@@ -8,6 +8,7 @@ import {
   MyInstrumentsPageComponent,
   InstrumentEditPageComponent, ReviewCreateComponent
 } from '@instrument-rental/features';
+import { UserLoginComponent } from '@instrument-rental/features';
 
 export const appRoutes: Route[] = [
   { path: 'home', component: HomeComponent },
@@ -21,4 +22,5 @@ export const appRoutes: Route[] = [
   { path: 'instrument/new', component: InstrumentEditPageComponent, pathMatch: 'full' },
   { path: 'instrument/:id/edit', component: InstrumentEditPageComponent },
   { path: 'instrument/:id', component: InstrumentDetailComponent, pathMatch: 'full' },
+  {path: 'login', component: UserLoginComponent }
 ];
