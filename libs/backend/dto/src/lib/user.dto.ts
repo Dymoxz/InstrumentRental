@@ -3,14 +3,39 @@ import {
   IsString,
   IsEmail,
   IsEnum,
-  IsOptional
+  IsOptional,
+  ValidateNested
 } from 'class-validator';
 import {
   ICreateUser,
   IUpdateUser,
   IUpsertUser,
-  Gender
+  Gender,
+  Address
 } from '@InstrumentRental/shared/api';
+import { Type } from 'class-transformer';
+
+class AddressDto implements Address {
+  @IsString()
+  @IsNotEmpty()
+  streetName!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  houseNumber!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  postalCode!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  city!: string;
+
+  @IsString()
+  @IsNotEmpty()
+  country!: string;
+}
 
 export class CreateUserDto implements ICreateUser {
   @IsString()
@@ -40,6 +65,11 @@ export class CreateUserDto implements ICreateUser {
   @IsString()
   @IsNotEmpty()
   bio!: string;
+
+  @ValidateNested()
+  @Type(() => AddressDto)
+  @IsNotEmpty()
+  address!: AddressDto;
 }
 
 export class UpdateUserDto implements IUpdateUser {
@@ -71,6 +101,10 @@ export class UpdateUserDto implements IUpdateUser {
   @IsString()
   bio?: string;
 
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => AddressDto)
+  address?: AddressDto;
 }
 
 export class UpsertUserDto implements IUpsertUser {
@@ -101,4 +135,9 @@ export class UpsertUserDto implements IUpsertUser {
   @IsString()
   @IsNotEmpty()
   bio!: string;
+
+  @ValidateNested()
+  @Type(() => AddressDto)
+  @IsNotEmpty()
+  address!: AddressDto;
 }
