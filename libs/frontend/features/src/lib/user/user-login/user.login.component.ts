@@ -23,6 +23,7 @@ export class UserLoginComponent {
         console.log('Login successful', response);
         console.log('token: ', response.token);
          localStorage.setItem('token', response.token!);
+         window.location.href = '/';
       },
       (error) => {
         console.error('Login failed', error);
