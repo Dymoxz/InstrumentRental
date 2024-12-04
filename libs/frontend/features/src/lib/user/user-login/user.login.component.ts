@@ -21,7 +21,8 @@ export class UserLoginComponent {
     this.userService.login(credentials).subscribe(
       (response) => {
         console.log('Login successful', response);
-        // Handle successful login, e.g., store token, redirect, etc.
+        console.log('token: ', response.token);
+         localStorage.setItem('token', response.token!);
       },
       (error) => {
         console.error('Login failed', error);

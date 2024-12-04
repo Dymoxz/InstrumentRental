@@ -22,33 +22,32 @@ export class UserRegisterComponent {
   }
 
   onSubmit(): void {
+  const address: Address = {
+    streetName: this.streetName,
+    houseNumber: this.houseNumber,
+    postalCode: this.postalCode,
+    city: this.city,
+    country: this.country
+  };
 
-    const address: Address = {
-      streetName: this.streetName,
-      houseNumber: this.houseNumber,
-      postalCode: this.postalCode,
-      city: this.city,
-      country: this.country
-    };
+  const credentials: Omit<IUserInfo, '_id'> = {
+    address: address,
+    bio: '',
+    gender: this.gender,
+    phoneNumber: '',
+    firstName: this.firstName,
+    lastName: this.lastName,
+    email: this.email,
+    password: this.password,
+  };
 
-
-    const credentials: IUserInfo = {
-      _id: '', address: address, bio: '', gender: this.gender, phoneNumber: '',
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email,
-      password: this.password
-    };
-
-    this.userService.login(credentials).subscribe(
-      (response) => {
-        console.log('Login successful', response);
-        // Handle successful login, e.g., store token, redirect, etc.
-      },
-      (error) => {
-        console.error('Login failed', error);
-        // Handle login error
-      }
-    );
-  }
+  this.userService.register(credentials).subscribe(
+    (response) => {
+      console.log('Register successful', response);
+    },
+    (error) => {
+      console.error('Register failed', error);
+    }
+  );
+}
 }

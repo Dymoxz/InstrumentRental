@@ -21,7 +21,7 @@ export interface IUserIdentity {
   firstName: string;
   lastName: string;
   email: string;
-  token?: string;
+  token: string;
 }
 
 export interface IUserInfo extends IUserRegistration {

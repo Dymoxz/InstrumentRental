@@ -2,7 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { IUser, ApiResponse, IUpdateUser, IUserCredentials, IUserIdentity } from '@InstrumentRental/shared/api';
+import {
+  ApiResponse,
+  IUpdateUser,
+  IUser,
+  IUserCredentials,
+  IUserIdentity,
+  IUserInfo,
+} from '@InstrumentRental/shared/api';
 import { env } from '@InstrumentRental/shared/util-env';
 import { httpOptions } from '../instrument/instrument.service';
 
@@ -44,10 +51,12 @@ export class UserService {
   }
 
   update(id: string, data: IUpdateUser, options?: any): Observable<IUser> {
-    return this.http.put<IUser>(`${this.endpoint}/${id}`, data, { ...options }).pipe(
-      tap((response: any) => console.log(`Updated user: ${response}`)),
-      catchError(this.handleError)
-    );
+    return this.http
+      .put<IUser>(`${this.endpoint}/${id}`, data, { ...options })
+      .pipe(
+        tap((response: any) => console.log(`Updated user: ${response}`)),
+        catchError(this.handleError)
+      );
   }
 
   delete(id: string, options?: any): Observable<void> {
@@ -60,12 +69,33 @@ export class UserService {
   }
 
   login(credentials: IUserCredentials): Observable<IUserIdentity> {
-    return this.http.post<IUserIdentity>(`${this.authEndpoint}/login`, credentials).pipe(
-      tap((response: IUserIdentity) => console.log(`Logged in user: ${response.email}`)),
-      catchError(this.handleError)
-    );
+    return this.http
+      .post<ApiResponse<IUserIdentity>>(
+        `${this.authEndpoint}/login`,
+        credentials
+      )
+      .pipe(
+        map(
+          (response: ApiResponse<IUserIdentity>) =>
+            response.results as IUserIdentity
+        ),
+        tap((user: IUserIdentity) =>
+          console.log(`Logged in user: ${user.email}`)
+        ),
+        catchError(this.handleError)
+      );
   }
 
+  register(credentials: IUserCredentials): Observable<IUserInfo> {
+    return this.http
+      .post<IUserInfo>(`${this.authEndpoint}/register`, credentials)
+      .pipe(
+        tap((response: IUserInfo) =>
+          console.log(`Registered user: ${response.email}`)
+        ),
+        catchError(this.handleError)
+      );
+  }
 
   private handleError(error: HttpErrorResponse): Observable<any> {
     console.error('UserService handleError', error);
