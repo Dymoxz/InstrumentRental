@@ -45,7 +45,7 @@ export class AuthService {
             .then((user) => {
                 if (user && user.password === credentials.password) {
                     const payload = {
-                        user_id: user._id
+                        email: user.email
                     };
                     return {
                         _id: user._id,

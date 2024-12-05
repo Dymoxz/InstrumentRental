@@ -4,16 +4,24 @@
       <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
     </a>
     <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-      <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-        <span class="sr-only">Open user menu</span>
-        <img class="w-8 h-8 rounded-full" src="https://flowbite.com/application-ui/demo/images/users/jese-leos-2x.png" alt="user photo">
-      </button>
+
+
+      <ng-container *ngIf="isLoggedIn; else guestLinks">
+        <button type="button" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+          <span class="sr-only">Open user menu</span>
+          <img class="w-8 h-8 rounded-full" src="https://flowbite.com/application-ui/demo/images/users/jese-leos-2x.png" alt="user photo">
+        </button>
+      </ng-container>
+      <ng-template #guestLinks>
+        <button (click)="navigateToLogin()" class="text-sm bg-primary-700 text-white rounded-full px-4 py-2 mr-2">Login</button>
+        <button (click)="navigateToRegister()" class="text-sm bg-primary-700 text-white rounded-full px-4 py-2">Register</button>
+      </ng-template>
 
       <!-- Dropdown menu -->
       <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow" id="user-dropdown">
         <div class="px-4 py-3">
-          <span class="block text-sm text-gray-900">FirstName LastName</span>
-          <span class="block text-sm text-gray-500 truncate">name&#64;mail.com</span>
+          <span class="block text-sm text-gray-900">{{user?.firstName}} {{user?.lastName}}</span>
+          <span class="block text-sm text-gray-500 truncate">{{ user?.email }}</span>
         </div>
         <ul class="py-2" aria-labelledby="user-menu-button">
           <li>

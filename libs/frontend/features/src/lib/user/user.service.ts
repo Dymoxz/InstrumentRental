@@ -12,6 +12,7 @@ import {
 } from '@InstrumentRental/shared/api';
 import { env } from '@InstrumentRental/shared/util-env';
 import { httpOptions } from '../instrument/instrument.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -96,6 +97,24 @@ export class UserService {
         catchError(this.handleError)
       );
   }
+
+  public getUserData(): Observable<IUserIdentity> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No auth token found');
+    }
+    const decodedToken: any = jwtDecode(token);
+    console.log(decodedToken)
+    const email = decodedToken.email;
+    const userEndpoint = `${this.endpoint}/${email}`;
+    return this.http.get<{ results: IUserIdentity }>(userEndpoint).pipe(
+      map((response) => {
+        return response.results;
+      })
+    );
+  }
+
+
 
   private handleError(error: HttpErrorResponse): Observable<any> {
     console.error('UserService handleError', error);
