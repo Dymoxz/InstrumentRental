@@ -19,15 +19,15 @@ export class UserService {
     return users;
   }
 
-async getOne(email: string): Promise<IUser | null> {
-  this.logger.log(`Finding user with email ${email}`);
-  const user = await this.userModel.findOne({ email }).exec();
-  if (!user) {
-    this.logger.debug('User not found');
-    return null;
+  async getOne(email: string): Promise<IUser | null> {
+    this.logger.log(`Finding user with email ${email}`);
+    const user = await this.userModel.findOne({ email }).exec();
+    if (!user) {
+      this.logger.debug('User not found');
+      return null;
+    }
+    return user;
   }
-  return user;
-}
 
   async create(createUserDto: ICreateUser): Promise<IUser> {
     this.logger.log('Creating a new user');

@@ -1,28 +1,37 @@
 import { Id } from './id.type';
+import { IUserRegistration } from './auth.interface';
+import { IInstrument } from './instrument.interface';
 
 export enum Gender {
   male = 'Male',
   female = 'Female',
   other = 'Other'
 }
+export interface Address {
+  streetName: string;
+  houseNumber: string;
+  postalCode: string;
+  city: string;
+  country: string;
+}
 
-export interface IUser {
+
+export interface IUserIdentity {
   _id: Id;
   firstName: string;
   lastName: string;
-  gender: Gender;
   email: string;
-  password: string;
-  phoneNumber: string;
-  bio: string;
+  token: string;
 }
 
-export type ICreateUser = Pick<
-  IUser,
-  'firstName' | 'lastName' | 'email' | 'password' | 'phoneNumber' | 'gender' | 'bio'
->;
-export type IUpdateUser = Partial<Omit<IUser, '_id'>>;
-export type IUpsertUser = Pick<
-  IUser,
-  'firstName' | 'lastName' | 'email' | 'password' | 'phoneNumber' | 'gender' | 'bio'
->;
+export interface IUser extends IUserRegistration {
+  _id: Id;
+  gender: Gender;
+  phoneNumber: string;
+  bio: string;
+  address: Address;
+}
+
+export type ICreateUser = Pick<IUser,  'password' | 'email'>;
+export type IUpdateUser = Partial<Omit<IUser, 'id'>>;
+export type IUpsertUser = IUser;

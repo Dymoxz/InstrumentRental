@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { IUser } from '@InstrumentRental/shared/api';
+import { IUser, IUserIdentity } from '@InstrumentRental/shared/api';
 
 @Component({
   selector: 'lib-profile',
@@ -12,10 +12,8 @@ export class UserProfileComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.list().subscribe((users: IUser[] | null) => {
-      if (users && users.length > 0) {
-        this.user = users[0]; // Use the first user for now
-      }
+    this.userService.getUserData().subscribe((user: IUser | null) => {
+      this.user = user;
     });
   }
 }

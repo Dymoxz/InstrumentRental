@@ -16,6 +16,8 @@ import { ReviewCreateComponent } from './review/review-create/review.create.comp
 import { ReviewService } from './review/review.service';
 import { ReviewListComponent } from './review/review-list/review.list.component';
 import { UserService } from './user/user.service';
+import { UserLoginComponent } from './user/user-login/user.login.component';
+import { UserRegisterComponent } from './user/user-register/user.register.component';
 
 @NgModule({
   imports: [
@@ -38,6 +40,8 @@ import { UserService } from './user/user.service';
     ReviewListComponent,
 
     UserProfileComponent,
+    UserLoginComponent,
+    UserRegisterComponent
   ],
   providers: [InstrumentService, ReviewService, UserService],
   exports: [],
