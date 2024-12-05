@@ -33,7 +33,7 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "libs/shared/util-env/src/lib/env.development.ts",
+              "replace": "libs/shared/util-env/src/lib/env.ts",
               "with": "libs/shared/util-env/src/lib/env.production.ts"
             }
           ],
