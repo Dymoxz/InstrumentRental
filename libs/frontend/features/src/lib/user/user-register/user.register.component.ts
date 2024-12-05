@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../user.service';
-import { Address, Gender, IUserInfo, IUserCredentials } from '@InstrumentRental/shared/api';
+import { Address, Gender, IUser, IUserCredentials } from '@InstrumentRental/shared/api';
 
 @Component({
   selector: 'lib-register',
@@ -31,7 +31,7 @@ export class UserRegisterComponent {
       country: this.country
     };
 
-    const credentials: Omit<IUserInfo, '_id'> = {
+    const credentials: Omit<IUser, '_id'> = {
       address: address,
       bio: this.bio,
       gender: this.gender,

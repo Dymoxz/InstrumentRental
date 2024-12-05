@@ -8,7 +8,6 @@ import {
   IUser,
   IUserCredentials,
   IUserIdentity,
-  IUserInfo,
 } from '@InstrumentRental/shared/api';
 import { env } from '@InstrumentRental/shared/util-env';
 import { httpOptions } from '../instrument/instrument.service';
@@ -87,11 +86,11 @@ export class UserService {
       );
   }
 
-  register(credentials: IUserCredentials): Observable<IUserInfo> {
+  register(credentials: IUserCredentials): Observable<IUser> {
     return this.http
-      .post<IUserInfo>(`${this.authEndpoint}/register`, credentials)
+      .post<IUser>(`${this.authEndpoint}/register`, credentials)
       .pipe(
-        tap((response: IUserInfo) =>
+        tap((response: IUser) =>
           console.log(`Registered user: ${response.email}`)
         ),
         catchError(this.handleError)

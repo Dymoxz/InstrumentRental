@@ -12,7 +12,7 @@ import {
   Gender,
   IUserCredentials,
   IUserIdentity,
-  IUserInfo,
+  IUser,
 } from '@InstrumentRental/shared/api';
 import { CreateUserDto } from '@InstrumentRental/backend/dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -71,7 +71,7 @@ export class AuthService {
       });
   }
 
-  async register(user: CreateUserDto): Promise<Omit<IUserInfo, 'password'>> {
+  async register(user: CreateUserDto): Promise<Omit<IUser, 'password'>> {
     this.logger.log(`Register user ${user.email}`);
 
     if (await this.userModel.findOne({ email: user.email })) {

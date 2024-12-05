@@ -24,16 +24,12 @@ export interface IUserIdentity {
   token: string;
 }
 
-export interface IUserInfo extends IUserRegistration {
+export interface IUser extends IUserRegistration {
   _id: Id;
   gender: Gender;
   phoneNumber: string;
   bio: string;
   address: Address;
-}
-
-export interface IUser extends IUserInfo {
-  instruments: IInstrument[]
 }
 
 export type ICreateUser = Pick<IUser,  'password' | 'email'>;

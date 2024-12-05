@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { InstrumentService } from '../instrument.service';
 import { IInstrument, InstrumentType } from '@InstrumentRental/shared/api';
 import { Subscription } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'lib-instrument-edit-page',
@@ -33,6 +34,12 @@ export class InstrumentEditPageComponent implements OnInit, OnDestroy {
   }
 
   private CreateEmptyInstrument(): IInstrument {
+    const token = localStorage.getItem('token');
+    let email = '';
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      email = decodedToken.email;
+    }
     return {
       _id: '',
       name: '',
@@ -42,7 +49,7 @@ export class InstrumentEditPageComponent implements OnInit, OnDestroy {
       description: '',
       pricePerDay: 0,
       available: true,
-      ownerEmail: 'jane.smith@example.com'
+      ownerEmail: email
     };
   }
 
@@ -55,18 +62,18 @@ export class InstrumentEditPageComponent implements OnInit, OnDestroy {
   }
 
   saveInstrument(): void {
-  if (this.instrument) {
-    if (this.instrument._id) {
-      // Update existing instrument
-      this.instrumentService.update(this.instrument._id, this.instrument).subscribe(() => {
-        this.router.navigate(['/my-instruments']);
-      });
-    } else {
-      // Create new instrument
-      this.instrumentService.create(this.instrument).subscribe(() => {
-        this.router.navigate(['/my-instruments']);
-      });
+    if (this.instrument) {
+      if (this.instrument._id) {
+        // Update existing instrument
+        this.instrumentService.update(this.instrument._id, this.instrument).subscribe(() => {
+          this.router.navigate(['/my-instruments']);
+        });
+      } else {
+        // Create new instrument
+        this.instrumentService.create(this.instrument).subscribe(() => {
+          this.router.navigate(['/my-instruments']);
+        });
+      }
     }
   }
-}
 }
