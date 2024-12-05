@@ -20,3 +20,6 @@ export * from './lib/user/user-profile/user.profile.component'
 export * from  './lib/user/user-login/user.login.component'
 export * from './lib/user/user-register/user.register.component'
 export * from './lib/user/user.service'
+
+
+export * from './lib/instrument/search.service'
