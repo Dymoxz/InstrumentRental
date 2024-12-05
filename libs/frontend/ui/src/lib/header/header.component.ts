@@ -12,11 +12,11 @@ import { UserService } from '@instrument-rental/features';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
-  user: IUserIdentity | null | undefined
+  user: IUser | null | undefined
   constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.getUserData().subscribe((user) => {
+      this.userService.getUserData().subscribe((user) => {
       this.user = user;
       console.log(user)
     })

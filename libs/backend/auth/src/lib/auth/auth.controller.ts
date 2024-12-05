@@ -8,8 +8,8 @@ import {
 import { AuthService } from './auth.service';
 import { Public } from '../decorators/decorators';
 import {
-    IUserCredentials,
-    IUserIdentity,
+  IUserCredentials,
+  IUserIdentity, IUserInfo
 } from '@InstrumentRental/shared/api';
 import { CreateUserDto } from '@InstrumentRental/backend/dto';
 import { UserExistGuard } from '@InstrumentRental/backend/features';
@@ -30,7 +30,7 @@ export class AuthController {
     @Public()
     @UseGuards(UserExistGuard)
     @Post('register')
-    async register(@Body() user: CreateUserDto): Promise<IUserIdentity> {
+    async register(@Body() user: CreateUserDto): Promise<Omit<IUserInfo, "password">> {
         this.logger.log('Register');
         return await this.authService.register(user);
     }

@@ -98,7 +98,7 @@ export class UserService {
       );
   }
 
-  public getUserData(): Observable<IUserIdentity> {
+  public getUserData(): Observable<IUser> {
     const token = localStorage.getItem('token');
     if (!token) {
       throw new Error('No auth token found');
@@ -107,7 +107,7 @@ export class UserService {
     console.log(decodedToken)
     const email = decodedToken.email;
     const userEndpoint = `${this.endpoint}/${email}`;
-    return this.http.get<{ results: IUserIdentity }>(userEndpoint).pipe(
+    return this.http.get<{ results: IUser }>(userEndpoint).pipe(
       map((response) => {
         return response.results;
       })
