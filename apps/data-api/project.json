@@ -15,7 +15,7 @@
       },
       "configurations": {
         "development": {
-          "buildTarget": "data-api:build:development",
+          "buildTarget": "data-api:build:development"
         },
         "production": {
           "buildTarget": "data-api:build:production",
