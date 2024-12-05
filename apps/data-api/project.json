@@ -16,12 +16,6 @@
       "configurations": {
         "development": {
           "buildTarget": "data-api:build:development",
-          "fileReplacements": [
-            {
-              "replace": "libs/shared/util-env/src/lib/env.ts",
-              "with": "libs/shared/util-env/src/lib/env.development.ts"
-            }
-          ]
         },
         "production": {
           "buildTarget": "data-api:build:production",
