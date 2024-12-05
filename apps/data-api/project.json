@@ -15,13 +15,53 @@
       },
       "configurations": {
         "development": {
-          "buildTarget": "data-api:build:development"
+          "buildTarget": "data-api:build:development",
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/util-env/src/lib/env.ts",
+              "with": "libs/shared/util-env/src/lib/env.development.ts"
+            }
+          ]
         },
         "production": {
           "buildTarget": "data-api:build:production",
           "fileReplacements": [
             {
-              "replace": "libs/shared/util-env/src/lib/env.development.ts",
+              "replace": "libs/shared/util-env/src/lib/env.ts",
+              "with": "libs/shared/util-env/src/lib/env.production.ts"
+            }
+          ]
+        }
+      }
+    },
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/data-api",
+        "main": "apps/data-api/src/main.ts",
+        "tsConfig": "apps/data-api/tsconfig.app.json",
+        "assets": ["apps/data-api/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/data-api/webpack.config.js",
+        "generatePackageJson": true
+      },
+      "configurations": {
+        "development": {
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/util-env/src/lib/env.ts",
+              "with": "libs/shared/util-env/src/lib/env.development.ts"
+            }
+          ]
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "libs/shared/util-env/src/lib/env.ts",
               "with": "libs/shared/util-env/src/lib/env.production.ts"
             }
           ]
