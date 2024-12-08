@@ -21,5 +21,8 @@ export * from  './lib/user/user-login/user.login.component'
 export * from './lib/user/user-register/user.register.component'
 export * from './lib/user/user.service'
 
+/* rental */
+export * from './lib/rental/rental-create/rental.create.component'
+
 
 export * from './lib/instrument/search.service'

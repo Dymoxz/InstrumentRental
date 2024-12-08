@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IInstrument, IUser } from '@InstrumentRental/shared/api';
 import { Subscription } from 'rxjs';
 import { InstrumentService } from '../instrument.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'lib-instrument-detail',
@@ -16,8 +16,19 @@ export class InstrumentDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private instrumentService: InstrumentService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
+
+  openRentModal(): void {
+    // Navigate to the auxiliary modal route
+    this.router.navigate([{ outlets: { modal: ['rent'] } }], { relativeTo: this.route });
+  }
+
+  closeModal(): void {
+    // Navigate back to close the modal
+    this.router.navigate([{ outlets: { modal: null } }], { relativeTo: this.route });
+  }
 
   ngOnInit(): void {
     const instrumentId = this.route.snapshot.paramMap.get('id');

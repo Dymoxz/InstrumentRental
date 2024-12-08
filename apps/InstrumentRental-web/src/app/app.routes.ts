@@ -10,7 +10,9 @@ import {
   UserLoginComponent,
   UserProfileComponent,
   UserRegisterComponent,
+  RentalCreateComponent
 } from '@instrument-rental/features';
+
 
 export const appRoutes: Route[] = [
   { path: 'home', component: HomeComponent },
@@ -30,8 +32,15 @@ export const appRoutes: Route[] = [
   {
     path: 'instrument/:id',
     component: InstrumentDetailComponent,
-    pathMatch: 'full',
+    children: [
+      {
+        path: 'rent',
+        component: RentalCreateComponent,
+        outlet: 'modal'
+      }
+    ]
   },
+
   { path: 'login', component: UserLoginComponent },
   { path: 'register', component: UserRegisterComponent },
 ];

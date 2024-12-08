@@ -6,7 +6,7 @@ import { InstrumentPageComponent } from './instrument/instrument-page/instrument
 import { InstrumentFiltersComponent } from './instrument/instrument-filters/instrument.filters.component';
 import { InstrumentListComponent } from './instrument/instrument-list/instrument.list.component';
 import { InstrumentDetailComponent } from './instrument/instrument-detail/instrument.detail.component';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { UserProfileComponent } from './user/user-profile/user.profile.component';
 import { MyInstrumentsPageComponent } from './instrument/my-instruments-page/my-instruments.page.component';
 import { FrontendCommonModule } from '@instrument-rental/common';
@@ -18,6 +18,7 @@ import { ReviewListComponent } from './review/review-list/review.list.component'
 import { UserService } from './user/user.service';
 import { UserLoginComponent } from './user/user-login/user.login.component';
 import { UserRegisterComponent } from './user/user-register/user.register.component';
+import { RentalCreateComponent } from './rental/rental-create/rental.create.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { UserRegisterComponent } from './user/user-register/user.register.compon
     RouterLink,
     FrontendCommonModule,
     FormsModule,
+    RouterOutlet,
   ],
   declarations: [
     InstrumentPageComponent,
@@ -41,7 +43,9 @@ import { UserRegisterComponent } from './user/user-register/user.register.compon
 
     UserProfileComponent,
     UserLoginComponent,
-    UserRegisterComponent
+    UserRegisterComponent,
+
+    RentalCreateComponent,
   ],
   providers: [InstrumentService, ReviewService, UserService],
   exports: [],
