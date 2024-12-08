@@ -5,6 +5,7 @@ import {
   InstrumentModule,
   ReviewModule,
   UserModule,
+  RentalModule
 } from '@InstrumentRental/backend/features';
 import { MongooseModule } from '@nestjs/mongoose';
 import { env } from '@InstrumentRental/shared/util-env';
@@ -16,6 +17,7 @@ import { AuthModule } from '@InstrumentRental/backend/auth';
     ReviewModule,
     UserModule,
     AuthModule,
+    RentalModule,
     MongooseModule.forRoot(env.dbConnectionUrl, {
       connectionFactory: (connection) => {
         connection.on('connected', () => {
