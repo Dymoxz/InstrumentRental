@@ -36,9 +36,6 @@ export class Rental implements IRental {
   @IsMongoId()
   instrumentId!: string;
 
-  @Prop({ required: false , type: Object })
-  instrumentSnapshot!: IInstrument;
-
   @Prop({ required: true })
   @IsString()
   instrumentOwnerEmail!: string;

@@ -17,17 +17,16 @@ export interface IRental {
   status: RentalStatus;
 
   instrumentId: Id;
-  instrumentSnapshot: IInstrument;
   instrumentOwnerEmail: string;
   renterEmail: string;
 }
 
 export type ICreateRental = Pick<
   IRental,
-  'startDate' | 'endDate' | 'totalPrice' | 'reason' | 'status' | 'instrumentId' | 'instrumentSnapshot' | 'instrumentOwnerEmail' | 'renterEmail'
+  'startDate' | 'endDate' | 'totalPrice' | 'reason' | 'status' | 'instrumentId' | 'instrumentOwnerEmail' | 'renterEmail'
 >;
 export type IUpdateRental = Partial<Omit<IRental, '_id'>>;
 export type IUpsertRental = Pick<
   IRental,
-  'startDate' | 'endDate' | 'totalPrice' | 'reason' | 'status' | 'instrumentId' | 'instrumentSnapshot' | 'instrumentOwnerEmail' | 'renterEmail'
+  'startDate' | 'endDate' | 'totalPrice' | 'reason' | 'status' | 'instrumentId' | 'instrumentOwnerEmail' | 'renterEmail'
 >;
