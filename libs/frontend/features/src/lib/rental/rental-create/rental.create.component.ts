@@ -1,8 +1,12 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RentalService } from '../rental.service';
 import { InstrumentService } from '../../instrument/instrument.service';
-import { IRental, ICreateRental, RentalStatus } from '@InstrumentRental/shared/api';
+import {
+  ICreateRental,
+  IRental,
+  RentalStatus,
+} from '@InstrumentRental/shared/api';
 import { jwtDecode } from 'jwt-decode';
 
 declare let Datepicker: any;
@@ -35,8 +39,12 @@ export class RentalCreateComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const startDateInput = document.getElementById('datepicker-range-start') as HTMLInputElement;
-    const endDateInput = document.getElementById('datepicker-range-end') as HTMLInputElement;
+    const startDateInput = document.getElementById(
+      'datepicker-range-start'
+    ) as HTMLInputElement;
+    const endDateInput = document.getElementById(
+      'datepicker-range-end'
+    ) as HTMLInputElement;
 
     // Initialize Datepicker for start and end date
     if (startDateInput && endDateInput) {
@@ -61,7 +69,6 @@ export class RentalCreateComponent implements OnInit, AfterViewInit {
       });
     }
   }
-
 
   logDate(type: string, date: string): void {
     console.log(`${type} date selected:`, date);
@@ -94,10 +101,17 @@ export class RentalCreateComponent implements OnInit, AfterViewInit {
           renterEmail = decodedToken.email;
         }
 
+        /* calculate totalprice accoring to diffrence between dates * instrument day price*/
+        const startDate = new Date(this.startDate);
+        const endDate = new Date(this.endDate);
+        const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+        const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        const totalPrice = diffDays * instrument.pricePerDay;
+
         const rentalData: ICreateRental = {
           startDate: new Date(this.startDate),
           endDate: new Date(this.endDate),
-          totalPrice: 0, // Calculate total price based on your logic
+          totalPrice: totalPrice, // Calculate total price based on your logic
           reason: this.reason,
           status: RentalStatus.pendingApproval,
           instrumentId: instrument._id,
