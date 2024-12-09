@@ -1,7 +1,8 @@
+// libs/frontend/ui/src/lib/header/header.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { IUser, IUserIdentity } from '@InstrumentRental/shared/api';
+import { IUser } from '@InstrumentRental/shared/api';
 import { UserService } from '@instrument-rental/features';
 
 @Component({
@@ -12,14 +13,15 @@ import { UserService } from '@instrument-rental/features';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
-  user: IUser | null | undefined
+  user: IUser | null | undefined;
+
   constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit(): void {
-      this.userService.getUserData().subscribe((user) => {
+    this.userService.getUserData().subscribe((user) => {
       this.user = user;
-      console.log(user)
-    })
+      console.log(user);
+    });
     this.isLoggedIn = !!localStorage.getItem('token');
   }
 
@@ -29,5 +31,9 @@ export class HeaderComponent implements OnInit {
 
   navigateToRegister(): void {
     this.router.navigate(['/register']);
+  }
+
+  openInboxModal(): void {
+    this.router.navigate([{ outlets: { inboxModal: ['rental-pending-list'] } }]);
   }
 }

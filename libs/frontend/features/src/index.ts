@@ -23,6 +23,6 @@ export * from './lib/user/user.service'
 
 /* rental */
 export * from './lib/rental/rental-create/rental.create.component'
-
+export  * from './lib/rental/rental-pending-list/rental-pending.list.component'
 
 export * from './lib/instrument/search.service'

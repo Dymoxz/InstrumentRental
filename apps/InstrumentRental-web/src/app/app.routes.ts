@@ -10,7 +10,7 @@ import {
   UserLoginComponent,
   UserProfileComponent,
   UserRegisterComponent,
-  RentalCreateComponent
+  RentalCreateComponent, RentalPendingListComponent
 } from '@instrument-rental/features';
 
 
@@ -39,6 +39,11 @@ export const appRoutes: Route[] = [
         outlet: 'modal'
       }
     ]
+  },
+  {
+    path: 'rental-pending-list',
+    component: RentalPendingListComponent,
+    outlet: 'inboxModal'
   },
 
   { path: 'login', component: UserLoginComponent },

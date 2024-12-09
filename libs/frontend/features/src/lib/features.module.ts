@@ -19,6 +19,7 @@ import { UserService } from './user/user.service';
 import { UserLoginComponent } from './user/user-login/user.login.component';
 import { UserRegisterComponent } from './user/user-register/user.register.component';
 import { RentalCreateComponent } from './rental/rental-create/rental.create.component';
+import { RentalPendingListComponent } from './rental/rental-pending-list/rental-pending.list.component';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { RentalCreateComponent } from './rental/rental-create/rental.create.comp
     UserRegisterComponent,
 
     RentalCreateComponent,
+    RentalPendingListComponent,
   ],
   providers: [InstrumentService, ReviewService, UserService],
   exports: [],
