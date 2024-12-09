@@ -18,14 +18,14 @@
       <ul>
         <div *ngFor="let rental of pendingRentals" class="bg-gray-50 rounded-lg p-4 mb-4">
           <!--<div class="flex items-center mb-2 space-x-3">
-            <img class="w-4 h-4 rounded-full"
-                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png"
-                 alt="profile picture">
-            <div class="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-500 ">
-              <cite class="pe-3 font-medium text-sm text-gray-900 ">{{rental.user?.firstName || 'N/A'}} {{rental.user?.lastName || ''}}</cite>
-              <cite class="ps-3 text-sm text-gray-500 ">{{rental.user?.address?.city || 'Unknown City'}}</cite>
-            </div>
-          </div>-->
+  <img class="w-4 h-4 rounded-full"
+       src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png"
+       alt="profile picture">
+  <div class="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-500 ">
+    <cite class="pe-3 font-medium text-sm text-gray-900 ">{{rental.user?.firstName || 'N/A'}} {{rental.user?.lastName || ''}}</cite>
+    <cite class="ps-3 text-sm text-gray-500 ">{{rental.user?.address?.city || 'Unknown City'}}</cite>
+  </div>
+</div>-->
           <!--rental details-->
           <div class="flex mb-2">
             <div>
@@ -51,8 +51,10 @@
             </div>
 
             <div class="flex justify-start space-x-4 ml-auto mt-4 items-center">
-              <button class="bg-primary-500 text-white px-4 py-2 rounded h-10" (click)="acceptRental(rental)">Approve</button>
-              <button class="bg-secondary-500 text-white px-4 py-2 rounded h-10">Reject</button>
+              <button class="bg-primary-500 text-white px-4 py-2 rounded h-10" (click)="acceptRental(rental)">Approve
+              </button>
+              <button class="bg-secondary-500 text-white px-4 py-2 rounded h-10" (click)="rejectRental(rental)">Reject
+              </button>
             </div>
           </div>
         </div>

@@ -4,7 +4,8 @@ import { IInstrument } from './instrument.interface';
 export enum RentalStatus {
   pendingApproval = 'Pending Approval',
   inProgress = 'In Progress',
-  completed = 'Completed'
+  completed = 'Completed',
+  rejected = 'Rejected'
 
 }
 

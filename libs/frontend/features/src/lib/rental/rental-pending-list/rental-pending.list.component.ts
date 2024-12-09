@@ -41,7 +41,7 @@ export class RentalPendingListComponent implements OnInit {
 
     this.rentalService.getAll().subscribe((rentals) => {
       const filteredRentals = rentals.filter(
-        rental => rental.instrumentOwnerEmail === userEmail
+        rental => rental.instrumentOwnerEmail === userEmail && rental.status === RentalStatus.pendingApproval
       );
 
       const rentalObservables = filteredRentals.map((rental) =>
@@ -68,7 +68,20 @@ export class RentalPendingListComponent implements OnInit {
         if (rental.instrument) {
           rental.instrument.available = false;
         }
+        this.removeRentalFromList(rental._id);
       });
     });
+  }
+
+  rejectRental(rental: IRental & { instrument?: IInstrument }): void {
+    const updatedRental: IUpdateRental = { status: RentalStatus.rejected };
+    this.rentalService.update(rental._id, updatedRental).subscribe(() => {
+      rental.status = RentalStatus.rejected;
+      this.removeRentalFromList(rental._id);
+    });
+  }
+
+  private removeRentalFromList(rentalId: string): void {
+    this.pendingRentals = this.pendingRentals.filter(rental => rental._id !== rentalId);
   }
 }
