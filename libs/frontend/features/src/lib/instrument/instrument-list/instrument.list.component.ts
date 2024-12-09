@@ -14,6 +14,7 @@ export class InstrumentListComponent implements OnInit, OnDestroy {
   filteredInstruments: IInstrument[] | null = null;
   subscription: Subscription | undefined = undefined;
   searchSubscription: Subscription | undefined; // Subscription for searchTerm$
+  isLoading = true; // Add isLoading property
 
   constructor(private instrumentService: InstrumentService, private searchService: SearchService) { }
 
@@ -26,6 +27,7 @@ export class InstrumentListComponent implements OnInit, OnDestroy {
     }
 
     this.subscription = this.instrumentService.list().subscribe((results: IInstrument[] | null) => {
+      this.isLoading = false; // Set isLoading to false after data is fetched
       this.instruments = results;
       this.filterInstruments(); // Initial filter
     });
@@ -52,7 +54,6 @@ export class InstrumentListComponent implements OnInit, OnDestroy {
       }) || null;
     });
   }
-
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
