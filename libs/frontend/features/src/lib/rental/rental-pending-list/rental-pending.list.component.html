@@ -17,28 +17,36 @@
       </h1>
       <ul>
         <div *ngFor="let rental of pendingRentals" class="bg-gray-50 rounded-lg p-4 mb-4">
-
+          <!--<div class="flex items-center mb-2 space-x-3">
+            <img class="w-4 h-4 rounded-full"
+                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png"
+                 alt="profile picture">
+            <div class="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-500 ">
+              <cite class="pe-3 font-medium text-sm text-gray-900 ">{{rental.user?.firstName || 'N/A'}} {{rental.user?.lastName || ''}}</cite>
+              <cite class="ps-3 text-sm text-gray-500 ">{{rental.user?.address?.city || 'Unknown City'}}</cite>
+            </div>
+          </div>-->
           <!--rental details-->
           <div class="flex mb-2">
             <div>
               <div class="flex items-center">
-                <h1 class="mb-1 text-lg font-semibold mr-3">{{rental.instrument?.name}}</h1>
+                <h1 class="mb-1 text-lg font-semibold mr-3">{{ rental.instrument?.name }}</h1>
                 <svg class="w-4 h-4 text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                      height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Z" />
                 </svg>
-                <p class="text-sm text-gray-600 mx-2">{{formatDate(rental.startDate)}}</p>
+                <p class="text-sm text-gray-600 mx-2">{{ formatDate(rental.startDate) }}</p>
                 <svg class="w-3 h-3 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M19 12H5m14 0-4 4m4-4-4-4" />
                 </svg>
-                <p class="text-sm text-gray-600 mx-2">{{formatDate(rental.endDate)}}</p>
+                <p class="text-sm text-gray-600 mx-2">{{ formatDate(rental.endDate) }}</p>
               </div>
 
               <p class="text-sm text-gray-600 max-w-md">
-                {{rental.reason}}
+                {{ rental.reason }}
               </p>
             </div>
 

@@ -37,10 +37,10 @@ export class UserService {
       );
   }
 
-  getOne(id: string, options?: any): Observable<IUser> {
+  getOne(email: string): Observable<IUser> {
     return this.http
-      .get<IUser>(`${this.endpoint}/${id}`, { ...options })
-      .pipe(tap(console.log), catchError(this.handleError));
+      .get<IUser>(`${this.endpoint}/${email}`)
+      .pipe(catchError(this.handleError));
   }
 
   create(data: IUser | null, options?: any): Observable<IUser> {
@@ -103,7 +103,7 @@ export class UserService {
       throw new Error('No auth token found');
     }
     const decodedToken: any = jwtDecode(token);
-    console.log(decodedToken)
+    console.log(decodedToken);
     const email = decodedToken.email;
     const userEndpoint = `${this.endpoint}/${email}`;
     return this.http.get<{ results: IUser }>(userEndpoint).pipe(
@@ -112,8 +112,6 @@ export class UserService {
       })
     );
   }
-
-
 
   private handleError(error: HttpErrorResponse): Observable<any> {
     console.error('UserService handleError', error);

@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'lib-rental-pending-list',
@@ -31,8 +32,19 @@ export class RentalPendingListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const token = localStorage.getItem('token');
+    let userEmail = '';
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      userEmail = decodedToken.email;
+    }
+
     this.rentalService.getAll().subscribe((rentals) => {
-      const rentalObservables = rentals.map((rental) =>
+      const filteredRentals = rentals.filter(
+        rental => rental.instrumentOwnerEmail === userEmail
+      );
+
+      const rentalObservables = filteredRentals.map((rental) =>
         this.instrumentService.read(rental.instrumentId).pipe(
           map(({ instrument }) => ({ ...rental, instrument }))
         )
