@@ -1,13 +1,13 @@
-// libs/frontend/features/src/lib/rental/rental-pending-list/rental-pending.list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { RentalService } from '../rental.service';
 import { InstrumentService } from '../../instrument/instrument.service';
 import { IRental, IInstrument, RentalStatus, IUpdateRental } from '@InstrumentRental/shared/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { jwtDecode } from 'jwt-decode';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'lib-rental-pending-list',
@@ -16,6 +16,7 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class RentalPendingListComponent implements OnInit {
   pendingRentals: (IRental & { instrument?: IInstrument })[] = [];
+  isLoading = true;
 
   constructor(
     private router: Router,
@@ -39,15 +40,27 @@ export class RentalPendingListComponent implements OnInit {
       userEmail = decodedToken.email;
     }
 
-    this.rentalService.getByStatusAndOwnerEmail(RentalStatus.pendingApproval, userEmail).subscribe((rentals) => {
+    this.rentalService.getByStatusAndOwnerEmail(RentalStatus.pendingApproval, userEmail).pipe(
+      catchError(() => {
+        this.isLoading = false;
+        return of([]);
+      })
+    ).subscribe((rentals) => {
+      if (rentals.length === 0) {
+        this.isLoading = false;
+        return;
+      }
+
       const rentalObservables = rentals.map((rental) =>
         this.instrumentService.read(rental.instrumentId).pipe(
-          map(({ instrument }) => ({ ...rental, instrument }))
+          map(({ instrument }) => ({ ...rental, instrument })),
+          catchError(() => of({ ...rental }))
         )
       );
 
       forkJoin(rentalObservables).subscribe((rentalsWithInstruments) => {
         this.pendingRentals = rentalsWithInstruments;
+        this.isLoading = false;
       });
     });
   }

@@ -1,9 +1,10 @@
-// libs/frontend/ui/src/lib/header/header.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { IUser } from '@InstrumentRental/shared/api';
-import { UserService } from '@instrument-rental/features';
+import { UserService, RentalService } from '@instrument-rental/features';
+import { RentalStatus } from '@InstrumentRental/shared/api';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'lib-header',
@@ -14,8 +15,13 @@ import { UserService } from '@instrument-rental/features';
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
   user: IUser | null | undefined;
+  hasPendingRentals = false;
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private rentalService: RentalService
+  ) {}
 
   ngOnInit(): void {
     this.userService.getUserData().subscribe((user) => {
@@ -23,6 +29,19 @@ export class HeaderComponent implements OnInit {
       console.log(user);
     });
     this.isLoggedIn = !!localStorage.getItem('token');
+
+    if (this.isLoggedIn) {
+      const token = localStorage.getItem('token');
+      let userEmail = '';
+      if (token) {
+        const decodedToken: any = jwtDecode(token);
+        userEmail = decodedToken.email;
+      }
+
+      this.rentalService.getByStatusAndOwnerEmail(RentalStatus.pendingApproval, userEmail).subscribe((rentals) => {
+        this.hasPendingRentals = rentals.length > 0;
+      });
+    }
   }
 
   navigateToLogin(): void {

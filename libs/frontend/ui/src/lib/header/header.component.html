@@ -4,8 +4,6 @@
       <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
     </a>
     <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-
-
       <button type="button" class="relative inline-flex items-center mr-3 px-3 py-1.5 text-xs font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300" (click)="openInboxModal()">
         <svg class="w-3 h-3 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
           <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
@@ -13,16 +11,15 @@
         </svg>
         <span class="sr-only">Notifications</span>
         Inbox
-        <div class="absolute inline-flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-secondary-600 border-2 border-white rounded-full -top-2 -end-2">!</div>
+        <div *ngIf="hasPendingRentals" class="absolute inline-flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-secondary-600 border-2 border-white rounded-full -top-2 -end-2">!</div>
       </button>
 
-
-<ng-container *ngIf="isLoggedIn; else guestLinks">
-  <button type="button" class="flex text-sm bg-gray-700 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-    <span class="sr-only">Open user menu</span>
-    <img class="w-8 h-8 rounded-full" src="https://flowbite.com/application-ui/demo/images/users/jese-leos-2x.png" alt="user photo">
-  </button>
-</ng-container>
+      <ng-container *ngIf="isLoggedIn; else guestLinks">
+        <button type="button" class="flex text-sm bg-gray-700 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+          <span class="sr-only">Open user menu</span>
+          <img class="w-8 h-8 rounded-full" src="https://flowbite.com/application-ui/demo/images/users/jese-leos-2x.png" alt="user photo">
+        </button>
+      </ng-container>
       <ng-template #guestLinks>
         <button (click)="navigateToLogin()" class="text-sm bg-primary-700 text-white rounded-full px-4 py-2 mr-2">Login</button>
         <button (click)="navigateToRegister()" class="text-sm bg-primary-700 text-white rounded-full px-4 py-2">Register</button>
@@ -57,16 +54,16 @@
     <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
       <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white">
         <li>
-          <a routerLink="/home" routerLinkActive="text-primary-800"   class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0">Home</a>
+          <a routerLink="/home" routerLinkActive="text-primary-800" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0">Home</a>
         </li>
         <li>
-          <a routerLink="/rent" routerLinkActive="text-primary-800" class="block py-2 px-3  rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0">Rent</a>
+          <a routerLink="/rent" routerLinkActive="text-primary-800" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0">Rent</a>
         </li>
         <li>
-          <a routerLink="/about" routerLinkActive="text-primary-800" class="block py-2 px-3  rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0">About</a>
+          <a routerLink="/about" routerLinkActive="text-primary-800" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0">About</a>
         </li>
         <li>
-          <a routerLink="/review" routerLinkActive="text-primary-800" class="block py-2 px-3  rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0">**Write review**</a>
+          <a routerLink="/review" routerLinkActive="text-primary-800" class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0">**Write review**</a>
         </li>
       </ul>
     </div>
