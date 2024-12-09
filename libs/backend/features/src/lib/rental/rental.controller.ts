@@ -1,6 +1,20 @@
-import { Controller, Get, Param, Post, Body, Delete, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { RentalService } from './rental.service';
-import { ICreateRental, IRental, IUpdateRental } from '@InstrumentRental/shared/api';
+import {
+  ICreateRental,
+  IRental,
+  IUpdateRental,
+  RentalStatus,
+} from '@InstrumentRental/shared/api';
 
 @Controller('rental')
 export class RentalController {
@@ -9,6 +23,18 @@ export class RentalController {
   @Get('')
   async getAll(): Promise<IRental[]> {
     return await this.rentalService.getAll();
+  }
+
+  @Get('status')
+  async getByStatusAndOwnerEmail(
+    @Query('status') status: string,
+    @Query('ownerEmail') ownerEmail: string
+  ): Promise<IRental[]> {
+    const rentalStatus = status as RentalStatus;
+    return await this.rentalService.getByStatusAndOwnerEmail(
+      rentalStatus,
+      ownerEmail
+    );
   }
 
   @Get(':id')
@@ -22,7 +48,10 @@ export class RentalController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() data: IUpdateRental): Promise<IRental> {
+  async update(
+    @Param('id') id: string,
+    @Body() data: IUpdateRental
+  ): Promise<IRental> {
     return await this.rentalService.update(id, data);
   }
 

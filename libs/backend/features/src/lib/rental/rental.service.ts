@@ -2,7 +2,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { IRental, ICreateRental, IUpdateRental } from '@InstrumentRental/shared/api';
+import { IRental, ICreateRental, IUpdateRental, RentalStatus } from '@InstrumentRental/shared/api';
 import { Rental, RentalDocument } from './rental.schema';
 
 @Injectable()
@@ -17,6 +17,12 @@ export class RentalService {
   async getAll(): Promise<IRental[]> {
     Logger.log(`Finding all rentals`, this.TAG);
     const rentals = await this.rentalModel.find();
+    Logger.log(`Found rentals: ${JSON.stringify(rentals, null, 2)}`, this.TAG);
+    return rentals;
+  }
+  async getByStatusAndOwnerEmail(status: RentalStatus, ownerEmail: string): Promise<IRental[]> {
+    Logger.log(`Finding rentals with status ${status} and owner email ${ownerEmail}`, this.TAG);
+    const rentals = await this.rentalModel.find({ status, instrumentOwnerEmail: ownerEmail });
     Logger.log(`Found rentals: ${JSON.stringify(rentals, null, 2)}`, this.TAG);
     return rentals;
   }

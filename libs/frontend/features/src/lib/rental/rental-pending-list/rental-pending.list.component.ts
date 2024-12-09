@@ -39,12 +39,8 @@ export class RentalPendingListComponent implements OnInit {
       userEmail = decodedToken.email;
     }
 
-    this.rentalService.getAll().subscribe((rentals) => {
-      const filteredRentals = rentals.filter(
-        rental => rental.instrumentOwnerEmail === userEmail && rental.status === RentalStatus.pendingApproval
-      );
-
-      const rentalObservables = filteredRentals.map((rental) =>
+    this.rentalService.getByStatusAndOwnerEmail(RentalStatus.pendingApproval, userEmail).subscribe((rentals) => {
+      const rentalObservables = rentals.map((rental) =>
         this.instrumentService.read(rental.instrumentId).pipe(
           map(({ instrument }) => ({ ...rental, instrument }))
         )

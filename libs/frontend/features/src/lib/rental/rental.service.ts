@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { ICreateRental, IRental, IUpdateRental, ApiResponse } from '@InstrumentRental/shared/api';
+import { ICreateRental, IRental, IUpdateRental, ApiResponse, RentalStatus } from '@InstrumentRental/shared/api';
 import { env } from '@InstrumentRental/shared/util-env';
 
 @Injectable({
@@ -15,6 +15,15 @@ export class RentalService {
 
   getAll(): Observable<IRental[]> {
     return this.http.get<ApiResponse<IRental[]>>(this.endpoint).pipe(
+      map((response: ApiResponse<IRental[]>) => response.results as IRental[]),
+      catchError(this.handleError)
+    );
+  }
+
+  getByStatusAndOwnerEmail(status: RentalStatus, ownerEmail: string): Observable<IRental[]> {
+    return this.http.get<ApiResponse<IRental[]>>(`${this.endpoint}/status`, {
+      params: { status, ownerEmail }
+    }).pipe(
       map((response: ApiResponse<IRental[]>) => response.results as IRental[]),
       catchError(this.handleError)
     );
