@@ -30,7 +30,7 @@ export class Rental implements IRental {
 
   @Prop({ required: true, type: String, enum: RentalStatus })
   @IsEnum(RentalStatus)
-  status!: RentalStatus;
+  status!: RentalStatus.pendingApproval;
 
   @Prop({ required: true })
   @IsMongoId()
