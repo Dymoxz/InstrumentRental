@@ -14,7 +14,7 @@ export interface IRental {
   endDate: Date;
   totalPrice: number;
   reason: string;
-  status: RentalStatus.pendingApproval;
+  status: RentalStatus;
 
   instrumentId: Id;
   instrumentOwnerEmail: string;

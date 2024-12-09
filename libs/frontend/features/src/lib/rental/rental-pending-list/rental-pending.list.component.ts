@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RentalService } from '../rental.service';
 import { InstrumentService } from '../../instrument/instrument.service';
-import { IRental, IInstrument } from '@InstrumentRental/shared/api';
+import { IRental, IInstrument, RentalStatus, IUpdateRental } from '@InstrumentRental/shared/api';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -58,5 +58,17 @@ export class RentalPendingListComponent implements OnInit {
 
   formatDate(date: Date): string {
     return this.datePipe.transform(date, 'MMM d, y') || '';
+  }
+
+  acceptRental(rental: IRental & { instrument?: IInstrument }): void {
+    const updatedRental: IUpdateRental = { status: RentalStatus.inProgress };
+    this.rentalService.update(rental._id, updatedRental).subscribe(() => {
+      this.instrumentService.update(rental.instrumentId, { available: false }).subscribe(() => {
+        rental.status = RentalStatus.inProgress;
+        if (rental.instrument) {
+          rental.instrument.available = false;
+        }
+      });
+    });
   }
 }
