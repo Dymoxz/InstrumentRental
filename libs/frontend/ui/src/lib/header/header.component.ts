@@ -44,12 +44,9 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  navigateToLogin(): void {
-    this.router.navigate(['/login']);
-  }
-
-  navigateToRegister(): void {
-    this.router.navigate(['/register']);
+  logout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/home']);
   }
 
   openInboxModal(): void {
