@@ -97,4 +97,18 @@ export class Neo4jInstrumentsService {
     return result.records[0].get('i').properties;
   }
 
+  async delete(instrumentId: string): Promise<void> {
+    this.logger.log('deleteInstrument');
+
+    if (!instrumentId) {
+      throw new Error('Invalid instrument ID');
+    }
+
+    // Delete the instrument node
+    await this.neo4jService.write(
+      `MATCH (i:Instrument {id: "${instrumentId}"})
+      DETACH DELETE i`
+    );
+  }
+
 }

@@ -3,8 +3,8 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Instrument, InstrumentDocument } from './instrument.schema';
-import { ICreateInstrument, IInstrument, IUpdateInstrument } from '@InstrumentRental/shared/api';
-import { Neo4jInstrumentsService } from '@InstrumentRental/backend/neo4j'
+import { IInstrument, IUpdateInstrument } from '@InstrumentRental/shared/api';
+import { Neo4jInstrumentsService } from '@InstrumentRental/backend/neo4j';
 
 @Injectable()
 export class InstrumentService {
@@ -19,7 +19,10 @@ export class InstrumentService {
   async getAll(): Promise<IInstrument[]> {
     Logger.log(`Finding all items`, this.TAG);
     const instruments = await this.instrumentModel.find();
-    Logger.log(`Found instruments: ${JSON.stringify(instruments, null, 2)}`, this.TAG);
+    Logger.log(
+      `Found instruments: ${JSON.stringify(instruments, null, 2)}`,
+      this.TAG
+    );
     return instruments;
   }
 
@@ -32,14 +35,16 @@ export class InstrumentService {
     return item;
   }
 
-  async create(createInstrumentDto: Omit<IInstrument, '_id'>): Promise<IInstrument> {
+  async create(
+    createInstrumentDto: Omit<IInstrument, '_id'>
+  ): Promise<IInstrument> {
     Logger.log('create', this.TAG);
     const createdInstrument = new this.instrumentModel({
       ...createInstrumentDto,
       _id: new Types.ObjectId(),
     });
 
-    await this.neo4jInstrumentsService.create(createdInstrument)
+    await this.neo4jInstrumentsService.create(createdInstrument);
 
     return createdInstrument.save();
   }
@@ -56,7 +61,7 @@ export class InstrumentService {
       throw new NotFoundException(`Instrument could not be found!`);
     }
 
-    await this.neo4jInstrumentsService.update(updatedInstrument)
+    await this.neo4jInstrumentsService.update(updatedInstrument);
 
     return updatedInstrument;
   }
@@ -67,5 +72,9 @@ export class InstrumentService {
     if (!result) {
       throw new NotFoundException(`Instrument could not be found!`);
     }
+
+    await this.neo4jInstrumentsService.delete(id);
+
+
   }
 }
