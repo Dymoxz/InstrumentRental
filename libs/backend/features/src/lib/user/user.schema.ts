@@ -76,9 +76,6 @@ export class User implements IUser {
   @ValidateNested()
   @Type(() => AddressSchema)
   address!: AddressSchema;
-
-  @Prop({ type: [MongooseSchema.Types.ObjectId], ref: 'Instrument' })
-  instruments!: IInstrument[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

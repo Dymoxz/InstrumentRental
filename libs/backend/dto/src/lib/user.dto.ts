@@ -134,7 +134,4 @@ export class UpsertUserDto implements IUpsertUser {
   @Type(() => AddressDto)
   address!: AddressDto;
 
-  @ValidateNested({ each: true })
-  @Type(() => InstrumentDto) // Use the appropriate DTO class
-  instruments!: InstrumentDto[];
 }
