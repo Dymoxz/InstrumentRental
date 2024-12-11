@@ -1,5 +1,5 @@
 // libs/backend/features/src/lib/instrument/instrument.controller.ts
-import { Controller, Get, Param, Post, Body, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Delete, Put, Query } from '@nestjs/common';
 import { InstrumentService } from './instrument.service';
 import { IInstrument, ICreateInstrument, IUpdateInstrument } from '@InstrumentRental/shared/api';
 
@@ -12,14 +12,14 @@ export class InstrumentController {
     return await this.instrumentService.getAll();
   }
 
-  @Get(':id')
-  async getOne(@Param('id') id: string): Promise<IInstrument | null> {
-    return await this.instrumentService.getOne(id);
-  }
-
   @Post('')
   async create(@Body() data: ICreateInstrument & { available: boolean, ownerEmail: string }): Promise<IInstrument> {
     return await this.instrumentService.create(data);
+  }
+
+  @Get(':id')
+  async getOne(@Param('id') id: string): Promise<IInstrument | null> {
+    return await this.instrumentService.getOne(id);
   }
 
   @Put(':id')
@@ -30,5 +30,10 @@ export class InstrumentController {
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<void> {
     return await this.instrumentService.delete(id);
+  }
+
+  @Get('recommended/:email')
+  async getRecommended(@Param('email') email: string): Promise<IInstrument[]> {
+    return await this.instrumentService.getRecommended(email);
   }
 }

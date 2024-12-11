@@ -16,6 +16,15 @@ export class InstrumentService {
     private neo4jInstrumentsService: Neo4jInstrumentsService
   ) {}
 
+  async getOne(_id: string): Promise<IInstrument | null> {
+    Logger.log(`finding user with id ${_id}`);
+    const item = await this.instrumentModel.findOne({ _id }).exec();
+    if (!item) {
+      Logger.debug('Item not found');
+    }
+    return item;
+  }
+
   async getAll(): Promise<IInstrument[]> {
     Logger.log(`Finding all items`, this.TAG);
     const instruments = await this.instrumentModel.find();
@@ -26,14 +35,16 @@ export class InstrumentService {
     return instruments;
   }
 
-  async getOne(_id: string): Promise<IInstrument | null> {
-    Logger.log(`finding user with id ${_id}`);
-    const item = await this.instrumentModel.findOne({ _id }).exec();
-    if (!item) {
-      Logger.debug('Item not found');
-    }
-    return item;
+  async getRecommended(email: string): Promise<IInstrument[]> {
+    Logger.log(`getRecommended(${email})`, this.TAG);
+    const recommendedInstruments: IInstrument[] = await this.neo4jInstrumentsService.getAllRecommended(email);
+    Logger.log(
+      `Found recommended instruments: ${JSON.stringify(recommendedInstruments, null, 2)}`,
+      this.TAG
+    );
+    return recommendedInstruments;
   }
+
 
   async create(
     createInstrumentDto: Omit<IInstrument, '_id'>

@@ -46,6 +46,22 @@ export class InstrumentService {
         catchError(this.handleError)
       );
   }
+  /**
+   * Get all recommended items
+   *
+   */
+  public getRecommended(email: string, options?: any): Observable<IInstrument[]> {
+  return this.http
+    .get<ApiResponse<IInstrument[]>>(`${this.endpoint}/recommended/${email}`, {
+      ...options,
+      ...httpOptions
+    })
+    .pipe(
+      map((response: any) => response.results as IInstrument[]),
+      tap((response: any) => console.log(`Recommended instruments: ${response.results}`)),
+      catchError(this.handleError)
+    );
+}
 
   /**
    * Get a single item from the service.

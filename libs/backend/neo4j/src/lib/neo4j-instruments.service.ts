@@ -7,15 +7,24 @@ export class Neo4jInstrumentsService {
 
   constructor(private readonly neo4jService: Neo4jService) {}
 
-  async findAll(): Promise<any> {
-    this.logger.log('findAll instruments');
-    const results = await this.neo4jService.read(
-      `MATCH (n) RETURN n`
+  async getAllRecommended(email: string): Promise<any> {
+    this.logger.log('getAllRecommended');
+
+    const query = `
+      MATCH (u:User {email: "${email}"})-[:RENTS]->(rented:Instrument)
+      MATCH (recommend:Instrument)
+      WHERE recommend.type = rented.type
+        AND NOT (u)-[:RENTS]->(recommend)
+      RETURN DISTINCT recommend
+      LIMIT 3
+    `;
+
+    const results = await this.neo4jService.read(query, { email });
+    const recommendedInstruments = results.records.map(
+      (record: any) => record.get('recommend').properties
     );
-    const instruments = results.records.map(
-      (record: any) => record._fields[0].start.properties
-    );
-    return instruments;
+
+    return recommendedInstruments;
   }
 
   async create(instrument: any): Promise<any> {
@@ -29,7 +38,7 @@ export class Neo4jInstrumentsService {
 
     // Ensure the instrument data has valid fields
     const instrumentData = {
-      id: instrumentId,
+      _id: instrumentId,
       name: instrument.name,
       type: instrument.type,
       brand: instrument.brand,
@@ -48,7 +57,7 @@ export class Neo4jInstrumentsService {
 
     // Create the instrument node and establish the relationship
     const result = await this.neo4jService.write(
-      `CREATE (i:Instrument {id: "${instrumentData.id}", name: "${instrumentData.name}", type: "${instrumentData.type}", brand: "${instrumentData.brand}", model: "${instrumentData.model}", description: "${instrumentData.description}", pricePerDay: "${instrumentData.pricePerDay}", available: "${instrumentData.available}"})
+      `CREATE (i:Instrument {_id: "${instrumentData._id}", name: "${instrumentData.name}", type: "${instrumentData.type}", brand: "${instrumentData.brand}", model: "${instrumentData.model}", description: "${instrumentData.description}", pricePerDay: "${instrumentData.pricePerDay}", available: "${instrumentData.available}"})
         MERGE (u:User {email: "${instrumentData.ownerEmail}"})
         MERGE (u)-[:OWNS]->(i)
         RETURN i`
@@ -69,7 +78,7 @@ export class Neo4jInstrumentsService {
 
     // Ensure the instrument data has valid fields
     const instrumentData = {
-      id: instrumentId,
+      _id: instrumentId,
       name: instrument.name,
       type: instrument.type,
       brand: instrument.brand,
@@ -82,7 +91,7 @@ export class Neo4jInstrumentsService {
 
     // Update the instrument node
     const result = await this.neo4jService.write(
-      `MATCH (i:Instrument {id: "${instrumentData.id}"})
+      `MATCH (i:Instrument {_id: "${instrumentData._id}"})
       SET i.name = "${instrumentData.name}",
           i.type = "${instrumentData.type}",
           i.brand = "${instrumentData.brand}",
@@ -106,7 +115,7 @@ export class Neo4jInstrumentsService {
 
     // Delete the instrument node
     await this.neo4jService.write(
-      `MATCH (i:Instrument {id: "${instrumentId}"})
+      `MATCH (i:Instrument {_id: "${instrumentId}"})
       DETACH DELETE i`
     );
   }

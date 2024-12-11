@@ -19,7 +19,7 @@ export class Neo4jRentalsService {
 
     // Ensure the instrument node exists
     const instrumentResult = await this.neo4jService.write(
-      `MATCH (i:Instrument {id: "${rentalData.instrumentId}"}) RETURN i`
+      `MATCH (i:Instrument {_id: "${rentalData.instrumentId}"}) RETURN i`
     );
     if (instrumentResult.records.length === 0) {
       throw new Error('Instrument not found');
@@ -32,7 +32,7 @@ export class Neo4jRentalsService {
 
     // Create the relationship between the user and the instrument
     const result = await this.neo4jService.write(
-      `MATCH (i:Instrument {id: "${rentalData.instrumentId}"})
+      `MATCH (i:Instrument {_id: "${rentalData.instrumentId}"})
         MATCH (u:User {email: "${rentalData.renterEmail}"})
         MERGE (u)-[:RENTS]->(i)
         RETURN i`

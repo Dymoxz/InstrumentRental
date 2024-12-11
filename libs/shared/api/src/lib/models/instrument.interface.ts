@@ -20,6 +20,8 @@ export interface IInstrument {
   pricePerDay: number;
   available: boolean;
   ownerEmail: string; // Add this line
+
+  isRecommended?: boolean;
 }
 
 export type ICreateInstrument = Pick<
