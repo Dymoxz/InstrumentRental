@@ -55,6 +55,9 @@ export class InstrumentService {
     if (!updatedInstrument) {
       throw new NotFoundException(`Instrument could not be found!`);
     }
+
+    await this.neo4jInstrumentsService.update(updatedInstrument)
+
     return updatedInstrument;
   }
 
