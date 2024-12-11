@@ -12,6 +12,9 @@ import {
   UserRegisterComponent,
   RentalCreateComponent, RentalPendingListComponent
 } from '@instrument-rental/features';
+import {
+  MyRentalsPageComponent
+} from '../../../../libs/frontend/features/src/lib/rental/my-rentals-page/my-rentals.page.component';
 
 
 export const appRoutes: Route[] = [
@@ -44,6 +47,10 @@ export const appRoutes: Route[] = [
     path: 'rental-pending-list',
     component: RentalPendingListComponent,
     outlet: 'inboxModal'
+  },
+  {
+    path: 'my-rentals',
+    component: MyRentalsPageComponent
   },
 
   { path: 'login', component: UserLoginComponent },
