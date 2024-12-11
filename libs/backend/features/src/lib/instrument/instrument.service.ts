@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { Instrument, InstrumentDocument } from './instrument.schema';
 import { ICreateInstrument, IInstrument, IUpdateInstrument } from '@InstrumentRental/shared/api';
+import { Neo4jInstrumentsService } from '@InstrumentRental/backend/neo4j'
 
 @Injectable()
 export class InstrumentService {
@@ -11,7 +12,8 @@ export class InstrumentService {
 
   constructor(
     @InjectModel(Instrument.name)
-    private instrumentModel: Model<InstrumentDocument>
+    private instrumentModel: Model<InstrumentDocument>,
+    private neo4jInstrumentsService: Neo4jInstrumentsService
   ) {}
 
   async getAll(): Promise<IInstrument[]> {
@@ -36,6 +38,9 @@ export class InstrumentService {
       ...createInstrumentDto,
       _id: new Types.ObjectId(),
     });
+
+    await this.neo4jInstrumentsService.create(createdInstrument)
+
     return createdInstrument.save();
   }
 

@@ -18,11 +18,11 @@ export class Neo4jInstrumentsService {
     return instruments;
   }
 
-  async createInstrument(instrument: any): Promise<any> {
+  async create(instrument: any): Promise<any> {
     this.logger.log('createInstrument');
 
     // Convert id to string if it exists and ensure it's unique
-    const instrumentId = instrument._id?.$oid ? instrument._id.$oid.toString() : null;
+    const instrumentId = instrument._id ? instrument._id.toString() : null;
     if (!instrumentId) {
       throw new Error('Invalid instrument ID');
     }

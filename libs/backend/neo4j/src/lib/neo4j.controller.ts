@@ -18,7 +18,7 @@ export class Neo4JExampleController {
 
     @Post('/instrument/create')
     async createInstrument(@Body() instrument: any): Promise<any> {
-        const result = await this.neo4jInstrumentsService.createInstrument(instrument);
+        const result = await this.neo4jInstrumentsService.create(instrument);
         return result;
     }
 
