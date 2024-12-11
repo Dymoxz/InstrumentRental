@@ -20,6 +20,7 @@ import { UserLoginComponent } from './user/user-login/user.login.component';
 import { UserRegisterComponent } from './user/user-register/user.register.component';
 import { RentalCreateComponent } from './rental/rental-create/rental.create.component';
 import { RentalPendingListComponent } from './rental/rental-pending-list/rental-pending.list.component';
+import { MyRentalsPageComponent } from './rental/my-rentals-page/my-rentals.page.component';
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import { RentalPendingListComponent } from './rental/rental-pending-list/rental-
 
     RentalCreateComponent,
     RentalPendingListComponent,
+    MyRentalsPageComponent
   ],
   providers: [InstrumentService, ReviewService, UserService],
   exports: [],
