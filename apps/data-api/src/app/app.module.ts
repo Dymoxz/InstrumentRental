@@ -10,6 +10,8 @@ import {
 import { MongooseModule } from '@nestjs/mongoose';
 import { env } from '@InstrumentRental/shared/util-env';
 import { AuthModule } from '@InstrumentRental/backend/auth';
+import { Neo4jModule } from 'nest-neo4j/dist';
+import { Neo4jBackendModule } from '@InstrumentRental/backend/neo4j';
 
 @Module({
   imports: [
@@ -28,6 +30,15 @@ import { AuthModule } from '@InstrumentRental/backend/auth';
         return connection;
       },
     }),
+    Neo4jModule.forRoot({
+      scheme: 'neo4j+s',
+      host: '855f26bf.databases.neo4j.io',
+      port: 7687,
+      username: env.NEO4J_USER,
+      password: env.NEO4J_PASSWORD
+    }),
+    Neo4jBackendModule
+
   ],
   controllers: [AppController],
   providers: [AppService],
