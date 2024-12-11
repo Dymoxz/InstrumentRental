@@ -8,7 +8,7 @@ export class Neo4jRentalsService {
 
   constructor(private readonly neo4jService: Neo4jService) {}
 
-  async createRental(rental: IRental): Promise<any> {
+  async create(rental: IRental): Promise<any> {
     this.logger.log('createRental');
 
     // Ensure the rental data has valid fields
@@ -25,13 +25,10 @@ export class Neo4jRentalsService {
       throw new Error('Instrument not found');
     }
 
-    // Ensure the renter user node exists
+    // Ensure the renter user node exists or create it
     const renterResult = await this.neo4jService.write(
-      `MATCH (u:User {email: "${rentalData.renterEmail}"}) RETURN u`
+      `MERGE (u:User {email: "${rentalData.renterEmail}"}) RETURN u`
     );
-    if (renterResult.records.length === 0) {
-      throw new Error('Renter not found');
-    }
 
     // Create the relationship between the user and the instrument
     const result = await this.neo4jService.write(

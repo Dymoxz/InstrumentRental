@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { RentalController } from './rental/rental.controller';
 import { Rental, RentalSchema } from './rental/rental.schema';
 import { RentalService } from './rental/rental.service';
+import { Neo4jRentalsService } from '@InstrumentRental/backend/neo4j';
 
 @Module({
   imports: [
@@ -11,7 +12,7 @@ import { RentalService } from './rental/rental.service';
     ]),
   ],
   controllers: [RentalController],
-  providers: [RentalService],
+  providers: [RentalService, Neo4jRentalsService],
   exports: [RentalService],
 })
 export class RentalModule {}

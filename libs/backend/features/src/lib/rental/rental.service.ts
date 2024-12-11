@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { IRental, ICreateRental, IUpdateRental, RentalStatus } from '@InstrumentRental/shared/api';
 import { Rental, RentalDocument } from './rental.schema';
+import { Neo4jRentalsService } from '@InstrumentRental/backend/neo4j';
 
 @Injectable()
 export class RentalService {
@@ -11,7 +12,8 @@ export class RentalService {
 
   constructor(
     @InjectModel(Rental.name)
-    private rentalModel: Model<RentalDocument>
+    private rentalModel: Model<RentalDocument>,
+    private  neo4jRentalsService: Neo4jRentalsService
   ) {}
 
   async getAll(): Promise<IRental[]> {
@@ -42,6 +44,9 @@ export class RentalService {
       ...createRentalDto,
       _id: new Types.ObjectId(),
     });
+
+    await this.neo4jRentalsService.create(createdRental)
+
     return createdRental.save();
   }
 

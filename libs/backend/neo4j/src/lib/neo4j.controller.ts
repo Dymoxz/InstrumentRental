@@ -24,7 +24,7 @@ export class Neo4JExampleController {
 
     @Post('/rental/create')
     async createRental(@Body() rental: IRental): Promise<any> {
-        const result = await this.neo4jRentalsService.createRental(rental);
+        const result = await this.neo4jRentalsService.create(rental);
         return result;
     }
 }
