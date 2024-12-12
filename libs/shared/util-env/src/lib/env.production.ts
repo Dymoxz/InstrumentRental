@@ -2,6 +2,7 @@ import { IEnv } from './env.interface';
 
 export const env: IEnv = {
   production: true,
+  webAppUrl: 'https://thankful-island-0bafe9e03.5.azurestaticapps.net',
   dataApiUrl: 'https://instrumentrental-api-d2f7ahfvh8d2ahd0.westeurope-01.azurewebsites.net/api',
   dbConnectionUrl: 'mongodb+srv://dymokilan:yvhuiZkqX5WdTmRA@instrumentrentalcluster.szds4.mongodb.net/InstrumentRentalDB',
   NEO4J_USER: 'neo4j',
