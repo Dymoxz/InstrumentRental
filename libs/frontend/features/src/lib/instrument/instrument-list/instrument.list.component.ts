@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { InstrumentService } from '../instrument.service';
-import { IInstrument } from '@InstrumentRental/shared/api';
+import { IInstrument, IUser } from '@InstrumentRental/shared/api';
 import { Subscription } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { SearchService } from '../search.service'; // Import the service
@@ -10,8 +10,8 @@ import { SearchService } from '../search.service'; // Import the service
   templateUrl: './instrument.list.component.html'
 })
 export class InstrumentListComponent implements OnInit, OnDestroy {
-  instruments: IInstrument[] | null = null;
-  filteredInstruments: IInstrument[] | null = null;
+  instruments: (IInstrument & { owner: IUser | null })[] | null = null; // Update this line
+  filteredInstruments: (IInstrument & { owner: IUser | null })[] | null = null; // Update this line
   subscription: Subscription | undefined = undefined;
   searchSubscription: Subscription | undefined; // Subscription for searchTerm$
   isLoading = true; // Add isLoading property
@@ -26,7 +26,7 @@ export class InstrumentListComponent implements OnInit, OnDestroy {
       email = decodedToken.email;
     }
 
-    this.subscription = this.instrumentService.list().subscribe((results: IInstrument[] | null) => {
+    this.subscription = this.instrumentService.list().subscribe((results: (IInstrument & { owner: IUser | null })[] | null) => { // Update this line
       this.isLoading = false; // Set isLoading to false after data is fetched
       this.instruments = results;
       this.filterInstruments(); // Initial filter

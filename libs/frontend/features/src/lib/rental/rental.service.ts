@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { ICreateRental, IRental, IUpdateRental, ApiResponse, RentalStatus } from '@InstrumentRental/shared/api';
+import { forkJoin, Observable, of, throwError } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import {
+  ICreateRental,
+  IRental,
+  IUpdateRental,
+  ApiResponse,
+  RentalStatus,
+  IInstrument,
+  IUser,
+} from '@InstrumentRental/shared/api';
 import { env } from '@InstrumentRental/shared/util-env';
 
 @Injectable({
@@ -21,13 +29,38 @@ export class RentalService {
   }
 
   getByStatusAndOwnerEmail(status: RentalStatus, ownerEmail: string): Observable<IRental[]> {
-    return this.http.get<ApiResponse<IRental[]>>(`${this.endpoint}/status`, {
-      params: { status, ownerEmail }
-    }).pipe(
-      map((response: ApiResponse<IRental[]>) => response.results as IRental[]),
-      catchError(this.handleError)
-    );
-  }
+  return this.http.get<ApiResponse<IRental[]>>(`${this.endpoint}/status`, {
+    params: { status, ownerEmail }
+  }).pipe(
+    map((response: ApiResponse<IRental[]>) => response.results as IRental[]),
+    switchMap((rentals: IRental[]) =>
+      forkJoin(
+        rentals.map((rental) =>
+          forkJoin({
+            instrument: this.http.get<ApiResponse<IInstrument>>(`${env.dataApiUrl}/instrument/${rental.instrumentId}`).pipe(
+              map((response: ApiResponse<IInstrument>) => response.results as IInstrument)
+            ),
+            owner: this.http.get<ApiResponse<IUser>>(`${env.dataApiUrl}/user/${rental.instrumentOwnerEmail}`).pipe(
+              map((response: ApiResponse<IUser>) => response.results as IUser)
+            ),
+            renter: this.http.get<ApiResponse<IUser>>(`${env.dataApiUrl}/user/${rental.renterEmail}`).pipe(
+              map((response: ApiResponse<IUser>) => response.results as IUser)
+            )
+          }).pipe(
+            map(({ instrument, owner, renter }) => ({
+              ...rental,
+              instrument,
+              instrumentOwner: owner,
+              renter
+            })),
+            catchError(() => of({ ...rental, instrument: null, instrumentOwner: null, renter: null }))
+          )
+        )
+      )
+    ),
+    catchError(this.handleError)
+  );
+}
 
   getOne(id: string): Observable<IRental> {
     return this.http.get<ApiResponse<IRental>>(`${this.endpoint}/${id}`).pipe(

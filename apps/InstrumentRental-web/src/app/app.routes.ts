@@ -6,16 +6,15 @@ import {
   InstrumentEditPageComponent,
   InstrumentPageComponent,
   MyInstrumentsPageComponent,
+  MyRentalsPageComponent,
+  RentalCreateComponent,
+  RentalDetailComponent,
+  RentalPendingListComponent,
   ReviewCreateComponent,
   UserLoginComponent,
   UserProfileComponent,
   UserRegisterComponent,
-  RentalCreateComponent, RentalPendingListComponent
 } from '@instrument-rental/features';
-import {
-  MyRentalsPageComponent
-} from '../../../../libs/frontend/features/src/lib/rental/my-rentals-page/my-rentals.page.component';
-
 
 export const appRoutes: Route[] = [
   { path: 'home', component: HomeComponent },
@@ -39,18 +38,22 @@ export const appRoutes: Route[] = [
       {
         path: 'rent',
         component: RentalCreateComponent,
-        outlet: 'modal'
-      }
-    ]
+        outlet: 'modal',
+      },
+    ],
   },
   {
     path: 'rental-pending-list',
     component: RentalPendingListComponent,
-    outlet: 'inboxModal'
+    outlet: 'inboxModal',
   },
   {
     path: 'my-rentals',
-    component: MyRentalsPageComponent
+    component: MyRentalsPageComponent,
+  },
+  {
+    path: 'rental/:id',
+    component: RentalDetailComponent,
   },
 
   { path: 'login', component: UserLoginComponent },

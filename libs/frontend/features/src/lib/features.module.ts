@@ -21,6 +21,8 @@ import { UserRegisterComponent } from './user/user-register/user.register.compon
 import { RentalCreateComponent } from './rental/rental-create/rental.create.component';
 import { RentalPendingListComponent } from './rental/rental-pending-list/rental-pending.list.component';
 import { MyRentalsPageComponent } from './rental/my-rentals-page/my-rentals.page.component';
+import { RentalDetailComponent } from './rental/rental-detail/rental.detail.component';
+import { RentalService } from './rental/rental.service';
 
 @NgModule({
   imports: [
@@ -49,9 +51,10 @@ import { MyRentalsPageComponent } from './rental/my-rentals-page/my-rentals.page
 
     RentalCreateComponent,
     RentalPendingListComponent,
-    MyRentalsPageComponent
+    MyRentalsPageComponent,
+    RentalDetailComponent
   ],
-  providers: [InstrumentService, ReviewService, UserService],
+  providers: [InstrumentService, ReviewService, UserService, RentalService],
   exports: [],
 })
 export class FeaturesModule {}
