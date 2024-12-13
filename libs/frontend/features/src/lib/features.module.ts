@@ -23,6 +23,8 @@ import { RentalPendingListComponent } from './rental/rental-pending-list/rental-
 import { MyRentalsPageComponent } from './rental/my-rentals-page/my-rentals.page.component';
 import { RentalDetailComponent } from './rental/rental-detail/rental.detail.component';
 import { RentalService } from './rental/rental.service';
+import { RentalLendingOutComponent } from './rental/rental-lending-out/rental.lending-out.component';
+import { RentalListComponent } from './rental/rental-list/rental.list.component';
 
 @NgModule({
   imports: [
@@ -52,7 +54,9 @@ import { RentalService } from './rental/rental.service';
     RentalCreateComponent,
     RentalPendingListComponent,
     MyRentalsPageComponent,
-    RentalDetailComponent
+    RentalDetailComponent,
+    RentalLendingOutComponent,
+    RentalListComponent
   ],
   providers: [InstrumentService, ReviewService, UserService, RentalService],
   exports: [],

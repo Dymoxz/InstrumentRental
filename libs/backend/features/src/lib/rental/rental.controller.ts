@@ -37,6 +37,13 @@ export class RentalController {
     );
   }
 
+  @Get('renter')
+  async getByRenterEmail(
+    @Query('renterEmail') renterEmail: string
+  ): Promise<IRental[]> {
+    return await this.rentalService.getByRenterEmail(renterEmail);
+  }
+
   @Get(':id')
   async getOne(@Param('id') id: string): Promise<IRental | null> {
     return await this.rentalService.getOne(id);
