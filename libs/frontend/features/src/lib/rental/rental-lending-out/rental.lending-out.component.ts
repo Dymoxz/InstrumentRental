@@ -47,4 +47,6 @@ export class RentalLendingOutComponent implements OnInit {
   goToDetailPage(rental: any): void {
     this.router.navigate(['/rental', rental._id], { state: { rental } });
   }
+
+  protected readonly RentalStatus = RentalStatus;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RentalService } from '../rental.service';
-import { IRental } from '@InstrumentRental/shared/api';
+import { IRental, RentalStatus } from '@InstrumentRental/shared/api';
 import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
 
@@ -45,4 +45,6 @@ export class RentalListComponent implements OnInit {
   goToDetailPage(rental: any): void {
     this.router.navigate(['/rental', rental._id], { state: { rental } });
   }
+
+  protected readonly RentalStatus = RentalStatus;
 }
