@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { IUserCredentials } from '@InstrumentRental/shared/api';
 
@@ -7,27 +8,37 @@ import { IUserCredentials } from '@InstrumentRental/shared/api';
   templateUrl: './user.login.component.html',
 })
 export class UserLoginComponent {
-  email = '';
-  password = '';
+  loginForm: FormGroup;
+  loginError = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private fb: FormBuilder, private userService: UserService) {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
 
   onSubmit(): void {
-    const credentials: IUserCredentials = {
-      email: this.email,
-      password: this.password,
-    };
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    const credentials: IUserCredentials = this.loginForm.value;
 
     this.userService.login(credentials).subscribe(
       (response) => {
-        console.log('Login successful', response);
-        console.log('token: ', response.token);
-         localStorage.setItem('token', response.token!);
-         window.location.href = '/';
+        if (response && response.token) {
+          console.log('Login successful', response);
+          localStorage.setItem('token', response.token);
+          window.location.href = '/';
+        } else {
+          this.loginError = true;
+          console.error('Login failed: Invalid response', response);
+        }
       },
       (error) => {
+        this.loginError = true;
         console.error('Login failed', error);
-        // Handle login error
       }
     );
   }

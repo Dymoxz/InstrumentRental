@@ -11,7 +11,7 @@ import { UserProfileComponent } from './user/user-profile/user.profile.component
 import { MyInstrumentsPageComponent } from './instrument/my-instruments-page/my-instruments.page.component';
 import { FrontendCommonModule } from '@instrument-rental/common';
 import { InstrumentEditPageComponent } from './instrument/instrument-edit-page/instrument-edit.page.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReviewCreateComponent } from './review/review-create/review.create.component';
 import { ReviewService } from './review/review.service';
 import { ReviewListComponent } from './review/review-list/review.list.component';
@@ -34,6 +34,7 @@ import { RentalListComponent } from './rental/rental-list/rental.list.component'
     FrontendCommonModule,
     FormsModule,
     RouterOutlet,
+    ReactiveFormsModule,
   ],
   declarations: [
     InstrumentPageComponent,
@@ -56,7 +57,7 @@ import { RentalListComponent } from './rental/rental-list/rental.list.component'
     MyRentalsPageComponent,
     RentalDetailComponent,
     RentalLendingOutComponent,
-    RentalListComponent
+    RentalListComponent,
   ],
   providers: [InstrumentService, ReviewService, UserService, RentalService],
   exports: [],
