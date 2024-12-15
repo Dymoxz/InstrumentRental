@@ -1,107 +1,53 @@
 <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
   <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-xl xl:p-0 relative">
-    <!-- Close Modal Icon -->
     <div class="absolute top-6 right-6 cursor-pointer" (click)="closeModal()">
-      <svg
-        class="w-6 h-6 text-gray-300"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M6 18 17.94 6M18 18 6.06 6"
-        />
+      <svg class="w-6 h-6 text-gray-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/>
       </svg>
     </div>
 
-    <!-- Modal Content -->
     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-      <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-        Rent this instrument
-      </h1>
+      <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">Rent this instrument</h1>
 
-      <!-- Date Range Picker -->
-      <div id="date-range-picker" class="flex items-center">
-        <div class="relative">
-          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg
-              class="w-4 h-4 text-gray-500"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
-              />
-            </svg>
+      <form [formGroup]="rentalForm" (ngSubmit)="requestRental()">
+        <div id="date-range-picker" class="flex items-center">
+          <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+              </svg>
+            </div>
+            <input id="datepicker-range-start" name="start" type="text" formControlName="startDate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5" placeholder="Select start date" required>
+            <div *ngIf="rentalForm.get('startDate')!.invalid && rentalForm.get('startDate')!.touched" class="text-red-600 text-sm">
+              <div *ngIf="rentalForm.get('startDate')!.errors!['required']">Start date is required.</div>
+            </div>
           </div>
-          <!-- Start Date Input -->
-          <input
-            id="datepicker-range-start"
-            name="start"
-            type="text"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5"
-            placeholder="Select start date"
-          />
+
+          <span class="mx-4 text-gray-500">to</span>
+
+          <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+              <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+              </svg>
+            </div>
+            <input id="datepicker-range-end" name="end" type="text" formControlName="endDate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5" placeholder="Select end date" required>
+            <div *ngIf="rentalForm.get('endDate')!.invalid && rentalForm.get('endDate')!.touched" class="text-red-600 text-sm">
+              <div *ngIf="rentalForm.get('endDate')!.errors!['required']">End date is required.</div>
+            </div>
+          </div>
         </div>
 
-        <span class="mx-4 text-gray-500">to</span>
-
-        <div class="relative">
-          <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg
-              class="w-4 h-4 text-gray-500"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
-              />
-            </svg>
+        <div class="mt-4 mb-4">
+          <label for="message" class="block mb-2 text-sm font-semibold text-gray-900">Reason</label>
+          <textarea id="message" rows="4" formControlName="reason" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" placeholder="Please provide a reason for this rental.." required></textarea>
+          <div *ngIf="rentalForm.get('reason')!.invalid && rentalForm.get('reason')!.touched" class="text-red-600 text-sm">
+            <div *ngIf="rentalForm.get('reason')!.errors!['required']">Reason is required.</div>
           </div>
-          <!-- End Date Input -->
-          <input
-            id="datepicker-range-end"
-            name="end"
-            type="text"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full ps-10 p-2.5"
-            placeholder="Select end date"
-          />
         </div>
-      </div>
 
-      <!-- Reason Textarea -->
-      <div>
-        <label for="message" class="block mb-2 text-sm font-medium text-gray-900"
-        >Reason</label
-        >
-        <textarea
-          id="message"
-          rows="4"
-          class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
-          placeholder="Please provide a reason for this rental.."
-          [(ngModel)]="reason"
-        ></textarea>
-      </div>
-
-      <!-- Submit Button -->
-      <button
-        type="button"
-        (click)="requestRental()"
-        class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-      >
-        Request rental
-      </button>
+        <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Request rental</button>
+      </form>
     </div>
   </div>
 </div>
