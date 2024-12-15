@@ -15,15 +15,18 @@ export class ReviewListComponent implements OnInit, OnDestroy {
   constructor(private reviewService: ReviewService) {}
 
   ngOnInit(): void {
-    this.subscription = this.reviewService.getAll().subscribe((results: IReview[] | null) => {
-      this.isLoading = false;
-      if (results) {
-        this.reviews = results;
-      } else {
-        this.reviews = [];
+  this.subscription = this.reviewService.getAll().subscribe((results: IReview[] | null) => {
+    this.isLoading = false;
+    if (results) {
+      this.reviews = results;
+      if (this.reviews[0].reviewer) {
+        console.log(this.reviews[0].reviewer.firstName);
       }
-    });
-  }
+    } else {
+      this.reviews = [];
+    }
+  });
+}
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();

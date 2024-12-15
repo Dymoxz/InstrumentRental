@@ -2,12 +2,12 @@ import {
   IsNotEmpty,
   IsString,
   IsNumber,
-  IsDate
+  IsDate,
+  IsEmail
 } from 'class-validator';
 import {
   ICreateReview,
   IUpdateReview,
-  IUpsertReview
 } from '@InstrumentRental/shared/api';
 
 export class CreateReviewDto implements ICreateReview {
@@ -23,6 +23,13 @@ export class CreateReviewDto implements ICreateReview {
   @IsNotEmpty()
   date!: Date;
 
+  @IsEmail()
+  @IsNotEmpty()
+  reviewerEmail!: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  revieweeEmail!: string;
 }
 
 export class UpdateReviewDto implements IUpdateReview {
@@ -37,14 +44,12 @@ export class UpdateReviewDto implements IUpdateReview {
   @IsDate()
   @IsNotEmpty()
   date?: Date;
-}
 
-export class UpsertReviewDto implements IUpsertReview {
-  @IsString()
+  @IsEmail()
   @IsNotEmpty()
-  content!: string;
+  reviewerEmail?: string;
 
-  @IsNumber()
+  @IsEmail()
   @IsNotEmpty()
-  rating!: number;
+  revieweeEmail?: string;
 }

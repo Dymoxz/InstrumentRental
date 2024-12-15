@@ -22,7 +22,7 @@ export const appRoutes: Route[] = [
   { path: 'rent', component: InstrumentPageComponent },
   { path: 'profile', component: UserProfileComponent },
 
-  { path: 'review', component: ReviewCreateComponent },
+  { path: 'review/:id', component: ReviewCreateComponent },
 
   { path: 'my-instruments', component: MyInstrumentsPageComponent },
   {
