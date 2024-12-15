@@ -1,10 +1,10 @@
 <!-- libs/frontend/features/src/lib/instrument/instrument-detail/instrument.detail.component.html -->
-<section *ngIf="instrument" class="py-8 bg-white md:py-16 antialiased">
+<section *ngIf="instrument" class="py-8 md:py-16 antialiased">
   <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
     <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
-      <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
-        <img class="w-full" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front.svg" alt="" />
-        <img class="w-full hidden" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/imac-front-dark.svg" alt="" />
+      <div class="shrink-0 w-full max-w-md lg:max-w-lg mx-auto">
+        <lib-image-placeholder [height]="'h-96'" [width]="'w-full'" class="mx-auto"></lib-image-placeholder>
+
       </div>
 
       <div class="mt-6 sm:mt-8 lg:mt-0">
@@ -30,7 +30,7 @@
         </div>
         <div class="flex">
           <h1 class="font-bold"> Location: </h1>
-          <p class="ml-2"> Groningen</p>
+          <p class="ml-2"> {{ user?.address?.city }}</p>
         </div>
       </div>
     </div>

@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     localStorage.removeItem('token');
-    this.router.navigate(['/home']);
+    this.router.navigate(['/']);
   }
 
   openInboxModal(): void {

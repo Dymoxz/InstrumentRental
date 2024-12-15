@@ -1,6 +1,5 @@
 import { Route } from '@angular/router';
 import { AboutComponent } from './components/about/about.component';
-import { HomeComponent } from './components/home/home.component';
 import {
   InstrumentDetailComponent,
   InstrumentEditPageComponent,
@@ -17,7 +16,7 @@ import {
 } from '@instrument-rental/features';
 
 export const appRoutes: Route[] = [
-  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: '/rent', pathMatch: 'full' },
   { path: 'about', component: AboutComponent },
   { path: 'rent', component: InstrumentPageComponent },
   { path: 'profile', component: UserProfileComponent },
