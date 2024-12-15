@@ -32,36 +32,36 @@ export class InstrumentService {
    *
    * @options options - optional URL queryparam options
    */
-  public list(options?: any): Observable<IInstrument[] | null> {
-    console.log(`list ${this.endpoint}`);
+  public list(options?: any): Observable<(IInstrument & { owner: IUser | null })[] | null> {
+  console.log(`list ${this.endpoint}`);
 
-    return this.http
-      .get<ApiResponse<IInstrument[]>>(this.endpoint, {
-        ...options,
-        ...httpOptions,
-      })
-      .pipe(
-        map((response: any) => response.results as IInstrument[]),
-        switchMap((instruments: IInstrument[]) =>
-          forkJoin(
-            instruments.map((instrument) =>
-              this.http.get<ApiResponse<IUser>>(`${this.userEndpoint}/${instrument.ownerEmail}`, {
-                ...options,
-                ...httpOptions,
-              }).pipe(
-                map((ownerResponse: any) => ({
-                  ...instrument,
-                  owner: ownerResponse.results as IUser,
-                })),
-                catchError(() => of({ ...instrument, owner: null }))
-              )
+  return this.http
+    .get<ApiResponse<IInstrument[]>>(this.endpoint, {
+      ...options,
+      ...httpOptions,
+    })
+    .pipe(
+      map((response: any) => response.results as IInstrument[]),
+      switchMap((instruments: IInstrument[]) =>
+        forkJoin(
+          instruments.map((instrument) =>
+            this.http.get<ApiResponse<IUser>>(`${this.userEndpoint}/${instrument.ownerEmail}`, {
+              ...options,
+              ...httpOptions,
+            }).pipe(
+              map((ownerResponse: any) => ({
+                ...instrument,
+                owner: ownerResponse.results as IUser || null, // Ensure owner is IUser or null
+              })),
+              catchError(() => of({ ...instrument, owner: null }))
             )
           )
-        ),
-        tap(console.log),
-        catchError(this.handleError)
-      );
-  }
+        )
+      ),
+      tap(console.log),
+      catchError(this.handleError)
+    );
+}
   /**
    * Get all recommended items
    *
