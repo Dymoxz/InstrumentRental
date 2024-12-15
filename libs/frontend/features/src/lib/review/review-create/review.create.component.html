@@ -13,45 +13,45 @@
     <h2 class="text-xl font-bold text-gray-900">Leave a Review</h2>
     <h1 class="mb-4 text-sm text-gray-500">( about yourself 🙂 )</h1>
 
-    <form (ngSubmit)="saveReview()">
+    <form [formGroup]="reviewForm" (ngSubmit)="saveReview()">
       <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
         <div class="sm:col-span-2">
-          <label class="block mb-2 text-sm font-medium text-gray-900">Rating</label>
+          <label for="rating" class="block mb-2 text-sm font-medium text-gray-900" >Rating</label>
           <div class="flex flex-row-reverse justify-end pt-1 -ml-2">
-            <svg (click)="setRating(5)"
-                 [ngClass]="{'text-yellow-300': rating >= 5, 'text-gray-300': rating < 5, 'peer-hover:text-yellow-300': true}"
+            <svg (click)="reviewForm.get('rating')?.setValue(5)"
+                 [ngClass]="{'text-yellow-300': reviewForm.get('rating')?.value >= 5, 'text-gray-300': reviewForm.get('rating')?.value < 5, 'peer-hover:text-yellow-300': true}"
                  class="w-8 h-8 mx-2 cursor-pointer peer hover:text-yellow-300" aria-hidden="true"
                  xmlns="http://www.w3.org/2000/svg"
                  fill="currentColor" viewBox="0 0 22 20">
               <path
                 d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
-            <svg (click)="setRating(4)"
-                 [ngClass]="{'text-yellow-300': rating >= 4, 'text-gray-300': rating < 4, 'peer-hover:text-yellow-300': true}"
+            <svg (click)="reviewForm.get('rating')?.setValue(4)"
+                 [ngClass]="{'text-yellow-300': reviewForm.get('rating')?.value >= 4, 'text-gray-300': reviewForm.get('rating')?.value < 4, 'peer-hover:text-yellow-300': true}"
                  class="w-8 h-8 mx-2 cursor-pointer peer hover:text-yellow-300" aria-hidden="true"
                  xmlns="http://www.w3.org/2000/svg"
                  fill="currentColor" viewBox="0 0 22 20">
               <path
                 d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
-            <svg (click)="setRating(3)"
-                 [ngClass]="{'text-yellow-300': rating >= 3, 'text-gray-300': rating < 3, 'peer-hover:text-yellow-300': true}"
+            <svg (click)="reviewForm.get('rating')?.setValue(3)"
+                 [ngClass]="{'text-yellow-300': reviewForm.get('rating')?.value >= 3, 'text-gray-300': reviewForm.get('rating')?.value < 3, 'peer-hover:text-yellow-300': true}"
                  class="w-8 h-8 mx-2 cursor-pointer peer hover:text-yellow-300" aria-hidden="true"
                  xmlns="http://www.w3.org/2000/svg"
                  fill="currentColor" viewBox="0 0 22 20">
               <path
                 d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
-            <svg (click)="setRating(2)"
-                 [ngClass]="{'text-yellow-300': rating >= 2, 'text-gray-300': rating < 2, 'peer-hover:text-yellow-300': true}"
+            <svg (click)="reviewForm.get('rating')?.setValue(2)"
+                 [ngClass]="{'text-yellow-300': reviewForm.get('rating')?.value >= 2, 'text-gray-300': reviewForm.get('rating')?.value < 2, 'peer-hover:text-yellow-300': true}"
                  class="w-8 h-8 mx-2 cursor-pointer peer hover:text-yellow-300" aria-hidden="true"
                  xmlns="http://www.w3.org/2000/svg"
                  fill="currentColor" viewBox="0 0 22 20">
               <path
                 d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
-            <svg (click)="setRating(1)"
-                 [ngClass]="{'text-yellow-300': rating >= 1, 'text-gray-300': rating < 1, 'peer-hover:text-yellow-300': true}"
+            <svg (click)="reviewForm.get('rating')?.setValue(1)"
+                 [ngClass]="{'text-yellow-300': reviewForm.get('rating')?.value >= 1, 'text-gray-300': reviewForm.get('rating')?.value < 1, 'peer-hover:text-yellow-300': true}"
                  class="w-8 h-8 mx-2 cursor-pointer peer hover:text-yellow-300" aria-hidden="true"
                  xmlns="http://www.w3.org/2000/svg"
                  fill="currentColor" viewBox="0 0 22 20">
@@ -59,14 +59,21 @@
                 d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
             </svg>
           </div>
-          <input type="hidden" name="rating" [(ngModel)]="rating" required>
+          <div *ngIf="reviewForm.get('rating')!.invalid && reviewForm.get('rating')!.touched" class="text-red-600 text-sm">
+            <div *ngIf="reviewForm.get('rating')!.errors!['required']">Rating is required.</div>
+            <div *ngIf="reviewForm.get('rating')!.errors!['minRating']">Rating must be at least 1.</div>
+          </div>
+          <input type="hidden" id="rating" name="rating" formControlName="rating" required>
         </div>
 
         <div class="col-span-2">
-          <label for="description" class="block mb-2 text-sm font-medium text-gray-900">Description</label>
-          <textarea id="description" name="description" rows="8" required
+          <label for="description" class="block mb-2 text-sm font-medium text-gray-900" >Description</label>
+          <textarea id="description" name="description" rows="8" formControlName="content" required
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500"
-                    [(ngModel)]="review!.content" placeholder="Write a product description here..."></textarea>
+                    placeholder="Write a product description here..."></textarea>
+          <div *ngIf="reviewForm.get('content')!.invalid && reviewForm.get('content')!.touched" class="text-red-600 text-sm">
+            <div *ngIf="reviewForm.get('content')!.errors!['required']">Description is required.</div>
+          </div>
         </div>
       </div>
       <div class="flex items-center space-x-4">
