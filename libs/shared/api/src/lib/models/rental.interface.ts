@@ -6,7 +6,8 @@ export enum RentalStatus {
   pendingApproval = 'Pending Approval',
   inProgress = 'In Progress',
   completed = 'Completed',
-  rejected = 'Rejected'
+  rejected = 'Rejected',
+  cancelled = 'Cancelled',
 
 }
 

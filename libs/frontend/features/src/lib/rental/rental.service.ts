@@ -97,6 +97,72 @@ export class RentalService {
       );
   }
 
+  getByOwnerEmail(ownerEmail: string): Observable<IRental[]> {
+    return this.http
+      .get<ApiResponse<IRental[]>>(`${this.endpoint}/owner`, {
+        params: { ownerEmail },
+      })
+      .pipe(
+        map(
+          (response: ApiResponse<IRental[]>) => response.results as IRental[]
+        ),
+        switchMap((rentals: IRental[]) =>
+          forkJoin(
+            rentals.map((rental) =>
+              forkJoin({
+                instrument: this.http
+                  .get<ApiResponse<IInstrument>>(
+                    `${env.dataApiUrl}/instrument/${rental.instrumentId}`
+                  )
+                  .pipe(
+                    map(
+                      (response: ApiResponse<IInstrument>) =>
+                        response.results as IInstrument
+                    )
+                  ),
+                owner: this.http
+                  .get<ApiResponse<IUser>>(
+                    `${env.dataApiUrl}/user/${rental.instrumentOwnerEmail}`
+                  )
+                  .pipe(
+                    map(
+                      (response: ApiResponse<IUser>) =>
+                        response.results as IUser
+                    )
+                  ),
+                renter: this.http
+                  .get<ApiResponse<IUser>>(
+                    `${env.dataApiUrl}/user/${rental.renterEmail}`
+                  )
+                  .pipe(
+                    map(
+                      (response: ApiResponse<IUser>) =>
+                        response.results as IUser
+                    )
+                  ),
+              }).pipe(
+                map(({ instrument, owner, renter }) => ({
+                  ...rental,
+                  instrument,
+                  instrumentOwner: owner,
+                  renter,
+                })),
+                catchError(() =>
+                  of({
+                    ...rental,
+                    instrument: null,
+                    instrumentOwner: null,
+                    renter: null,
+                  })
+                )
+              )
+            )
+          )
+        ),
+        catchError(this.handleError)
+      );
+  }
+
   getByRenterEmail(renterEmail: string): Observable<IRental[]> {
     return this.http
       .get<ApiResponse<IRental[]>>(`${this.endpoint}/renter`, {

@@ -42,6 +42,15 @@ export class RentalService {
     return rentals;
   }
 
+  async getByOwnerEmail(ownerEmail: string): Promise<IRental[]> {
+    Logger.log(`Finding rentals with owner email ${ownerEmail}`, this.TAG);
+    const rentals = await this.rentalModel.find({
+      instrumentOwnerEmail: ownerEmail,
+    });
+    Logger.log(`Found rentals: ${JSON.stringify(rentals, null, 2)}`, this.TAG);
+    return rentals;
+  }
+
   async getByRenterEmail(renterEmail: string): Promise<IRental[]> {
     Logger.log(`Finding rentals with renter email ${renterEmail}`, this.TAG);
     const rentals = await this.rentalModel.find({ renterEmail });

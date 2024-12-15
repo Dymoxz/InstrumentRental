@@ -37,6 +37,13 @@ export class RentalController {
     );
   }
 
+  @Get('owner')
+  async getByOwnerEmail(
+    @Query('ownerEmail') ownerEmail: string
+  ): Promise<IRental[]> {
+    return await this.rentalService.getByOwnerEmail(ownerEmail);
+  }
+
   @Get('renter')
   async getByRenterEmail(
     @Query('renterEmail') renterEmail: string
