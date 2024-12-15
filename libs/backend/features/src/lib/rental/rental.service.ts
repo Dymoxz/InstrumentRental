@@ -2,7 +2,12 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { IRental, ICreateRental, IUpdateRental, RentalStatus } from '@InstrumentRental/shared/api';
+import {
+  ICreateRental,
+  IRental,
+  IUpdateRental,
+  RentalStatus,
+} from '@InstrumentRental/shared/api';
 import { Rental, RentalDocument } from './rental.schema';
 import { Neo4jRentalsService } from '@InstrumentRental/backend/neo4j';
 
@@ -22,9 +27,35 @@ export class RentalService {
     Logger.log(`Found rentals: ${JSON.stringify(rentals, null, 2)}`, this.TAG);
     return rentals;
   }
-  async getByStatusAndOwnerEmail(status: RentalStatus, ownerEmail: string): Promise<IRental[]> {
-    Logger.log(`Finding rentals with status ${status} and owner email ${ownerEmail}`, this.TAG);
-    const rentals = await this.rentalModel.find({ status, instrumentOwnerEmail: ownerEmail });
+
+  async getByStatusAndOwnerEmail(
+    status: RentalStatus,
+    ownerEmail: string
+  ): Promise<IRental[]> {
+    Logger.log(
+      `Finding rentals with status ${status} and owner email ${ownerEmail}`,
+      this.TAG
+    );
+    const rentals = await this.rentalModel.find({
+      status,
+      instrumentOwnerEmail: ownerEmail,
+    });
+    Logger.log(`Found rentals: ${JSON.stringify(rentals, null, 2)}`, this.TAG);
+    return rentals;
+  }
+
+  async getByOwnerEmail(ownerEmail: string): Promise<IRental[]> {
+    Logger.log(`Finding rentals with owner email ${ownerEmail}`, this.TAG);
+    const rentals = await this.rentalModel.find({
+      instrumentOwnerEmail: ownerEmail,
+    });
+    Logger.log(`Found rentals: ${JSON.stringify(rentals, null, 2)}`, this.TAG);
+    return rentals;
+  }
+
+  async getByRenterEmail(renterEmail: string): Promise<IRental[]> {
+    Logger.log(`Finding rentals with renter email ${renterEmail}`, this.TAG);
+    const rentals = await this.rentalModel.find({ renterEmail });
     Logger.log(`Found rentals: ${JSON.stringify(rentals, null, 2)}`, this.TAG);
     return rentals;
   }

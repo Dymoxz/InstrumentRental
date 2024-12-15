@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RentalService } from '../rental.service';
-import { InstrumentService } from '../../instrument/instrument.service';
-import { IRental, IInstrument, RentalStatus, IUpdateRental } from '@InstrumentRental/shared/api';
+import { IRental, RentalStatus, IUpdateRental } from '@InstrumentRental/shared/api';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { jwtDecode } from 'jwt-decode';
 import { of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'lib-rental-pending-list',
@@ -15,14 +13,13 @@ import { of } from 'rxjs';
   providers: [DatePipe]
 })
 export class RentalPendingListComponent implements OnInit {
-  pendingRentals: (IRental & { instrument?: IInstrument })[] = [];
+  pendingRentals: IRental[] = [];
   isLoading = true;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private rentalService: RentalService,
-    private instrumentService: InstrumentService,
     private datePipe: DatePipe
   ) {}
 
@@ -46,22 +43,8 @@ export class RentalPendingListComponent implements OnInit {
         return of([]);
       })
     ).subscribe((rentals) => {
-      if (rentals.length === 0) {
-        this.isLoading = false;
-        return;
-      }
-
-      const rentalObservables = rentals.map((rental) =>
-        this.instrumentService.read(rental.instrumentId).pipe(
-          map(({ instrument }) => ({ ...rental, instrument })),
-          catchError(() => of({ ...rental }))
-        )
-      );
-
-      forkJoin(rentalObservables).subscribe((rentalsWithInstruments) => {
-        this.pendingRentals = rentalsWithInstruments;
-        this.isLoading = false;
-      });
+      this.pendingRentals = rentals;
+      this.isLoading = false;
     });
   }
 
@@ -69,20 +52,18 @@ export class RentalPendingListComponent implements OnInit {
     return this.datePipe.transform(date, 'MMM d, y') || '';
   }
 
-  acceptRental(rental: IRental & { instrument?: IInstrument }): void {
+  acceptRental(rental: IRental): void {
     const updatedRental: IUpdateRental = { status: RentalStatus.inProgress };
     this.rentalService.update(rental._id, updatedRental).subscribe(() => {
-      this.instrumentService.update(rental.instrumentId, { available: false }).subscribe(() => {
-        rental.status = RentalStatus.inProgress;
-        if (rental.instrument) {
-          rental.instrument.available = false;
-        }
-        this.removeRentalFromList(rental._id);
-      });
+      if (rental.instrument) {
+        rental.instrument.available = false;
+      }
+      rental.status = RentalStatus.inProgress;
+      this.removeRentalFromList(rental._id);
     });
   }
 
-  rejectRental(rental: IRental & { instrument?: IInstrument }): void {
+  rejectRental(rental: IRental): void {
     const updatedRental: IUpdateRental = { status: RentalStatus.rejected };
     this.rentalService.update(rental._id, updatedRental).subscribe(() => {
       rental.status = RentalStatus.rejected;

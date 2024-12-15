@@ -18,6 +18,12 @@ export class Review implements IReview {
 
   @Prop({ required: true })
   date!: Date;
+
+  @Prop({ required: true })
+  reviewerEmail!: string;
+
+  @Prop({ required: true })
+  revieweeEmail!: string;
 }
 
 export const ReviewSchema = SchemaFactory.createForClass(Review);

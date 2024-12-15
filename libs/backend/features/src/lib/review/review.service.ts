@@ -29,7 +29,7 @@ export class ReviewService {
     return review;
   }
 
-  async create(createReviewDto: Omit<IReview, '_id'>): Promise<IReview> {
+  async create(createReviewDto: ICreateReview): Promise<IReview> {
     Logger.log('Creating review', this.TAG);
     const createdReview = new this.reviewModel({
       ...createReviewDto,

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { forkJoin, Observable, of, throwError } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { IReview, ApiResponse } from '@InstrumentRental/shared/api';
 import { env } from '@InstrumentRental/shared/util-env';
 import { httpOptions } from '../instrument/instrument.service';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ import { httpOptions } from '../instrument/instrument.service';
 export class ReviewService {
   endpoint = env.dataApiUrl + '/review';
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient, private userService: UserService) {}
 
   public getAll(options?: any): Observable<IReview[] | null> {
     console.log(`list ${this.endpoint}`);
@@ -24,8 +25,26 @@ export class ReviewService {
       })
       .pipe(
         map((response: any) => response.results as IReview[]),
-        tap(console.log),
-        catchError(this.handleError)
+        catchError(this.handleError),
+        switchMap((reviews: IReview[]) => {
+          if (!reviews || reviews.length === 0) {
+            return of(reviews);
+          }
+
+          const reviewsWithUserDetails$ = reviews.map(review =>
+            forkJoin({
+              review: of(review),
+              reviewer: this.userService.getOne(review.reviewerEmail).pipe(
+                catchError(() => of(null))
+              )
+            }).pipe(
+              map(({ review, reviewer }) => ({ ...review, reviewer }))
+            )
+          );
+
+          return forkJoin(reviewsWithUserDetails$);
+        }),
+        tap(console.log)
       );
   }
 

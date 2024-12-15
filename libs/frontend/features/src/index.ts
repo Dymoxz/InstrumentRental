@@ -23,7 +23,9 @@ export * from './lib/user/user.service'
 
 /* rental */
 export * from './lib/rental/rental-create/rental.create.component'
-export  * from './lib/rental/rental-pending-list/rental-pending.list.component'
+export * from './lib/rental/rental-pending-list/rental-pending.list.component'
+export * from './lib/rental/rental-detail/rental.detail.component'
+export * from './lib/rental/my-rentals-page/my-rentals.page.component'
 export * from  './lib/rental/rental.service'
 
 export * from './lib/instrument/search.service'
