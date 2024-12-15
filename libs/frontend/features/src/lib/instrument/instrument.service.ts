@@ -42,6 +42,22 @@ export class InstrumentService {
       })
       .pipe(
         map((response: any) => response.results as IInstrument[]),
+        switchMap((instruments: IInstrument[]) =>
+          forkJoin(
+            instruments.map((instrument) =>
+              this.http.get<ApiResponse<IUser>>(`${this.userEndpoint}/${instrument.ownerEmail}`, {
+                ...options,
+                ...httpOptions,
+              }).pipe(
+                map((ownerResponse: any) => ({
+                  ...instrument,
+                  owner: ownerResponse.results as IUser,
+                })),
+                catchError(() => of({ ...instrument, owner: null }))
+              )
+            )
+          )
+        ),
         tap(console.log),
         catchError(this.handleError)
       );

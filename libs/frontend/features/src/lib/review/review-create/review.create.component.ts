@@ -7,6 +7,7 @@ import { IReview } from '@InstrumentRental/shared/api';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReviewService } from '../review.service';
+import {  jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'lib-review-create',
@@ -16,6 +17,8 @@ export class ReviewCreateComponent implements OnInit, OnDestroy {
   review: IReview | null = null;
   subscription: Subscription | undefined = undefined;
   rating = 0;
+  reviewerEmail: string | null = null;
+  revieweeEmail: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +27,8 @@ export class ReviewCreateComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.reviewerEmail = this.getReviewerEmailFromToken();
+    this.revieweeEmail = this.route.snapshot.paramMap.get('id');
     this.review = this.CreateEmptyReview();
     console.log('Initial review:', this.review);
   }
@@ -34,7 +39,18 @@ export class ReviewCreateComponent implements OnInit, OnDestroy {
       content: '',
       rating: 0,
       date: new Date(),
+      reviewerEmail: this.reviewerEmail || '',
+      revieweeEmail: this.revieweeEmail || '',
     };
+  }
+
+  private getReviewerEmailFromToken(): string | null {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      return decoded.email || null;
+    }
+    return null;
   }
 
   ngOnDestroy(): void {
@@ -53,10 +69,12 @@ export class ReviewCreateComponent implements OnInit, OnDestroy {
         content: this.review.content,
         rating: this.rating,
         date: this.review.date,
+        reviewerEmail: this.review.reviewerEmail,
+        revieweeEmail: this.review.revieweeEmail,
       };
       console.log('Review data to be saved:', reviewData);
       this.reviewService.create(reviewData).subscribe(() => {
-        this.router.navigate(['/my-instruments']);
+        this.goBack()
       });
     }
   }

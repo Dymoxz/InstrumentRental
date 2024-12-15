@@ -1,11 +1,13 @@
 import { Id } from './id.type';
 import { IInstrument } from './instrument.interface';
+import { IUser } from './user.interface';
 
 export enum RentalStatus {
   pendingApproval = 'Pending Approval',
   inProgress = 'In Progress',
   completed = 'Completed',
-  rejected = 'Rejected'
+  rejected = 'Rejected',
+  cancelled = 'Cancelled',
 
 }
 
@@ -18,8 +20,11 @@ export interface IRental {
   status: RentalStatus;
 
   instrumentId: Id;
+  instrument?: IInstrument | null;
   instrumentOwnerEmail: string;
+  instrumentOwner?: IUser | null;
   renterEmail: string;
+  renter?: IUser | null;
 }
 
 export type ICreateRental = Pick<

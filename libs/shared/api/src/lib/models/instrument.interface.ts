@@ -1,4 +1,5 @@
 import { Id } from './id.type';
+import { IUser } from './user.interface';
 
 export enum InstrumentType {
   string = 'String',
@@ -19,9 +20,11 @@ export interface IInstrument {
   description: string;
   pricePerDay: number;
   available: boolean;
-  ownerEmail: string; // Add this line
+  ownerEmail: string;
+  owner?: IUser | null;
 
   isRecommended?: boolean;
+
 }
 
 export type ICreateInstrument = Pick<

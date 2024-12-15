@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-my-rentals-page',
   templateUrl: './my-rentals.page.component.html',
 })
-export class MyRentalsPageComponent {
-
+export class MyRentalsPageComponent implements OnInit {
+  ngOnInit(): void {}
 }

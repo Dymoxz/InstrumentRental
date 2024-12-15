@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { InstrumentService } from '../instrument.service';
-import { IInstrument } from '@InstrumentRental/shared/api';
+import { IInstrument, IUser } from '@InstrumentRental/shared/api';
 import { Subscription } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { SearchService } from '../search.service';
@@ -11,11 +11,11 @@ import { forkJoin } from 'rxjs'; // Import forkJoin to combine multiple observab
   templateUrl: './instrument.list.component.html'
 })
 export class InstrumentListComponent implements OnInit, OnDestroy {
-  instruments: IInstrument[] | null = null;
-  filteredInstruments: IInstrument[] | null = null;
+  instruments: (IInstrument & { owner: IUser | null })[] | null = null; // Update this line
+  filteredInstruments: (IInstrument & { owner: IUser | null })[] | null = null; // Update this line
   recommendedInstruments: IInstrument[] | null = null;
-  subscription: Subscription = new Subscription();
-  searchSubscription: Subscription | undefined;
+  subscription: Subscription | undefined = undefined;
+  searchSubscription: Subscription | undefined; // Subscription for searchTerm$
   isLoading = true;
 
   constructor(private instrumentService: InstrumentService, private searchService: SearchService) { }
@@ -28,6 +28,11 @@ export class InstrumentListComponent implements OnInit, OnDestroy {
       email = decodedToken.email;
     }
 
+    this.subscription = this.instrumentService.list().subscribe((results: (IInstrument & { owner: IUser | null })[] | null) => { // Update this line
+      this.isLoading = false; // Set isLoading to false after data is fetched
+      this.instruments = results;
+      this.filterInstruments(); // Initial filter
+    });
     // Step 1: First, get recommended instruments
     this.subscription.add(
       this.instrumentService.getRecommended(email).subscribe(
@@ -36,7 +41,7 @@ export class InstrumentListComponent implements OnInit, OnDestroy {
           this.recommendedInstruments = recommendedInstruments;
 
           // Step 2: After fetching recommended instruments, get all instruments
-          this.subscription.add(
+          this.subscription?.add(
             this.instrumentService.list().subscribe(
               (instruments) => {
                 this.isLoading = false;
@@ -124,7 +129,7 @@ export class InstrumentListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
     if (this.searchSubscription) this.searchSubscription.unsubscribe();
   }
 }
