@@ -39,17 +39,20 @@ export class RentalDetailComponent implements OnInit {
 
   completeRental(): void {
     this.updateRentalStatus(RentalStatus.completed);
+    this.router.navigate(['/my-rentals']);
   }
 
   cancelRental(): void {
     this.updateRentalStatus(RentalStatus.cancelled);
+    this.router.navigate(['/my-rentals']);
+
   }
 
   private updateRentalStatus(status: RentalStatus): void {
     this.rentalService.update(this.rental._id, { status }).subscribe(
       (updatedRental) => {
         this.rental.status = updatedRental.status;
-        this.router.navigate(['/rentals']);
+        this.router.navigate(['/my-rentals']);
       },
       (error) => {
         console.error('Error updating rental status:', error);
