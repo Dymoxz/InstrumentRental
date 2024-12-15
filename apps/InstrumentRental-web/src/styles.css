@@ -2,4 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+/* In your global styles or component-specific styles */
+.datepicker-cell:hover {
+  background-color: theme('colors.primary.400') !important;
+  color: white !important;
+}
+
+.datepicker-cell.selected {
+  background-color: theme('colors.primary.500') !important;
+  color: white !important;
+}
 /* You can add global styles to this file, and also import other style files */
