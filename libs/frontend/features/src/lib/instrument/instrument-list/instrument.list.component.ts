@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { SearchService } from '../search.service';
 import { forkJoin } from 'rxjs'; // Import forkJoin to combine multiple observables
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-instrument-list',
@@ -18,7 +19,11 @@ export class InstrumentListComponent implements OnInit, OnDestroy {
   searchSubscription: Subscription | undefined; // Subscription for searchTerm$
   isLoading = true;
 
-  constructor(private instrumentService: InstrumentService, private searchService: SearchService) { }
+  constructor(
+    private instrumentService: InstrumentService, 
+    private searchService: SearchService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     const token = localStorage.getItem('token');
@@ -126,6 +131,13 @@ export class InstrumentListComponent implements OnInit, OnDestroy {
 
       console.log('[Instruments List] Filtered instruments:', this.filteredInstruments);
     });
+  }
+
+  navigateToInstrument(instrument: IInstrument & { owner: IUser | null }): void {
+    const route = this.filteredInstruments?.includes(instrument) 
+      ? `/instrument/${instrument._id}`
+      : `/instrument/${instrument._id}/edit`;
+    this.router.navigate([route]);
   }
 
   ngOnDestroy(): void {

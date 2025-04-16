@@ -32,7 +32,7 @@ import { Neo4jBackendModule } from '@InstrumentRental/backend/neo4j';
     }),
     Neo4jModule.forRoot({
       scheme: 'neo4j+s',
-      host: '855f26bf.databases.neo4j.io',
+      host: '8185fd36.databases.neo4j.io',
       port: 7687,
       username: env.NEO4J_USER,
       password: env.NEO4J_PASSWORD

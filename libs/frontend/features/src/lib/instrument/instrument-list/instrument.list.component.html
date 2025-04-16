@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div *ngIf="!isLoading && filteredInstruments?.length === 0"
+    <div *ngIf="!isLoading && instruments?.length === 0"
          class="-mt-40 flex flex-col justify-center items-center h-full min-h-[200px]">
       <p class="text-gray-500 mb-3">No instruments available for rent</p>
       <p class="text-gray-500">If you want to list your own instrument for rent,</p>
@@ -26,9 +26,9 @@
         page.</p>
     </div>
 
-    <div *ngIf="!isLoading && (filteredInstruments?.length ?? 0) > 0"
+    <div *ngIf="!isLoading && (instruments?.length ?? 0) > 0"
          class="mb-4 grid gap-4 sm:grid-cols-2 md:mb-8 lg:grid-cols-3">
-      <div *ngFor="let instrument of filteredInstruments"
+      <div *ngFor="let instrument of instruments"
            class="relative rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
         <div class="h-auto w-full">
 
@@ -68,15 +68,21 @@
               <p class="text-2xl font-extrabold leading-tight text-gray-900 "> €{{ instrument.pricePerDay }}</p>
               <p class="text-sm font-medium text-gray-500 ml-2 mt-1">per day</p>
             </div>
-            <button routerLink="/instrument/{{instrument._id}}" type="button"
+            <button (click)="navigateToInstrument(instrument)" type="button"
                     class="inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
               <svg class="-ms-2 me-2 h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                    height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-width="2"
-                      d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
-                <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                <ng-container *ngIf="!filteredInstruments?.includes(instrument)">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z" />
+                </ng-container>
+                <ng-container *ngIf="filteredInstruments?.includes(instrument)">
+                  <path stroke="currentColor" stroke-width="2"
+                        d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z" />
+                  <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </ng-container>
               </svg>
-              Details
+              {{ !filteredInstruments?.includes(instrument) ? 'Edit' : 'Details' }}
             </button>
           </div>
         </div>
