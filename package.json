@@ -5,7 +5,8 @@
   "scripts": {
     "deploy": "nx run InstrumentRental-web:build",
     "build": "nx run-many -t build",
-    "test": "nx run-many -t test"
+    "test": "nx run-many -t test",
+    "start": "nx run-many --target=serve"
   },
   "private": true,
   "dependencies": {
