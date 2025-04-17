@@ -8,8 +8,15 @@
     "test": "nx run-many -t test",
     "start": "nx run-many --target=serve"
   },
-  "engines": {
-    "node": "18.x"
+  "os": [
+    "win32",
+    "linux"
+  ],
+  "optionalDependencies": {
+    "@lmdb/lmdb-linux-x64": "^3.0.13",
+    "@lmdb/lmdb-win32-x64": "^3.0.13",
+    "@rollup/rollup-win32-x64-msvc": "4.22.4",
+    "@rollup/rollup-linux-x64-gnu": "4.22.4"
   },
   "private": true,
   "dependencies": {
