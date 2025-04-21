@@ -1,4 +1,5 @@
 export interface IEnv {
+  PORT: number,
   production: boolean,
   webAppUrl: string,
   dataApiUrl: string,

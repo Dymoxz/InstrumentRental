@@ -3,6 +3,7 @@ import { IEnv } from './env.interface';
 export const env: IEnv = {
   production: false,
   webAppUrl: '',
+  PORT: 3000,
   dataApiUrl: 'http://localhost:3000/api',
   dbConnectionUrl: 'mongodb://localhost:27017/jamwiththeband',
   NEO4J_USER: 'neo4j',
